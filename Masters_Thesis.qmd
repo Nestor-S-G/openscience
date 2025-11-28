@@ -7,10 +7,6 @@ editor: visual
 
 ## Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields.
 
-By: Néstor Suárez González.
-
-Tutor: Daniel Vicente Morillo Cuadrado.
-
 **Abstract**
 
 There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that most of the studies could not be reproduced. Based on the experience acquired, a protocol is proposed to try to reproduce successfully published papers.
