@@ -19,7 +19,7 @@ Existe una crisis de reproducibilidad que afecta acmúltiples áreas de la cienc
 
 Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
 
-**Introducción**
+### **Introducción**
 
 **Contexto y motivación**
 
@@ -51,7 +51,7 @@ Además de tener esa relación directa, dichas disciplinas se han hecho populare
 
 Se persiguen dos objetivos: el primero, secundario, es evaluar la reproducibilidad de estudios de caso particulares. Este es imprescindible para adquirir la experiencia necesaria que conduzca al principal: proponer, en base a dicha experiencia, un protocolo para evaluar la reproducibilidad computacional de artículos científicos. En particular, aplicar dicha evaluación a publicaciones relacionadas con áreas del conocimiento en las que la psicología y/o la neurobiología se solapan con las ciencias económicas.
 
-#### \*\*Métodos y materiales\*\*
+### Métodos y materiales
 
 **Procedimiento y materiales**
 
@@ -59,7 +59,7 @@ En primer lugar, se seleccionarán una serie de artículos cuya RC se pondrá a 
 
 Esto se llevará a cabo en una computadora con sistema operativo Linux Mint 22 *Wilma* (para los tres primeros artículos) y 22.1 *Xia* (para el último)*.* Los errores que surjan a lo largo del proceso que no sepa interpretar y/o resolver se consultarán a ChatGPT-4o para tratar de solucionarlos. En caso de que dicha versión dejase de estar disponible temporalmente por exceso de consultas en un corto período de tiempo, se suspenderá el proceso hasta que lo vuelva a estar.
 
-#### \*\*Selección de artículos a reproducir\*\*
+#### Selección de artículos a reproducir
 
 Se empleará un muestreo incidental con los criterios de:
 
@@ -81,7 +81,7 @@ El presente estudio se documentará con el formato de diario de campo (Sampieri 
 
 Los temas y patrones recurrentes que surjan en una primera lectura del diario se codificarán en una hoja de cálculo. Después se les aplicará un análisis cualitativo sistemático.
 
-**Resultados**
+### **Resultados**
 
 **Estudios de caso**
 
@@ -165,7 +165,7 @@ Cuyos pasos se detallan a continuación:
 
 -No reproducible: bien se llega a resultados diferentes de los originales o no se llega a resultado alguno por el motivo que sea (fallos en la lectura de los archivos, imposibilidad de recrear el entorno computacional o uno suficientemente parecido que permita correr el código, etc.).
 
-#### **Discusión**
+### **Discusión**
 
 **Obstáculos**
 
@@ -201,7 +201,7 @@ Otra limitación es la falta de un archivo JupyterLab, Quarto o similares como l
 
 Los resultados obtenidos avalan que la crisis de reproducibilidad referenciada en la *Introducción* también afecta a la neuroeconomía y las finanzas conductuales, al menos en lo que refiere a la reproducibilidad computacional: se encontraron varios de los problemas señalados en la bibliografía y el resultado fue que tres de los estudios seleccionados no pudieron ser reproducidos y el cuarto, sólo de forma parcial y con modificaciones.
 
-**Referencias bibliográficas**
+### **Referencias bibliográficas**
 
 Chang, A.C. & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
 
