@@ -1,0 +1,525 @@
+---
+title: "Reproducibilidad computacional de artículos en neuroeconomía, finanzas conductuales y áreas relacionadas"
+author: "Néstor Suárez González, Daniel Vicente Morillo Cuadrado"
+format: html
+editor: visual
+---
+
+## Reproducibilidad computacional de artículos en neuroeconomía, finanzas conductuales y áreas relacionadas
+
+Por: Néstor Suárez González.
+
+Tutor: Daniel Vicente Morillo Cuadrado.
+
+**Resumen/Abstract**
+
+Existe una crisis de reproducibilidad que afecta acmúltiples áreas de la ciencia. Entre otros problemas, se han encontrado dificultades paracllegar a los mismos resultados partiendo de los datos y el códigocdel estudio original; es lo que se conoce como “Reproducibilidad computacional”. Dada su relevancia social, este estudio ha indagadoccen el caso particular de la reproducibilidad computacionalcen neuroeconomía y finanzas conductuales. El resultado obtenido escque no se pudieron reproducir la mayoría de los estudios puestos a prueba. En base a la experiencia adquirida, se propone uncprotocolo a seguir para tratar de reproducir con éxito estudios publicados.
+
+*Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields.* There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that most of the studies could not be reproduced. Based on the experience acquired, a protocol is proposed to try to reproduce successfully published papers.
+
+Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
+
+**Introducción**
+
+**Contexto y motivación**
+
+Existen ciertos desacuerdos, así como cierta ambigüedad, en la definición de los conceptos *reproducibilidad*, *reproducibilidad computacional* y *replicabilidad*. Para evitar confusiones, aquí se definirán, con matices, de acuerdo con Kitzes et al. (2017) como sigue: reproducibilidad es “*the ability of a researcher to duplicate the results of a prior study using the same materials as were used by the original investigator. That is, a second researcher might use the same raw data to build the same analysis files and implement the same statistical analysis in an attempt to yield the same results.*”, más específicamente, reproducibilidad computacional (RC) significa que “*a second investigator (including you in the future) can recreate the final reported results of the project, including key quantitative findings, tables, and figures, given only a set of files and written instructions*”, a lo que añado la necesidad de emplear el mismo entorno computacional, esto es, las mismas versiones del software, sistema operativo y hardware del estudio original (Vallet et al., 2022). Por su parte, replicabilidad “*refers to the ability of a researcher to duplicate the results of a prior study if the same procedures are followed but new data are collected*”. Todas son fundamentales para validar el conocimiento científico y evitar extraer conclusiones equivocadas. La era digital en la que vivimos las debería facilitar al permitir compartir en la red todo lo necesario para llevar a cabo los distintos procesos.
+
+**Crisis de reproducibilidad**
+
+Sin embargo, hay autores que señalan una *crisis de reproducibilidad* (Miyakawa, 2020; Munafò et al., 2017, Vallet et al., 2022) en diversas áreas del conocimiento y una situación en la que una gran “proporción de estudios preclínicos revisados por pares no se pueden reproducir” (McNutt, 2014, p. 1). En lo que atañe a la RC, lo dicho en el epígrafe anterior no parece cumplirse ni siquiera cuando se parte de los mismos datos (Oza, 2023). Esta situación se agrava cuando los datos bien no existen, bien no se ofrecen públicamente (Miyakawa, 2020), no se tiene acceso al código empleado para analizarlos (Culina et al., 2020) o los autores originales no colaboran cuando se les contacta a tal fin (Hardwicke et al., 2021).
+
+También sucede que con el tiempo las dificultades para reproducir estudios crecen exponencialmente (Vines et al., 2014) por diversas razones: los enlaces dejan de funcionar (Hardwicke et al., 2018), las bases de datos se pierden o están en dispositivos multimedia inaccesibles por motivos varios (localización geográfica, no disponer del software necesario para leer dichos dispositivos...), los autores cambian de trabajo/correo-e dificultando el contacto, etc. Otro obstáculo para la RC lo mencionan Vallet et al. (2022): tanto el software como el hardware evolucionan rápidamente, dificultando que se puedan reproducir artículos publicados hace 10 años, lo que hace imprescindible que los entornos se compartan como se comparten el código o las bases de datos.
+
+**Ciencia abierta y principios *FAIR***
+
+Los factores citados en el párrafo anterior son un obstáculo a la hora de reproducir estudios, y los principios FAIR (del inglés *Findable, Accessible, Interoperable, Reusable*) surgieron como respuesta a la necesidad de mejorar la gestión y reutilización de datos en un ecosistema digital en constante crecimiento (Wilkinson et al., 2016). Dichos principios se enfocan en garantizar que los datos recogidos sean accesibles y utilizables tanto por humanos como por máquinas. Otros autores (Hasselbring et al., 2019) han extendido el concepto al software empleado en investigación. Al proporcionar guías concretas para la producción y publicación de datos y código, dichos principios fomentan la transparencia y la reproducibilidad científica, amén de potenciar la integración y reutilización de los datos en investigaciones posteriores. Esto permite superar barreras tradicionales en el descubrimiento y uso de datos, promoviendo un ecosistema más eficiente y colaborativo en la ciencia actual.
+
+Los principios FAIR se pueden encuadrar dentro de un movimiento mayor: la ciencia abierta, esto es, “*the process of making the content and process of producing evidence and claims transparent and accessible to others”* (Munafò et al., 2017, p. 5), cuyo objetivo es conseguir que todos los estudios publicados sean reproducibles.
+
+**Rigor científico, finanzas conductuales y neuroeconomía**
+
+Además del problema que lo expuesto hasta ahora supone para el avance de la ciencia en sí como empresa colectiva (Domínguez, 2017; Munafò et al., 2017), pueden darse una suerte de daños colaterales cuando un conocimiento que no tiene la rigurosidad que se espera del método científico se utiliza para tomar medidas que tienen un impacto directo en la vida de las personas. Las ciencias económicas son un ejemplo de esto y no suponen una excepción a la regla: Chang & Li (2015) sólo pudieron replicar los resultados clave de 22 de los 59 (≈37,3%) artículos que estudiaron; tras publicar *El capital en el siglo XXI*, Thomas Piketty (2014) recibió críticas por “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); los resultados expuestos en *Stocks for the Long Run* (Siegel, 2014; Siegel y Schwartz, 2022) respecto a la superioridad de la inversión en acciones sobre la renta fija en el largo plazo parecen basarse en datos incompletos (McQuarrie, 2021, 2023); la Universidad de Duke cerró en 2024 una investigación sobre el trabajo del economista conductual Dan Ariely, concluyendo que empleó “datos que habían sido falseados” en alguno de sus estudios, sin encontrar “evidencias de que Ariely usara datos falsos a sabiendas” (Taylor, 2024). A esta polémica habría que sumar que la validez de algunos hallazgos relacionados con la economía conductual, como el fenómeno denominado agotamiento del ego, han sido puestos en entredicho (Job et al., 2010).
+
+Si la crisis de reproducibilidad es un problema en cualquier disciplina, en éste caso se agravaría por la relevancia social de sus aplicaciones prácticas: el Fondo de Pensiones del Gobierno de Noruega gestiona alrededor de 1.8\$ billones (Reuters, 2024); un 15.3% de españoles tiene parte de sus ahorros en un plan de pensiones (Funds Society, 2024); Alemania ha anunciado recientemente una reforma para invertir en Bolsa parte del dinero que garantice las pensiones futuras de sus ciudadanos (Conde-Batalla, 2024); etc., etc. Cabe preguntarse de dónde extraen el conocimiento los gestores de esas cantidades ingentes de dinero de las que dependerán parcialmente el bienestar y la calidad de vida de futuros jubilados. Y si la respuesta es *de estudios que no cumplen los estándares del método científico*, podríamos estar ante un serio problema.
+
+Si bien trabajos sobre la desigualdad económica en la sociedad tienen escaso interés en la gestión de activos, no sucede lo mismo con las diversas disciplinas que integran de alguna forma psicología y/o neurociencia con ciencias económicas (neuroeconomía, finanzas conductuales, neuromárketing, etc.), cuyo énfasis en los procesos de toma de decisiones y los sesgos asociados a éstas se relacionan directamente con la práctica inversora: una persona analizando un activo que lleva una larga racha alcista ha de tener cuidado con que el sesgo de recencia no le lleve a pensar que es buena inversión sólo porque ha estado subiendo últimamente (o al contrario, si la racha ha sido bajista) al margen de lo que diga un análisis frío y riguroso de dicho activo; si el encargado de analizar si es buen momento o no para comprar acciones de Harley-Davidson o Ferrari es un apasionado del motor, ha de ser cauteloso con que el sesgo de confirmación no le haga ver una oportunidad que realmente no existe debido a sus preferencias personales. Etc, etc.
+
+Además de tener esa relación directa, dichas disciplinas se han hecho populares debido en parte a la publicación de libros de divulgación científica, como Kahneman (2012), en parte porque algunos de sus investigadores han ganado el Premio de Ciencias Económicas del Banco de Suecia en Memoria de Alfred Nobel (popular y erróneamente conocido como *Nobel en Economía*): Daniel Kanheman (2002), Robert J. Shiller (2013) y Richard H. Thaler (2017). En consecuencia, cabe esperar que inversores no profesionales también estén familiarizados con ellas y usen este conocimiento con el objetivo de incrementar su patrimonio.
+
+**Objetivos**
+
+Se persiguen dos objetivos: el primero, secundario, es evaluar la reproducibilidad de estudios de caso particulares. Este es imprescindible para adquirir la experiencia necesaria que conduzca al principal: proponer, en base a dicha experiencia, un protocolo para evaluar la reproducibilidad computacional de artículos científicos. En particular, aplicar dicha evaluación a publicaciones relacionadas con áreas del conocimiento en las que la psicología y/o la neurobiología se solapan con las ciencias económicas.
+
+#### \*\*Métodos y materiales\*\*
+
+**Procedimiento y materiales**
+
+En primer lugar, se seleccionarán una serie de artículos cuya RC se pondrá a prueba siguiendo las instrucciones de los autores. Estos serán los estudios de caso aludidos en el epígrafe *Objetivos*. Se ejecutará el código sobre los datos y se reflejarán los resultados que se vayan encontrando (fallos en el código, problema con los archivos a leer, etc.) en un diario de campo. Cada uno de estos pasos se detalla en un epígrafe a continuación.
+
+Esto se llevará a cabo en una computadora con sistema operativo Linux Mint 22 *Wilma* (para los tres primeros artículos) y 22.1 *Xia* (para el último)*.* Los errores que surjan a lo largo del proceso que no sepa interpretar y/o resolver se consultarán a ChatGPT-4o para tratar de solucionarlos. En caso de que dicha versión dejase de estar disponible temporalmente por exceso de consultas en un corto período de tiempo, se suspenderá el proceso hasta que lo vuelva a estar.
+
+#### \*\*Selección de artículos a reproducir\*\*
+
+Se empleará un muestreo incidental con los criterios de:
+
+a\) Ser un artículo cuyo objeto de estudio entre en las áreas previamente mencionadas, según el criterio experto del autor. Se buscarán aquellos que incluyan las palabras clave: *behavioral finance, behavioral economics, decision making* y *neuroeconomics*.
+
+b\) Que los datos y el código empleados estén disponibles públicamente, estando reflejado esto en el propio artículo (mediante un “*Availability statement*” o mencionado y enlazado en el propio texto).
+
+c\) Estar publicado en 2005 o una fecha posterior, siendo en ese momento cuando se empieza a cuestionar la credibilidad de muchas publicaciones científicas (Ioannidis, 2005).
+
+Debido a que se aborda un tema poco investigado, no se considera oportuno añadir más criterios que restrinjan grados de libertad y excluyan artículos con potencial para ser puestos a prueba en este estudio.
+
+**Reproducción**
+
+Una vez seleccionados los artículos, se tratarán de reproducir partiendo de cero siguiendo las instrucciones dadas mediante un proceso ascendente. En caso de que tales instrucciones no existan, esto es un error por parte de los autores originales que no han publicado los correspondientes metadatos como sugieren White et al. (2013) para los datos de la investigación y considero pertinente extender a todo tipo de datos necesarios para proceder a la reproducción. Se dejará constancia de ello y se seguirá el procedimiento indicado en el artículo, tratando de deducir los pasos requeridos de lo publicado en éste.
+
+**Diario de campo**
+
+El presente estudio se documentará con el formato de diario de campo (Sampieri et al., 2010). Esta forma de registro se adecúa a la necesidad de dejar constancia de los pasos llevados a cabo en el intento de reproducción. Se incluirán los problemas que se puedan encontrar a lo largo del proceso, así como la forma de tratar de resolverlos mediante ensayo y error, que se anotarán con sus resultados, positivos o negativos. Las dificultades registradas en el diario de campo servirán para desarrollar el protocolo a seguir de ahora en adelante.
+
+Los temas y patrones recurrentes que surjan en una primera lectura del diario se codificarán en una hoja de cálculo. Después se les aplicará un análisis cualitativo sistemático.
+
+**Resultados**
+
+**Estudios de caso**
+
+Los estudios seleccionados fueron los siguientes:
+
+*-Outlier blindness: A neurobiological foundation for neglect of financial risk,*de Payzan-LeNestour y Woodford (2022).
+
+*-Craving money? Evidence from the laboratory and the field*, de Payzan-LeNestour y Doran (2024).
+
+*-Age-related differences in ventral striatal and default mode network function during reciprocated trust*, de Fareri et al. (2022).
+
+*-Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, de Payzan-LeNestour et al. (2024).
+
+De estos cuatro estudios sólo se pudo reproducir, parcialmente y con modificaciones, el último.
+
+**Análisis del diario de campo**
+
+El análisis del diario de campo dio lugar a las siguientes categorías temáticas: problemas de “incompatibilidad de software”, “relacionados con los archivos a analizar” y “de código”, los cuales fueron agrupados en la supracategoría “Errores”. Los “Resultados” obtenidos se dividen entre “no reproducibilidad” y “reproducibilidad parcial con modificaciones”.
+
+Codificación:
+
+Errores:
+
+-   Incompatibilidad de software: 4/14.
+
+-   Relacionados con los archivos a analizar: 5/14.
+
+-   De código: 5/14.
+
+Resultados:
+
+-   No reproducibilidad: 3/4.
+
+-   Reproducibilidad parcial con modificaciones: 1/4
+
+Con respecto a los errores de incompatibilidad del software, en Payzan-LeNestour y Doran (2024) es muy posible que el problema se deba a la falta de entorno computacional, pues lo más parecido a este que se ofrece son dos versiones de librerías de Python. Como señalan Vallet et al. (2022, p. 1): “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. También llama la atención que, en lugar de dar las versiones exactas empleadas, se utilice el “\>=”, dando a entender que cualquier versión aún por desarrollar se seguirá adaptando a los formatos empleados. Esto es lo que se denomina *retrocompatibilidad* y uno de los problemas que se han encontrado en dicho estudio ha sido, precisamente, que el formato .xls en el que se ofrecen los datos está perdiendo terreno frente al .xlsx y eso lo hacía incompatible con las versiones más recientes de la librería xlrd en Python. También se halló un problema de software en Payzan-LeNestour et al. (2024), sin embargo, éste sólo requirió sustituir una función por su equivalente en Linux.
+
+En el caso de Fareri et al. (2022), no se pudo encontrar la versión del paquete mriqc indicada, si no una posterior. Pese a que el problema con este estudio fue de otra índole, esto podría haber afectado de alguna manera a los resultados. Sirvan estos ejemplos para recordar la importancia de compartir el entorno computacional ya mencionada.
+
+En cuanto a los problemas relacionados con los archivos a analizar, obstaculizaron de forma insalvable el intento de reproducir el artículo de Payzan-LeNestour y Woodford (2022), por falta de un archivo .csv necesario y el de Fareri et al. (2022), donde se encontraron los siguientes errores al comprobar si el material cumplía el estándar *Brain Image Data Structure* (*‘*BIDS’) “*Hay un desajuste entre los IDs de participantes definidos en el archivo participants.tsv y otros archivos del dataset*” y “*Los nombres de los archivos en los TSV de escaneos no coinciden con los archivos presentes en el dataset”*, ambas citas literales del diario de campo. Cabe la posibilidad de que el artículo de Payzan-LeNestour y Doran (2024) se hubiera podido reproducir de emplear un formato .xlsx en lugar del .xls, pero sólo es una hipótesis.
+
+Por último, los errores de código se han dado en los cuatro casos, pero estos se han resuelto fácilmente y no parecen ser la causa de ninguno los intentos infructuosos de reproducción.
+
+Cabe destacar la voluntad de los autores de compartir su material contribuyendo así al avance de la ciencia abierta: Fareri et al. (2022) emplearon openneuro.org e identifiers.org para almacenar materiales y Payzan-LeNestour y Doran (2024) asignaron un *Digital Object Identifier* o “DOI” (Wilkinson et al., 2016), cumpliendo con los principios FAIR *Findable* y *Accesible*. Sin embargo, los materiales de Payzan-LeNestour y Woodford (2022) están subidos a Dropbox y los de Payzan-LeNestour et al. (2024) a la web de Open Science Framework. Esto es mejor que no compartirlos, pero tampoco es la forma óptima de hacerlo ya que podrían desaparecer de la red en cualquier momento.
+
+**Protocolo**
+
+Del análisis previo, se extrae el protocolo representado en la Figura 1:
+
+![](images/clipboard-847991682.png)
+
+*Figura 1. Imagen del diagrama de flujo creada con ayuda de ChatGPT-4o.*
+
+Cuyos pasos se detallan a continuación:
+
+\-*Seleccionar el artículo cuya reproducibilidad se quiera poner a prueba.*
+
+\-*Asegurarse de que dicho artículo cumple los requisitos elementales para proceder a reproducirlo*. En caso de que falte material imprescindible, se puede concluir en este punto que el artículo no es reproducible.
+
+\-*Recopilar los recursos necesarios asociados al citado artículo*.
+
+\-*Verificar la integridad de los archivos compartidos.* Si alguno de los archivos fuera ilegible o los datos estuviesen desemparejados, el artículo no es reproducible desde este punto.
+
+\-*Configurar el entorno computacional adecuado.*
+
+*-Si fuera necesario, ajustar las rutas de acceso a los archivos en el* script *para asegurarse de que los archivos se encuentren correctamente.* Podría ser que el código viniera escrito para leer en línea los recursos necesarios y este paso fuera prescindible.
+
+\-*Correr el código completo*. Si se llega a un error, tratar de resolverlo y volver a correr el código. Si el error fuera irresoluble, el artículo se da por no reproducible.
+
+\-*Comparación de los resultados obtenidos con los originales*.
+
+\-*Evaluación de la reproducibilidad: reproducible, reproducible con ajustes, parcialmente reproducible, parcialmente reproducible con ajustes o no reproducible*. Definidos a continuación:
+
+-Reproducible: estudio que cumple la definición dada al principio de este artículo: llegar a unos resultados consistentes (iguales o con errores debidos exclusivamente al redondeo) partiendo del material aportado por los autores originales y sus instrucciones, sin más modificaciones que el ajuste de las rutas para leer los archivos si es necesario u otras superficialidades que no afecten sustancialmente el material dado.
+
+-Reproducible con ajustes: se ha llegado a resultados consistentes, pero con modificaciones que van más allá de las instrucciones dadas o el ajuste de rutas, como sería la reescritura de parte del algoritmo que ha de procesar los datos.
+
+-Parcialmente reproducible: caso de que sólo se llegue a reproducir una parte del estudio, bien porque en la otra parte los resultados discrepen de los originales, bien porque no se puedan obtener debido a fallos técnicos (requerimiento de una librería o paquete específico para analizar esa parte de los datos que ya no se encuentra disponible, o similares).
+
+-Parcialmente reproducible con ajustes: caso análogo al anterior, pero en el que han sido necesarias modificaciones en el código dado para llegar a esa reproducción parcial.
+
+-No reproducible: bien se llega a resultados diferentes de los originales o no se llega a resultado alguno por el motivo que sea (fallos en la lectura de los archivos, imposibilidad de recrear el entorno computacional o uno suficientemente parecido que permita correr el código, etc.).
+
+#### **Discusión**
+
+**Obstáculos**
+
+Entre los problemas encontrados están el desconocimiento del entorno computacional completo necesario, dando lugar a incompatibilidades a la hora de leer los archivos (Payzan-LeNestour y Doran, 2024); la imposibilidad de acceder a las versiones exactas debido a que han quedado obsoletas y ya no se encuentran en repositorios oficiales, problemas con el material a reproducir (Fareri et al., 2022); o no disponer de parte de los datos necesarios ni obtener colaboración de los autores para sortear este obstáculo (Payzan-LeNestour y Woodford, 2022). Aunque esto último es un aspecto secundario no incluido en la definición de RC (Kitzes et al., 2017, p. xxii), Hardwicke et al. (2021) consiguieron reproducir el 24% de los artículos de su estudio de esta manera, por lo que a falta de una buena praxis inicial que los haga prescindibles, podría haber sido una alternativa aceptable para completar el proceso. Se puede decir que disponer de la colaboración de los autores originales permitió llegar a reproducciones que, a su vez, facilitan la reproducibilidad computacional en el futuro.
+
+**Sugerencias a futuro**
+
+De todo el proceso se extraen las siguientes conclusiones que pueden servir de guía a futuros ‘reproductores’:
+
+-Verificar la integridad de los archivos disponibles al principio del proceso puede ahorrar tiempo después. De haber comprobado en primer lugar la estructura BIDS de las carpetas y archivos proporcionados para reproducir el estudio de Fareri et al. (2022), podría haber concluido en minutos que no se podía reproducir. Uno de los errores asociados al artículo de Payzan-LeNestour y Doran (2024) se podría haber debido a que los archivos .xls estuvieran dañados, de acuerdo con las posibilidades ofrecidas por ChatGPT-4o. Aunque no era así, habría estado bien comprobarlo en primer lugar para descartar. Si los archivos estuvieran dañados, se podría contactar con los autores originales por si quisieran subsanarlo y compartir unos archivos funcionales en la red.
+
+-En caso de no disponer de la información necesaria para instalar un entorno computacional de software como el del estudio original, se puede aproximar buscando las últimas versiones estables disponibles en el momento de la publicación del artículo, teniendo en cuenta que aquí podría estar la causa del error. En caso de que no se consiga reproducir el artículo y sea cual sea el resultado, se ha de dejar constancia de este hecho.
+
+-Se ha de documentar minuciosamente cualquier error al correr el código, así como las soluciones que se apliquen, sean estas útiles o no. Para ello lo más sencillo y congruente con los principios de la ciencia abierta es emplear un sistema de control de versiones del código (Sandve et al., 2013). Quienes no están familiarizados con la programación informática pueden encontrar los nombres habituales que se ponen a los archivos ilegibles, por lo que sería deseable hacer estos lo más claros posible.
+
+Con respecto a los autores que quieran hacer sus estudios computacionalmente reproducibles, la mayoría de los inconvenientes que se encontraron se resolverían con el uso de entornos computacionales reproducibles como Guix (Vallet et al., 2022), por lo que ese sería un camino a explorar. En ese artículo se mencionan las limitaciones de contenedores como Docker o Singularity, especialmente por la dificultad de mantenerlos en el largo plazo. Esto se ha de tener en cuenta si se opta por compartir el entorno de esa manera.
+
+Las libretas interactivas o documentos computacionales (JupyterLab, Quarto, R Markdown, etc.) facilitan que otros investigadores reproduzcan nuestros estudios al integrar en un sólo documento código, texto y gráficos.
+
+En cuanto a la forma de compartir archivos necesarios, lo ideal sería que éstos estuvieran en un repositorio público con algún tipo de identificador persistente, como los citados anteriormente, y el propio código incluyera como ruta del archivo la url en la que se alojan. Esto reduciría los pasos manuales que ha de llevar a cabo el reproductor del estudio (potencial fuente de errores), homogeneizando el proceso. Dicho lo cual, dado que en ciertas partes del mundo la conexión a internet puede ser inestable, esto podría ser un contratiempo. Una solución podría ser el uso de rutas de archivo relativas en lugar de absolutas (Perry, 2022) en el código. Dicho código comprobaría la existencia del archivo en una subcarpeta incluida en los materiales a descargar y, de no existir, procedería a descargarlo desde la URL. Un *textbox* que pida introducir la ruta sin modificar el código también podría ser una alternativa a considerar.
+
+También es importante acompañar los archivos de las correspondientes leyendas, pues sin éstas la interpretación de los datos se vuelve una tarea extremadamente difícil, sino imposible, para alguien ajeno al estudio original.
+
+**Generalización a otras disciplinas**
+
+Pese a que la definición de *reproducibilidad computacional* dada incluye el uso del mismo hardware como parte del *entorno computacional*, habría que hacer una distinción entre disciplinas, como la física, por un lado, y las ciencias del comportamiento por otro. La precisión computacional de la primera puede hacer indispensable el uso del mismo equipo para llegar al mismo resultado, mientras que para las segundas puede ser innecesario llegar a un nivel tan fundamental, especialmente cuando se emplea software estandarizado adaptado a múltiples plataformas (por ejemplo, R y sus librerías). En consecuencia, los resultados del presente estudio podrían ser generalizables a otras ciencias sociales, del comportamiento y de la salud, pero no se pueden extrapolar al ámbito de las ciencias naturales sin más.
+
+**Limitaciones y conclusión**
+
+Entre las limitaciones del presente estudio está su baja representatividad, acentuada por el hecho de que tres de los cuatro artículos comparten autora principal. Si la ciencia abierta avanza y aumenta exponencialmente el número de publicaciones que comparten todo lo necesario para reproducir el código y llegar a sus mismos resultados, en el futuro se podrían hacer estudios con mayor representatividad e inferencias con suficiente potencia estadística. También con criterios estrictos de inclusión y exclusión: en el que se quiera hilar más fino en una disciplina concreta (economía conductual, finanzas conductuales, neuroeconomía, etc.) o ceñirse a una ventana temporal más estrecha. Una vez se tengan más estudios, la experiencia agregada de los autores podría sentar las bases para proponer un instrumento estandarizado con el que llevar a cabo reproducciones computacionales.
+
+Otra limitación es la falta de un archivo JupyterLab, Quarto o similares como los mencionados en las *Sugerencias a futuro* y que simplifiquen el proceso de reproducir computacionalmente el presente estudio.
+
+Los resultados obtenidos avalan que la crisis de reproducibilidad referenciada en la *Introducción* también afecta a la neuroeconomía y las finanzas conductuales, al menos en lo que refiere a la reproducibilidad computacional: se encontraron varios de los problemas señalados en la bibliografía y el resultado fue que tres de los estudios seleccionados no pudieron ser reproducidos y el cuarto, sólo de forma parcial y con modificaciones.
+
+**Referencias bibliográficas**
+
+Chang, A.C. & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
+
+Culina, A., van den Berg, I., Evans. S., & Sánchez-Tójar, A. (2020). Low availability of code in ecology: A call for urgent action. *PLOS Biology, 18*(7), e3000763. [[https://doi.org/10.1371/journal. Pbio.3000763]{.underline}](https://doi.org/10.1371/journal.%20pbio.3000763)
+
+Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alemania invierte en acciones, Suiza vota una paga extra. *Cinco Días*. Recuperado de [[https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html]{.underline}](https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html)
+
+Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
+
+Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+
+Fundssociety.com. (2024, octubre 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Recuperado de [[https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/]{.underline}](https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/)
+
+Hardwicke, T. E., Mathur, M. B., MacDonald, K., Nilsonne, G., Banks, G. C., Kidwell, M. C., Hofelich Mohr, A., Clayton, E., Yoon, E. J., Tessler, M. H., Lenne, R. L., Altman, S., Long, B., & Frank, M. C. (2018). Data availability, reusability, and analytic reproducibility: Evaluating the impact of a mandatory open data policy at the journal *Cognition*. *Royal Society Open Science*, *5*(8), 180448. [[https://doi.org/10.1098/rsos.180448]{.underline}](https://doi.org/10.1098/rsos.180448)
+
+Hardwicke, T. E., Bohn, M., MacDonald, K., Hembacher, E., Nuijten, M. B., Peloquin, B. N., deMayo, B. E., Long, B., Yoon, E. J., & Frank, M. C. (2021). Analytic reproducibility in articles receiving open data badges at the journal Psychological Science: An observational study. *Royal Society Open Science, 8*(1), 201494. [[https://doi.org/10.1098/rsos.201494]{.underline}](https://doi.org/10.1098/rsos.201494)
+
+Hasselbring, W., Carr, L., Hettrick, S., Packer, H., & Tiropanis, T. (2019). *FAIR and Open Computer Science Research Software*. arXiv. [[https://arxiv.org/abs/1908.05986]{.underline}](https://arxiv.org/abs/1908.05986)
+
+Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. *PLoS Medicine, 2*(8), e124. [[https://doi.org/10.1371%2Fjournal.pmed.0020124]{.underline}](https://doi.org/10.1371%2Fjournal.pmed.0020124)
+
+Job, V., Dweck, C. S., & Walton, G. M. (2010). Ego depletion - Is it all in your head? Implicit theories about willpower affect self-regulation. *Psychological Science, 21*(11), 1686–1693. [[https://doi.org/10.1177/0956797610384745]{.underline}](https://doi.org/10.1177/0956797610384745)
+
+Kahneman, D. (2012). *Pensar rápido, pensar despacio.* Debate.
+
+Kitzes, J., Turek, D., & Deniz, F. (2017). The practice of reproducible research: Case studies and lessons from the data-intensive sciences. *Oakland: University of California Press*.
+
+Magness, P. & Murphy, R. P. (2015). Challenging the Empirical Contribution of Thomas Piketty's Capital in the 21st Century. *Journal of Private Enterprise, 15*(2).
+
+McNutt, M. (2014). Reproducibility. *Science, 343*(6168), 229. [[https://doi.org/10.1126%2Fscience.1250475]{.underline}](https://doi.org/10.1126%2Fscience.1250475)
+
+McQuarrie, E. F. (2021). Where Siegel Went Awry: Outdated Sources & Incomplete Data. *SSRN.* [http://doi.org/10.2139/ssrn.3805927](https://dx.doi.org/10.2139/ssrn.3805927)
+
+McQuarrie, E. F. (2023). Stocks for the Long Run? Sometimes Yes, Sometimes No. *Financial Analysts Journal, 80*(1).
+
+Miyakawa, T. (2020). No raw data, no science: another possible source of the reproducibility crisis. *Molecular Brain, 13*(1), 1-6. [https://doi.org/10.1186/s13041-020-0552-2]{.underline}
+
+Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Percie du Sert, N., Simonsohn, U., Wagenmakers, E.-J., Ware, J. J., & Ioannidis, J. P. A. (2017). A manifesto for reproducible science. *Nature Human Behaviour, 1*(1), 1-9. [[https://doi.org/10.1038/s41562-016-0021]{.underline}](https://doi.org/10.1038/s41562-016-0021)
+
+Oza, A. (2023). Reproducibility trial: 246 biologists get different results. *Nature*. [[https://www.nature.com/articles/d41586-023-03177-1]{.underline}](https://www.nature.com/articles/d41586-023-03177-1)
+
+Payzan-LeNestour, E. & Doran, J. (2024). Craving money? Evidence from the laboratory and the field. *Sciences Advances, 10*(2), eadi5034. [http://doi.org/10.1126/sciadv.adi5034]{.underline}
+
+Payzan-LeNestour, E. & Woodford, M. (2022). Outlier blindness: A neurobiological foundation for neglect of financial risk. *Journal of Financial Economics, 143*(3), 1316-1343. [[https://doi.org/10.1016/j.jfineco.2021.06.019]{.underline}](https://doi.org/10.1016/j.jfineco.2021.06.019)
+
+Payzan-LeNestour, E., Yang, Y., Thelaus, S. & Balleine, B. (2024). Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets. *SSRN*. [[https://doi.org/10.2139/ssrn.5041683]{.underline}](https://dx.doi.org/10.2139/ssrn.5041683)
+
+Perry, K. (2022, January 10). Understanding Relative File Paths. *Coding Rooms.* Recuperado de [[https://www.codingrooms.com/blog/file-paths]{.underline}](https://www.codingrooms.com/blog/file-paths)
+
+Piketty, T. (2014). *El capital en el siglo XXI*. Fondo de Cultura Económica de España.
+
+Sampieri, R. H., Collado, C. F. y Lucio, P. B. (2010). *Metodología de la investigación* (5ª Edición). McGraw Hill.
+
+Sandve, G. K., Nekrutenko, A., Taylor, J. & Eivind, H. (2013). Ten Simple Rules for Reproducible Computational Research. *PLOS Biology, 9*(10), e1003285. [[https://doi.org/10.1371/journal.pcbi.1003285]{.underline}](https://doi.org/10.1371/journal.pcbi.1003285)
+
+Siegel, J. J. (2014). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (5th Edition). McGrawHill.
+
+Siegel, J. J. & Schwartz, J. (2022). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (6th Edition). McGrawHill.
+
+Reuters. (2024, diciembre 6). Norway wealth fund hits record 20 trillion crowns. *Reuters.*
+
+[[https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/]{.underline}](https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/)
+
+Taylor, K. (2024). Duke's 3-year fraud investigation into Dan Ariely has ended, and the star professor still has a job. Does he want it?. *Business Insider.* [[https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2]{.underline}](https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2)
+
+Vallet, N., Michonneau, D., & Tournier, S. (2022). Toward practical transparent verifiable and long-term reproducible research using Guix. *Scientific Data, 9*(1), 597. [[https://doi.org/10.1038/s41597-022-01720-9]{.underline}](https://doi.org/10.1038/s41597-022-01720-9)
+
+Vines, T. H., Albert, A. Y. K., Andrew, R. L., Débarre, F., Bock, D. G., Franklin, M. T., Gilbert, K. J., Moore, J. S., Renaut, S. & Rennison, D. J. (2014). The Availability of Research Data Declines Rapidly with Article Age. *Current Biology, 24*(1), 94-97. [[https://doi.org/10.1016/j.cub.2013.11.014]{.underline}](https://doi.org/10.1016/j.cub.2013.11.014)
+
+Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A., ... & Mons, B. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data, 3*(1), 160018. [[https://doi.org/10.1038/sdata.2016.18]{.underline}](https://doi.org/10.1038/sdata.2016.18)
+
+White, E. P., Badridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
+
+**Apéndices y materiales complementarios**
+
+**Anexo. Diario de campo**
+
+**25/11/24**
+
+Empiezo la búsqueda de artículos potencialmente reproducibles a través de la web de Open Science Framework ([[https://osf.io/]{.underline}](https://osf.io/)), con los términos de búsqueda *behavioral finance, behavioral economics, decision making* y *neuroeconomics*. Dentro de los resultados obtenidos, indago en los que tienen las insignias “Open Data” y “Open Materials”, asumiendo que ahí será más probable encontrar estudios que se adapten a los criterios establecidos. Tras leer diversos artículos que quedan tras ese primer cribado, llego a *Outlier blindness: A neurobiological foundation for neglect of financial risk,* de Payzan-LeNestour y Woodford (2022) y en su séptima página veo el enlace para descargar los materiales del estudio: [[https://supplementarymat.weebly.com]{.underline}](https://supplementarymat.weebly.com/), dentro del cual también se encuentran los materiales de*Craving money? Evidence from the laboratory and the field*, (Payzan-LeNestour y Doran, 2024), en cuyo resumen se habla de combinar ‘elementos de la psicología pavloviana’ con ‘teoría económica estándar’ en un sólo modelo, por lo que lo incluyo como objeto de los estudios de caso.
+
+También encuentro *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), que indaga en la relación entre envejecimiento y cambios en las funciones ejecutivas tales como la toma de decisiones, específicamente en el ámbito financiero cuando involucra a otras personas. En la sección *Data and code availability* incluyen tres enlaces para descargar el material empleado.
+
+**Artículo 1: *Outlier blindness: A neurobiological foundation for neglect of financial risk,* de Payzan-LeNestour y Woodford (2022).**
+
+R versión 4.3.3 “Angel Food Cake” y RStudio 2024.09.1+394.
+
+04/12/2024
+
+Tras descargar el material de Dropbox, abro RStudio y, siguiendo las instrucciones, ajusto en el archivo Outlier.R los directorios de la función *setwd* en las líneas 3, 37, 75, 108 y 144 para que se correspondan con las carpetas en mi computadora, procedo a ejecutar el código completo y ésto da lugar al siguiente error:
+
+```         
+> ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
+Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = tapply(ATDs1s2$value,  : 
+  arguments imply differing number of rows: 0, 2
+```
+
+Que se corrige añadiendo en la línea 651:
+
+``` r
+ATDs1s2$Variable <- as.factor(Variable)
+```
+
+Tras esto vuelvo a ejecutar el código completo y aparece un nuevo fallo debido a que en la línea 883 se emplea de nuevo la función *setwd* para establecer como directorio una sexta carpeta en la que se ha de encontrar el archivo *earningsbyuser.csv*:
+
+``` r
+>setwd("/Users/danielagrinblatt/Desktop/Elise/Data")
+Error in setwd("/Users/danielagrinblatt/Desktop/Elise/Data"): no es posible cambiar el directorio de trabajo
+```
+
+``` r
+```
+
+Esto despierta mis sospechas, pues sólo hay 5 carpetas con datos para descargar en el Dropbox habilitado a tal fin. Tras comprobar que no dispongo del citado archivo .csv, contacto con la autora principal del estudio, Elise Payzan-LeNestour, a ver si me lo puede facilitar para continuar con el proceso.
+
+![](images/clipboard-3320269647.png)\
+
+18/12/24
+
+Tras dos semanas sin noticias de la autora principal del artículo, contacto por correo-e al coautor Michael Woodford con el mismo fin.
+
+![](images/clipboard-1322508556.png)\
+
+#### 
+
+**Artículo 2:** *Craving money? Evidence from the laboratory and the field*, de Payzan-LeNestour y Doran (2024).
+
+#### 09/12/2024
+
+Tras leer los archivos README.md y python_requirements.txt, instalo Conda 24.11.1 para tratar de reproducir el estudio dentro del entorno que éste software proporciona. Creo un entorno llamado *craving* con Python 3.10 (no especificado por los autores, pero una opción plausible por el momento en que se hizo el estudio, dado que era una versión estable y compatible con las librerías clave) y pandas 1.5.3 y numpy 1.24.4, dado que éstos dos son los únicos requisitos incluidos en el archivo python_requirements.txt. Una vez verificada la instalación de dichas versiones empleo Jupyter Lab 4.3.3 para abrir el archivo 01_combine_participant_data.ipynb, modifico *data_path* como indica la propia autora para ajustarlo a la carpeta de mi computadora en la que se encuentran los datos y procedo a ejecutar el código, lo que me lleva al siguiente error:
+
+```         
+ImportError: Missing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
+```
+
+Por tanto, no se puede reproducir sólo con las dos condiciones señaladas en el archivo python_requirements.txt. Procedo a instalar xlrd y modificar la línea:
+
+```         
+---> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None)
+```
+
+Por:
+
+```         
+---> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
+```
+
+Para indicar a pandas qué motor emplear en la lectura de los archivos .xls, lo que lleva al siguiente error:
+
+```         
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+```
+
+Que podría deberse a un problema en las hojas de cálculo que contienen los datos. Abro los archivos .xls con LibreOffice Calc versión: 24.2.7.2 (X86_64) para comprobar que se pueden leer correctamente. Verificado esto, procedo a instalar la versión 1.2.0 de xlrd. Dado que el formato .xls se está quedando obsoleto, el problema se podría deber a que la versión xlrd actual no se adecúa a dicho formato, sino al más reciente .xlsx. Esto lleva a un error de incompatibilidad con pandas.
+
+``` python
+ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0' currently installed).
+```
+
+Trato de degradar la versión de Pandas a la 1.1.5, compatible con la 1.2.0 de xlrd, pero ésta resulta ser incompatible con la versión 3.10 de Python. Opto entonces por crear un nuevo entorno *Craving2*, con Python 3.9, Pandas 1.1.5 y xlrd 1.2.0. Al ejecutar, vuelvo a obtener el error:
+
+```         
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+```
+
+Lo que parece llevar a un bucle que no permite obtener resultado alguno.
+
+18/12/2024
+
+Parto de cero por si hubiera cometido algún error, tal como la omisión de un paso crucial en el intento anterior. Elimino el entorno y creo uno nuevo, con los mismos requisitos que indica el archivo python_requirements.txt (pandas\>=1.5.3 y numpy\>=1.24.4) y llego a los mismos resultados.
+
+**Artículo 3:** *Age-related differences in ventral striatal and default mode network function during reciprocated trust*, de Fareri et al. (2022).
+
+19/12/24
+
+Tras leer el archivo README.md, instalo FSL, Singularity y PyDeface, de los cuáles no se específica versión. Procedo a crear los contenedores que indica el citado archivo README.md: heudiconv (version: 0.5.4), mriqc (version: 0.15.1), and fmriprep (version: 20.1.0). Aquí llega el primer problema, pues obtengo error al instalar el mriqc:
+
+```         
+FATAL: While performing build: conveyor failed to get: GET https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
+```
+
+Error debido a que tal versión no está disponible. Procedo en consecuencia a instalar la 22.0.6, por ser una de las más antiguas que aún tiene mantenimiento estable. Sin embargo, el número de versión ya indica que ha habido varias intermedias, lo que podría suponer un problema para el resto del proceso.
+
+24/12/24
+
+Creados los contenedores, abro la terminal de Linux y sigo las instrucciones para descargar los datos con el comando:
+
+datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
+
+Lo cual produce un nuevo error. Compruebo que el repositorio sigue existiendo accediendo a [[https://github.com/OpenNeuroDatasets/ds003745]{.underline}](https://github.com/OpenNeuroDatasets/ds003745)
+
+Verificada su existencia, descargo las carpetas manualmente para continuar con el proceso, entendiendo que esto es un problema menor y que a la hora de leer los archivos no habrá diferencia en si estos han llegado al disco duro mediante una descarga manual o empleando un comando de la terminal.
+
+30/12/24
+
+Siguiendo las instrucciones del archivo README.md, abro la terminal de Linux desde la carpeta srndna-trustgame-main y ejecuto el siguiente comando:
+
+```         
+bash code/run_fmriprep.sh
+```
+
+Lo cual da un error en bucle. Aunque no lo especifican en el protocolo a seguir, dado que el error incluye la frase ‘Permiso denegado’, pruebo a ejecutarlo con permisos de administrador, y recibo de nuevo un error en bucle. Consulto a ChatGPT-4o, y tras probar las soluciones triviales (eliminar los espacios en la ruta al archivo, comprobar que el archivo realmente existe y está en la carpeta o verificar que éste es ejecutable), corro el *script* en modo depuración:
+
+```         
+bash -x code/run_fmriprep.sh
+```
+
+Y me lleva a un tercer error en bucle. ChatGPT-4o me ofrece la solución de cambiar la ruta de trabajo en el archivo fmriprep.sh por una que esté en mi ordenador. En la terminal de Linux ejecuto:
+
+``` bash
+nano code/fmriprep.sh
+```
+
+Y modifico:
+
+``` bash
+*scratchdir=/data/scratch/\`whoami\`*
+
+*if \[ ! -d \$scratchdir \]; then*
+
+    *mkdir -p \$scratchdir*
+
+*fi*
+```
+
+Por:
+
+``` bash
+
+*scratchdir=/home/\`whoami\`/scratch*
+
+*if \[ ! -d \$scratchdir \]; then*
+
+    *mkdir -p \$scratchdir*
+
+*fi*
+```
+
+Acto seguido, creo la carpeta con el comando:
+
+``` bash
+mkdir -p /home/`whoami`/scratch
+```
+
+Vuelvo a ejecutar y recibo un nuevo error. En este caso se debe a un problema con la imagen fmriprep-20.1.0.simg. Trato de resolverlo con los siguientes comandos en la terminal:
+
+``` bash
+sudo docker pull nipreps/fmriprep:20.1.0
+```
+
+``` bash
+singularity build fmriprep-20.1.0.simg docker://nipreps/fmriprep:20.1.0
+```
+
+Ambos proceden sin error. Acto seguido, ejecuto:
+
+``` bash
+nano code/fmriprep.sh
+```
+
+Para modificar la ruta a la ubicación actual de archivo .simg. De nuevo, ejecuto:
+
+``` bash
+bash code/run_fmriprep.sh
+```
+
+Y me lleva a un nuevo error en bucle, en este caso por falta de los archivos relacionados con las licencias. Al no ser estrictamente necesarios, me limito a comentar dichas líneas del código. Tras esto, llego a un nuevo error en bucle.
+
+02/01/2025
+
+El último error en bucle también está relacionado con las licencias necesarias para ejecutar el software. Creo un archivo vacío llamado *license.txt* para sortear este problema y ejecuto de nuevo bash code/run_fmriprep.sh, lo que da un nuevo error relacionado con la estructura estándar BIDS que deberían seguir las carpetas.
+
+Compruebo la estructura de la carpeta *bids* en [[https://bids-standard.github.io/bids-validator/]{.underline}](https://bids-standard.github.io/bids-validator/) y esto arroja diversos errores, entre ellos:
+
+```         
+1. PARTICIPANT_ID_MISMATCH:
+        a. Severidad: Error.
+        b. Descripción: Hay un desajuste entre los IDs de participantes definidos en el             archivo participants.tsv y otros archivos del dataset.
+        c. Ubicación: /participants.tsv.
+        
+    2. SCANS_FILENAME_NOT_MATCH_DATASET:
+        a. Severidad: Error.
+        b. Descripción: Los nombres de los archivos en los TSV de escaneos no coinciden               con los archivos presentes en el dataset.
+        c. Ubicación: Varias carpetas, por ejemplo:
+            i. /sub-122/sub-122_scans.tsv
+            ii. /sub-110/sub-110_scans.tsv
+            iii. /sub-118/sub-118_scans.tsv
+            iv. Y otros sujetos (sub-106, sub-140, etc.).
+```
+
+Como ya no se trata de un problema relacionado con algún aspecto del entorno computacional, sino de los propios archivos que se deberían reproducir, solucionarlo está más allá de mi competencia y concluyo que este estudio tampoco se ha podido reproducir.
+
+**Artículo 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, de Payzan-LeNestour et al. (2024).
+
+29/01/25
+
+R versión 4.3.3 “Angel Food Cake” y RStudio 2024.12.0+467. Sistema Operativo: Linux Mint 22.1 *Xia*. Se procederá a controlar las distintas versiones de los archivos *run_full_script.R* y *payoff rule.R* en [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience)
+
+Debido al fracaso en el intento de reproducir los anteriores artículos, vuelvo a probar suerte en la web de la Open Science Framework. Tecleo *behavioral finance* en su buscador y uno de los primeros resultados que aparecen es el reciente Payzan-LeNestour et al. (2024). Visto que está subido todo lo necesario para reproducirlo, descargo los materiales y, tras comprobar que no existe un archivo README ni similar que contenga las instrucciones, abro el *run_full_script.R* con RStudio y me doy cuenta de que las instrucciones están en forma de comentario dentro de éste.
+
+RStudio indica que faltan paquetes necesarios para ejecutar dicho código, que procedo a instalar y tras ello ajusto en la función setwd() para adaptarla a las carpetas de mi computadora. Ejecuto el código completo y recibo un error debido a que la función windows() no está disponible en RStudio para Linux:
+
+``` r
+Error in windows(width = 8, height = 8) : no se pudo encontrar la función "windows"
+```
+
+Reescribo el presente código, así como el del archivo *payoff rule.R*, para sustituir dicha función por ggplot(). Ejecuto de nuevo y tras esto el *script* llega hasta el final sin ningún problema adicional y obtengo tablas y gráficos para comparar con los del artículo publicado.
+
+30/01/25
+
+Todos los gráficos se corresponden fielmente a los publicados con excepción de la *Figure 10 A*, que se ve una diferencia clara, especialmente en la condición *Optimal*. Las *Figures 6C,* *6D, 8C y 9B* del artículo no se generan al ejecutar dicho código. También obtengo resultados idénticos para la *Table 1*, así como resultados con ligeras variaciones (incluso teniendo en cuenta el redondeo) para la *Table 3* y su extensión como *Table 8* en el Apéndice F, y similares con pequeñas variaciones debidas al redondeo en la *Table 4*.
+
+![](images/clipboard-2031833015.png)
+
+![](images/clipboard-3495160845.png)
+
+*Comparación de la Figure 10 A en el artículo original (arriba) y la obtenida para este estudio (abajo).*
+
+06/02/25
+
+Pruebo a reescribir el código original, sustituyendo la función problemática windows() por dev.new() en lugar de ggplot(). Al correr el código obtengo resultados idénticos a la ocasión anterior: mismos desajustes en la *Figure 10 A* y *Table 3*, y tampoco obtengo las gráficas que no obtenía empleando ggplot().
