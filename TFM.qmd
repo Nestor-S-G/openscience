@@ -492,6 +492,8 @@ Compruebo la estructura de la carpeta *bids* en [[https://bids-standard.github.i
             iv. Y otros sujetos (sub-106, sub-140, etc.).
 ```
 
+Exportados al archivo ids-validator-output.json.
+
 Como ya no se trata de un problema relacionado con algún aspecto del entorno computacional, sino de los propios archivos que se deberían reproducir, solucionarlo está más allá de mi competencia y concluyo que este estudio tampoco se ha podido reproducir.
 
 **Artículo 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, de Payzan-LeNestour et al. (2024).
