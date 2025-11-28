@@ -59,7 +59,7 @@ En primer lugar, se seleccionarán una serie de artículos cuya RC se pondrá a 
 
 Esto se llevará a cabo en una computadora con sistema operativo Linux Mint 22 *Wilma* (para los tres primeros artículos) y 22.1 *Xia* (para el último)*.* Los errores que surjan a lo largo del proceso que no sepa interpretar y/o resolver se consultarán a ChatGPT-4o para tratar de solucionarlos. En caso de que dicha versión dejase de estar disponible temporalmente por exceso de consultas en un corto período de tiempo, se suspenderá el proceso hasta que lo vuelva a estar.
 
-#### Selección de artículos a reproducir
+**Selección de artículos a reproducir**
 
 Se empleará un muestreo incidental con los criterios de:
 
