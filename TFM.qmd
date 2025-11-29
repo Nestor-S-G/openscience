@@ -5,8 +5,6 @@ format: pdf
 editor: visual
 ---
 
-## Reproducibilidad computacional de artículos en neuroeconomía, finanzas conductuales y áreas relacionadas
-
 **Resumen/Abstract**
 
 Existe una crisis de reproducibilidad que afecta acmúltiples áreas de la ciencia. Entre otros problemas, se han encontrado dificultades paracllegar a los mismos resultados partiendo de los datos y el códigocdel estudio original; es lo que se conoce como “Reproducibilidad computacional”. Dada su relevancia social, este estudio ha indagadoccen el caso particular de la reproducibilidad computacionalcen neuroeconomía y finanzas conductuales. El resultado obtenido escque no se pudieron reproducir la mayoría de los estudios puestos a prueba. En base a la experiencia adquirida, se propone uncprotocolo a seguir para tratar de reproducir con éxito estudios publicados.
@@ -193,8 +191,6 @@ Pese a que la definición de *reproducibilidad computacional* dada incluye el us
 
 Entre las limitaciones del presente estudio está su baja representatividad, acentuada por el hecho de que tres de los cuatro artículos comparten autora principal. Si la ciencia abierta avanza y aumenta exponencialmente el número de publicaciones que comparten todo lo necesario para reproducir el código y llegar a sus mismos resultados, en el futuro se podrían hacer estudios con mayor representatividad e inferencias con suficiente potencia estadística. También con criterios estrictos de inclusión y exclusión: en el que se quiera hilar más fino en una disciplina concreta (economía conductual, finanzas conductuales, neuroeconomía, etc.) o ceñirse a una ventana temporal más estrecha. Una vez se tengan más estudios, la experiencia agregada de los autores podría sentar las bases para proponer un instrumento estandarizado con el que llevar a cabo reproducciones computacionales.
 
-Otra limitación es la falta de un archivo JupyterLab, Quarto o similares como los mencionados en las *Sugerencias a futuro* y que simplifiquen el proceso de reproducir computacionalmente el presente estudio.
-
 Los resultados obtenidos avalan que la crisis de reproducibilidad referenciada en la *Introducción* también afecta a la neuroeconomía y las finanzas conductuales, al menos en lo que refiere a la reproducibilidad computacional: se encontraron varios de los problemas señalados en la bibliografía y el resultado fue que tres de los estudios seleccionados no pudieron ser reproducidos y el cuarto, sólo de forma parcial y con modificaciones.
 
 ### **Referencias bibliográficas**
@@ -271,6 +267,8 @@ Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Ba
 
 White, E. P., Badridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
 
+\newpage
+
 **Apéndices y materiales complementarios**
 
 **Anexo. Diario de campo**
@@ -289,7 +287,7 @@ R versión 4.3.3 “Angel Food Cake” y RStudio 2024.09.1+394.
 
 Tras descargar el material de Dropbox, abro RStudio y, siguiendo las instrucciones, ajusto en el archivo Outlier.R los directorios de la función *setwd* en las líneas 3, 37, 75, 108 y 144 para que se correspondan con las carpetas en mi computadora, procedo a ejecutar el código completo y ésto da lugar al siguiente error:
 
-```         
+```r         
 > ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
 Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = tapply(ATDs1s2$value,  : 
   arguments imply differing number of rows: 0, 2
@@ -308,20 +306,15 @@ Tras esto vuelvo a ejecutar el código completo y aparece un nuevo fallo debido 
 Error in setwd("/Users/danielagrinblatt/Desktop/Elise/Data"): no es posible cambiar el directorio de trabajo
 ```
 
-``` r
-```
-
 Esto despierta mis sospechas, pues sólo hay 5 carpetas con datos para descargar en el Dropbox habilitado a tal fin. Tras comprobar que no dispongo del citado archivo .csv, contacto con la autora principal del estudio, Elise Payzan-LeNestour, a ver si me lo puede facilitar para continuar con el proceso.
 
-![](images/clipboard-3320269647.png)\
+![](images/clipboard-3320269647.png)
 
 18/12/24
 
 Tras dos semanas sin noticias de la autora principal del artículo, contacto por correo-e al coautor Michael Woodford con el mismo fin.
 
-![](images/clipboard-1322508556.png)\
-
-#### 
+![](images/clipboard-1322508556.png)
 
 **Artículo 2:** *Craving money? Evidence from the laboratory and the field*, de Payzan-LeNestour y Doran (2024).
 
@@ -329,29 +322,29 @@ Tras dos semanas sin noticias de la autora principal del artículo, contacto por
 
 Tras leer los archivos README.md y python_requirements.txt, instalo Conda 24.11.1 para tratar de reproducir el estudio dentro del entorno que éste software proporciona. Creo un entorno llamado *craving* con Python 3.10 (no especificado por los autores, pero una opción plausible por el momento en que se hizo el estudio, dado que era una versión estable y compatible con las librerías clave) y pandas 1.5.3 y numpy 1.24.4, dado que éstos dos son los únicos requisitos incluidos en el archivo python_requirements.txt. Una vez verificada la instalación de dichas versiones empleo Jupyter Lab 4.3.3 para abrir el archivo 01_combine_participant_data.ipynb, modifico *data_path* como indica la propia autora para ajustarlo a la carpeta de mi computadora en la que se encuentran los datos y procedo a ejecutar el código, lo que me lleva al siguiente error:
 
-```         
+```python         
 ImportError: Missing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
 ```
 
 Por tanto, no se puede reproducir sólo con las dos condiciones señaladas en el archivo python_requirements.txt. Procedo a instalar xlrd y modificar la línea:
 
-```         
----> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None)
+```python         
+---> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None)
 ```
 
 Por:
 
-```         
----> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
+```python         
+---> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
 ```
 
 Para indicar a pandas qué motor emplear en la lectura de los archivos .xls, lo que lleva al siguiente error:
 
-```         
+```python         
 XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
 ```
 
-Que podría deberse a un problema en las hojas de cálculo que contienen los datos. Abro los archivos .xls con LibreOffice Calc versión: 24.2.7.2 (X86_64) para comprobar que se pueden leer correctamente. Verificado esto, procedo a instalar la versión 1.2.0 de xlrd. Dado que el formato .xls se está quedando obsoleto, el problema se podría deber a que la versión xlrd actual no se adecúa a dicho formato, sino al más reciente .xlsx. Esto lleva a un error de incompatibilidad con pandas.
+Que podría deberse a un problema en las hojas de cálculo que contienen los datos. Abro los archivos .xls con LibreOffice Calc versión: 24.2.7.2 (X86_64) para comprobar que se pueden leer correctamente. Verificado esto, procedo a instalar la versión 1.2.0 de xlrd. Dado que el formato .xls se está quedando obsoleto, el problema se podría deber a que la versión xlrd actual no se adecúa a dicho formato, sino al más reciente .xlsx. Esto lleva a un error de incompatibilidad con pandas:
 
 ``` python
 ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0' currently installed).
@@ -359,7 +352,7 @@ ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0'
 
 Trato de degradar la versión de Pandas a la 1.1.5, compatible con la 1.2.0 de xlrd, pero ésta resulta ser incompatible con la versión 3.10 de Python. Opto entonces por crear un nuevo entorno *Craving2*, con Python 3.9, Pandas 1.1.5 y xlrd 1.2.0. Al ejecutar, vuelvo a obtener el error:
 
-```         
+```python         
 XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
 ```
 
@@ -375,7 +368,7 @@ Parto de cero por si hubiera cometido algún error, tal como la omisión de un p
 
 Tras leer el archivo README.md, instalo FSL, Singularity y PyDeface, de los cuáles no se específica versión. Procedo a crear los contenedores que indica el citado archivo README.md: heudiconv (version: 0.5.4), mriqc (version: 0.15.1), and fmriprep (version: 20.1.0). Aquí llega el primer problema, pues obtengo error al instalar el mriqc:
 
-```         
+```bash         
 FATAL: While performing build: conveyor failed to get: GET https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
 ```
 
@@ -385,7 +378,9 @@ Error debido a que tal versión no está disponible. Procedo en consecuencia a i
 
 Creados los contenedores, abro la terminal de Linux y sigo las instrucciones para descargar los datos con el comando:
 
+```bash    
 datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
+```
 
 Lo cual produce un nuevo error. Compruebo que el repositorio sigue existiendo accediendo a [[https://github.com/OpenNeuroDatasets/ds003745]{.underline}](https://github.com/OpenNeuroDatasets/ds003745)
 
@@ -395,13 +390,13 @@ Verificada su existencia, descargo las carpetas manualmente para continuar con e
 
 Siguiendo las instrucciones del archivo README.md, abro la terminal de Linux desde la carpeta srndna-trustgame-main y ejecuto el siguiente comando:
 
-```         
+```bash         
 bash code/run_fmriprep.sh
 ```
 
 Lo cual da un error en bucle. Aunque no lo especifican en el protocolo a seguir, dado que el error incluye la frase ‘Permiso denegado’, pruebo a ejecutarlo con permisos de administrador, y recibo de nuevo un error en bucle. Consulto a ChatGPT-4o, y tras probar las soluciones triviales (eliminar los espacios en la ruta al archivo, comprobar que el archivo realmente existe y está en la carpeta o verificar que éste es ejecutable), corro el *script* en modo depuración:
 
-```         
+```bash         
 bash -x code/run_fmriprep.sh
 ```
 
