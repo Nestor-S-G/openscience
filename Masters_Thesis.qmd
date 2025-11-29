@@ -1,11 +1,9 @@
 ---
-title: "Master's thesis (in English)"
+title: "Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields"
 author: "Néstor Suárez González, Daniel Vicente Morillo Cuadrado"
 format: pdf
 editor: visual
 ---
-
-## Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields.
 
 **Abstract**
 
@@ -125,7 +123,7 @@ It is worth noting the authors' willingness to share their material, thus contri
 
 From the previous analysis, the protocol represented in Figure 1 is extracted:
 
-![](images/clipboard-1998414445.png)
+![](images/clipboard-847991682.png)
 
 *Figure 1. Image of the flow chart created with the help of ChatGPT-4o (IN SPANISH).*
 
@@ -190,8 +188,6 @@ Although the definition of *computational reproducibility* given includes the us
 **Limitations and Conclusion**
 
 Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the four articles share a main author. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
-
-Another limitation is the lack of a JupyterLab, Quarto, or similar file like those mentioned in the *Future Suggestions* and that simplify the process of computationally reproducing the present study.
 
 The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that three of the selected studies could not be reproduced and the fourth, only partially and with modifications.
 
@@ -268,3 +264,257 @@ Vines, T. H., Albert, A. Y. K., Andrew, R. L., Débarre, F., Bock, D. G., Frankl
 Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A., ... & Mons, B. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data, 3*(1), 160018. [[https://doi.org/10.1038/sdata.2016.18]{.underline}](https://doi.org/10.1038/sdata.2016.18)
 
 White, E. P., Badridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
+
+\newpage
+
+**Appendix and suplementary materials**
+
+**Field journal**
+
+**11/25/24**
+
+I begin the search for potentially reproducible articles through the **Open Science Framework** website ([https://osf.io/]{.underline}), using the search terms *behavioral finance, behavioral economics, decision making,* and *neuroeconomics*. Among the results obtained, I investigate those that have the **"Open Data"** and **"Open Materials"** badges, assuming that it will be more likely to find studies that fit the established criteria there. After reading several articles that remain after this initial screening, I come to *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022), and on its seventh page, I see the link to download the study materials: [https://supplementarymat.weebly.com]{.underline}, within which the materials for *Craving money? Evidence from the laboratory and the field* (Payzan-LeNestour and Doran, 2024) are also found. Its abstract mentions combining 'elements of Pavlovian psychology' with 'standard economic theory' in a single model, so I include it as an object of the case studies.
+
+I also find *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), which investigates the relationship between **aging and changes in executive functions** such as decision-making, specifically in the financial domain when involving other people. In the **Data and code availability** section, they include three links to download the material used.
+
+**Article 1: *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022).**
+
+R version 4.3.3 “Angel Food Cake” and RStudio 2024.09.1+394.
+
+12/04/2024
+
+After downloading the material from Dropbox, I open RStudio and, following the instructions, adjust the directories of the function *setwd* in the file Outlier.R on lines 3, 37, 75, 108, and 144 to correspond to the folders on my computer. I proceed to execute the complete code and this results in the following error:
+
+``` r
+> ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),
+mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
+Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = tapply(ATDs1s2$value,  : 
+  arguments imply differing number of rows: 0, 2
+```
+
+Which is corrected by adding to line 651:
+
+``` r
+ATDs1s2$Variable <- as.factor(Variable)
+```
+
+After this, I execute the complete code again and a new failure appears because the *setwd* function is used again on line 883 to set a sixth folder as the directory where the file *earningsbyuser.csv* should be found:
+
+``` r
+>setwd("/Users/danielagrinblatt/Desktop/Elise/Data")
+Error in setwd("/Users/danielagrinblatt/Desktop/Elise/Data"):
+no es posible cambiar el directorio de trabajo
+```
+
+This raises my suspicions, as there are only 5 folders with data to download in the Dropbox enabled for this purpose. After verifying that I do not have the mentioned .csv file, I contact the principal author of the study, Elise Payzan-LeNestour, to see if she can provide it to me to continue with the process.
+
+![](images/clipboard-3320269647.png)
+
+12/18/24
+
+After two weeks with no news from the principal author of the article, I contact the co-author Michael Woodford via email for the same purpose.
+
+![](images/clipboard-1322508556.png)
+
+**Article 2:** *Craving money? Evidence from the laboratory and the field*, by Payzan-LeNestour and Doran (2024).
+
+#### 12/09/2024
+
+After reading the README.md and python_requirements.txt files, I install Conda 24.11.1 to try to reproduce the study within the environment that this software provides. I create an environment called *craving* with Python 3.10 (not specified by the authors, but a plausible option for the time the study was conducted, given that it was a stable version compatible with the key libraries) and pandas 1.5.3 and numpy 1.24.4, given that these two are the only requirements included in the python_requirements.txt file. Once the installation of these versions is verified, I use Jupyter Lab 4.3.3 to open the file 01_combine_participant_data.ipynb, I modify *data_path* as the author herself indicates to adjust it to the folder on my computer where the data is located, and I proceed to execute the code, which leads me to the following error:
+
+``` python
+ImportError: Missing optional dependency 'xlrd'.
+Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
+```
+
+Therefore, it cannot be reproduced with only the two conditions indicated in the python_requirements.txt file. I proceed to install xlrd and modify the line:
+
+``` python
+---> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None)
+```
+
+With:
+
+``` python
+---> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
+```
+
+To indicate to pandas which engine to use in reading the .xls files, which leads to the following error:
+
+``` python
+XLRDError: Unsupported format, or corrupt file:
+Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+```
+
+Which could be due to a problem in the spreadsheets containing the data. I open the .xls files with LibreOffice Calc version: 24.2.7.2 (X86_64) to verify that they can be read correctly. Once this is verified, I proceed to install version 1.2.0 of xlrd. Given that the .xls format is becoming obsolete, the problem could be due to the current xlrd version not being suitable for that format, but rather for the more recent .xlsx. This leads to an incompatibility error with pandas:
+
+``` python
+ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0' currently installed).
+```
+
+I then downgrade the Pandas version to 1.1.5, compatible with xlrd 1.2.0, but this turns out to be incompatible with Python version 3.10. I then choose to create a new environment, *Craving2*, with Python 3.9, Pandas 1.1.5, and xlrd 1.2.0. Upon execution, I get again the error:
+
+``` python
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+```
+
+What seems to lead to a loop with no result whatsoever.
+
+12/18/2024
+
+I start from scratch in case I had made any mistakes, such as the omission of a crucial step in the previous attempt. I delete the environment and create a new one, with the same requirements indicated in the python_requirements.txt file (pandas\>=1.5.3 and numpy\>=1.24.4) and arrive at the same results.
+
+**Artícle 3:** *Age-related differences in ventral striatal and default mode network function during reciprocated trust*, by Fareri et al. (2022).
+
+12/19/24
+
+After reading the README.md file, I install FSL, Singularity, and PyDeface, for which no version is specified. I proceed to create the containers indicated in the aforementioned README.md file: heudiconv (version: 0.5.4), mriqc (version: 0.15.1), and fmriprep (version: 20.1.0). Here the first problem arises, as I get an error when installing mriqc:
+
+``` bash
+FATAL: While performing build: conveyor failed to get: GET https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
+```
+
+Error because such version is not available. I consequently proceed to install 22.0.6, as it is one of the oldest versions that still has stable maintenance. However, the version number already indicates that several intermediate versions have existed, which could pose a problem for the rest of the process.
+
+12/24/24
+
+Once the containers are created, I open the Linux terminal and follow the instructions to download the data with the command:
+
+``` bash
+datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
+```
+
+Which produces a new error. I check that the repository still exists by accessing [https://github.com/OpenNeuroDatasets/ds003745]{.underline}
+
+Having verified its existence, I download the folders manually to continue with the process, understanding that this is a minor issue and that there will be no difference when reading the files whether they reached the hard drive via a manual download or by using a terminal command.
+
+12/30/24
+
+Following the instructions in the README.md file, I open the Linux terminal from the srndna-trustgame-main folder and execute the following command:
+
+``` bash
+bash code/run_fmriprep.sh
+```
+
+Which results in a loop error. Although not specified in the protocol to follow, given that the error includes the phrase 'Permission denied', I try running it with administrator privileges, and receive a loop error again. I consult ChatGPT-4o, and after trying the trivial solutions (removing spaces in the file path, verifying that the file actually exists and is in the folder, or checking that it is executable), I run the script in debug mode:
+
+``` bash
+bash -x code/run_fmriprep.sh
+```
+
+And it leads me to a third loop error. ChatGPT-4o offers me the solution of changing the working path in the fmriprep.sh file to one on my computer. In the Linux terminal I execute:
+
+``` bash
+nano code/fmriprep.sh
+```
+
+And I modify:
+
+``` bash
+*scratchdir=/data/scratch/\`whoami\`*
+
+*if \[ ! -d \$scratchdir \]; then*
+
+    *mkdir -p \$scratchdir*
+
+*fi*
+```
+
+With:
+
+``` bash
+
+*scratchdir=/home/\`whoami\`/scratch*
+
+*if \[ ! -d \$scratchdir \]; then*
+
+    *mkdir -p \$scratchdir*
+
+*fi*
+```
+
+Then, I make the folder:
+
+``` bash
+mkdir -p /home/`whoami`/scratch
+```
+
+I run it again and receive a new error. In this case, it is due to a problem with the fmriprep-20.1.0.simg image. I try to solve it with the following commands in the terminal:
+
+``` bash
+sudo docker pull nipreps/fmriprep:20.1.0
+```
+
+``` bash
+singularity build fmriprep-20.1.0.simg docker://nipreps/fmriprep:20.1.0
+```
+
+Both without error. Then:
+
+``` bash
+nano code/fmriprep.sh
+```
+
+To modify the path to current location of the file .simg. Again:
+
+``` bash
+bash code/run_fmriprep.sh
+```
+
+And it leads me to a new loop error, in this case due to missing license-related files. As they are not strictly necessary, I simply comment out those lines of code. Following this, I encounter a new loop error.
+
+01/02/2025
+
+The last loop error is also related to the licenses needed to run the software. I create an empty file called *license.txt* to bypass this issue and execute bash code/run_fmriprep.sh again, which yields a new error related to the BIDS standard structure that the folders should follow.
+
+I check the structure of the *bids* folder at [https://bids-standard.github.io/bids-validator/]{.underline} and this yields several errors, including:
+
+```         
+1. PARTICIPANT_ID_MISMATCH:
+        a. Severidad: Error.
+        b. Descripción: Hay un desajuste entre los IDs de participantes definidos en el             archivo participants.tsv y otros archivos del dataset.
+        c. Ubicación: /participants.tsv.
+        
+    2. SCANS_FILENAME_NOT_MATCH_DATASET:
+        a. Severidad: Error.
+        b. Descripción: Los nombres de los archivos en los TSV de escaneos no coinciden               con los archivos presentes en el dataset.
+        c. Ubicación: Varias carpetas, por ejemplo:
+            i. /sub-122/sub-122_scans.tsv
+            ii. /sub-110/sub-110_scans.tsv
+            iii. /sub-118/sub-118_scans.tsv
+            iv. Y otros sujetos (sub-106, sub-140, etc.).
+```
+
+Exported into the file ids-validator-output.json.
+
+Since this is no longer a problem related to an aspect of the computational environment, but rather to the files themselves that should be reproduced, resolving it is beyond my competence, and I conclude that this study could also not be reproduced.
+
+**Artícle 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
+
+01/29/25
+
+R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*. The different versions of the files *run_full_script.R* and *payoff rule.R* will be controlled at [https://github.com/Nestor-S-G/openscience]{.underline}
+
+Due to the failure in the attempt to reproduce the previous articles, I try my luck again on the Open Science Framework website. I type *behavioral finance* into its search engine and one of the first results that appears is the recent Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
+
+RStudio indicates that necessary packages for executing said code are missing, which I proceed to install, and after that, I adjust the setwd() function to adapt it to the folders on my computer. I execute the complete code and receive an error because the windows() function is not available in RStudio for Linux:
+
+``` r
+Error in windows(width = 8, height = 8) : no se pudo encontrar la función "windows"
+```
+
+I rewrite the present code, as well as the code in the *payoff rule.R* file, to substitute said function with ggplot(). I execute again, and after this, the *script* runs to the end without any additional problems, and I obtain tables and graphs to compare with those of the published article.
+
+01/30/25
+
+All graphs correspond faithfully to those published with the exception of *Figure 10 A*, where a clear difference is seen, especially in the *Optimal* condition. *Figures 6C,* *6D, 8C, and 9B* of the article are not generated when executing said code. I also obtain identical results for *Table 1*, as well as results with slight variations (even considering rounding) for *Table 3* and its extension as *Table 8* in Appendix F, and similar results with small variations due to rounding in *Table 4*.
+
+![](images/clipboard-2031833015.png)
+
+![](images/clipboard-3495160845.png)
+
+*Comparison of Figure 10 A in the original article (above) and the one obtained for this study (below).*
+
+02/06/25
+
+I try rewriting the original code, substituting the problematic windows() function with dev.new() instead of ggplot(). When running the code, I obtain identical results to the previous occasion: the same discrepancies in *Figure 10 A* and *Table 3*, and I also do not obtain the graphs that I failed to obtain using ggplot().
