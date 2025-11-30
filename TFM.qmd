@@ -51,7 +51,7 @@ Se persiguen dos objetivos: el primero, secundario, es evaluar la reproducibilid
 
 En primer lugar, se seleccionarán una serie de artículos cuya RC se pondrá a prueba siguiendo las instrucciones de los autores. Estos serán los estudios de caso aludidos en el epígrafe *Objetivos*. Se ejecutará el código sobre los datos y se reflejarán los resultados que se vayan encontrando (fallos en el código, problema con los archivos a leer, etc.) en un diario de campo. Cada uno de estos pasos se detalla en un epígrafe a continuación.
 
-Esto se llevará a cabo en una computadora con sistema operativo Linux Mint 22 *Wilma* (para los tres primeros artículos) y 22.1 *Xia* (para el último)*.* Los errores que surjan a lo largo del proceso que no sepa interpretar y/o resolver se consultarán a ChatGPT-4o para tratar de solucionarlos. En caso de que dicha versión dejase de estar disponible temporalmente por exceso de consultas en un corto período de tiempo, se suspenderá el proceso hasta que lo vuelva a estar.
+Esto se llevará a cabo en una computadora con sistema operativo Linux Mint 22 *Wilma* (para los tres primeros artículos) y 22.1 *Xia* (para el último)*.* Los errores que surjan a lo largo del proceso que no sepa interpretar y/o resolver se consultarán a ChatGPT-4o para tratar de solucionarlos. En caso de que dicha versión dejase de estar disponible temporalmente por exceso de consultas en un corto período de tiempo, se suspenderá el proceso hasta que lo vuelva a estar. \newpage
 
 **Selección de artículos a reproducir**
 
@@ -203,7 +203,8 @@ Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alema
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
-Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. 
+[[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
 
 Fundssociety.com. (2024, octubre 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Recuperado de [[https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/]{.underline}](https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/)
 
@@ -287,10 +288,9 @@ R versión 4.3.3 “Angel Food Cake” y RStudio 2024.09.1+394.
 
 Tras descargar el material de Dropbox, abro RStudio y, siguiendo las instrucciones, ajusto en el archivo Outlier.R los directorios de la función *setwd* en las líneas 3, 37, 75, 108 y 144 para que se correspondan con las carpetas en mi computadora, procedo a ejecutar el código completo y ésto da lugar al siguiente error:
 
-```r         
-> ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
-Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = tapply(ATDs1s2$value,  : 
-  arguments imply differing number of rows: 0, 2
+``` r
+Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = 
+tapply(ATDs1s2$value,: arguments imply differing number of rows: 0, 2
 ```
 
 Que se corrige añadiendo en la línea 651:
@@ -303,7 +303,8 @@ Tras esto vuelvo a ejecutar el código completo y aparece un nuevo fallo debido 
 
 ``` r
 >setwd("/Users/danielagrinblatt/Desktop/Elise/Data")
-Error in setwd("/Users/danielagrinblatt/Desktop/Elise/Data"): no es posible cambiar el directorio de trabajo
+Error in setwd("/Users/danielagrinblatt/Desktop/Elise/Data"): no es posible 
+cambiar el directorio de trabajo
 ```
 
 Esto despierta mis sospechas, pues sólo hay 5 carpetas con datos para descargar en el Dropbox habilitado a tal fin. Tras comprobar que no dispongo del citado archivo .csv, contacto con la autora principal del estudio, Elise Payzan-LeNestour, a ver si me lo puede facilitar para continuar con el proceso.
@@ -322,38 +323,42 @@ Tras dos semanas sin noticias de la autora principal del artículo, contacto por
 
 Tras leer los archivos README.md y python_requirements.txt, instalo Conda 24.11.1 para tratar de reproducir el estudio dentro del entorno que éste software proporciona. Creo un entorno llamado *craving* con Python 3.10 (no especificado por los autores, pero una opción plausible por el momento en que se hizo el estudio, dado que era una versión estable y compatible con las librerías clave) y pandas 1.5.3 y numpy 1.24.4, dado que éstos dos son los únicos requisitos incluidos en el archivo python_requirements.txt. Una vez verificada la instalación de dichas versiones empleo Jupyter Lab 4.3.3 para abrir el archivo 01_combine_participant_data.ipynb, modifico *data_path* como indica la propia autora para ajustarlo a la carpeta de mi computadora en la que se encuentran los datos y procedo a ejecutar el código, lo que me lleva al siguiente error:
 
-```python         
-ImportError: Missing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
+``` python
+ImportError: Missing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for 
+Excel support Use pip or conda to install xlrd.
 ```
 
-Por tanto, no se puede reproducir sólo con las dos condiciones señaladas en el archivo python_requirements.txt. Procedo a instalar xlrd y modificar la línea:
+Por tanto, no se puede reproducir sólo con las dos condiciones señaladas en el archivo python_requirements.txt. Procedo a instalar xlrd y modificar la línea 17:
 
-```python         
----> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None)
+``` python
+temp = pd.read_excel(x, sheet_name = 'results', header = None)
 ```
 
 Por:
 
-```python         
----> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
+``` python
+temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
 ```
 
 Para indicar a pandas qué motor emplear en la lectura de los archivos .xls, lo que lleva al siguiente error:
 
-```python         
-XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+``` python
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found 
+b'\x00\x00\x00\x01Bud1'
 ```
 
 Que podría deberse a un problema en las hojas de cálculo que contienen los datos. Abro los archivos .xls con LibreOffice Calc versión: 24.2.7.2 (X86_64) para comprobar que se pueden leer correctamente. Verificado esto, procedo a instalar la versión 1.2.0 de xlrd. Dado que el formato .xls se está quedando obsoleto, el problema se podría deber a que la versión xlrd actual no se adecúa a dicho formato, sino al más reciente .xlsx. Esto lleva a un error de incompatibilidad con pandas:
 
 ``` python
-ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0' currently installed).
+ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version 
+'1.2.0' currently installed).
 ```
 
 Trato de degradar la versión de Pandas a la 1.1.5, compatible con la 1.2.0 de xlrd, pero ésta resulta ser incompatible con la versión 3.10 de Python. Opto entonces por crear un nuevo entorno *Craving2*, con Python 3.9, Pandas 1.1.5 y xlrd 1.2.0. Al ejecutar, vuelvo a obtener el error:
 
-```python         
-XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+``` python
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found 
+b'\x00\x00\x00\x01Bud1'
 ```
 
 Lo que parece llevar a un bucle que no permite obtener resultado alguno.
@@ -368,8 +373,10 @@ Parto de cero por si hubiera cometido algún error, tal como la omisión de un p
 
 Tras leer el archivo README.md, instalo FSL, Singularity y PyDeface, de los cuáles no se específica versión. Procedo a crear los contenedores que indica el citado archivo README.md: heudiconv (version: 0.5.4), mriqc (version: 0.15.1), and fmriprep (version: 20.1.0). Aquí llega el primer problema, pues obtengo error al instalar el mriqc:
 
-```bash         
-FATAL: While performing build: conveyor failed to get: GET https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
+``` bash
+FATAL: While performing build: conveyor failed to get: GET 
+https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1:
+MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
 ```
 
 Error debido a que tal versión no está disponible. Procedo en consecuencia a instalar la 22.0.6, por ser una de las más antiguas que aún tiene mantenimiento estable. Sin embargo, el número de versión ya indica que ha habido varias intermedias, lo que podría suponer un problema para el resto del proceso.
@@ -378,7 +385,7 @@ Error debido a que tal versión no está disponible. Procedo en consecuencia a i
 
 Creados los contenedores, abro la terminal de Linux y sigo las instrucciones para descargar los datos con el comando:
 
-```bash    
+``` bash
 datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
 ```
 
@@ -390,13 +397,13 @@ Verificada su existencia, descargo las carpetas manualmente para continuar con e
 
 Siguiendo las instrucciones del archivo README.md, abro la terminal de Linux desde la carpeta srndna-trustgame-main y ejecuto el siguiente comando:
 
-```bash         
+``` bash
 bash code/run_fmriprep.sh
 ```
 
 Lo cual da un error en bucle. Aunque no lo especifican en el protocolo a seguir, dado que el error incluye la frase ‘Permiso denegado’, pruebo a ejecutarlo con permisos de administrador, y recibo de nuevo un error en bucle. Consulto a ChatGPT-4o, y tras probar las soluciones triviales (eliminar los espacios en la ruta al archivo, comprobar que el archivo realmente existe y está en la carpeta o verificar que éste es ejecutable), corro el *script* en modo depuración:
 
-```bash         
+``` bash
 bash -x code/run_fmriprep.sh
 ```
 
@@ -409,26 +416,26 @@ nano code/fmriprep.sh
 Y modifico:
 
 ``` bash
-*scratchdir=/data/scratch/\`whoami\`*
+scratchdir=/data/scratch/\`whoami\`
 
-*if \[ ! -d \$scratchdir \]; then*
+if \[ ! -d \$scratchdir \]; then
 
-    *mkdir -p \$scratchdir*
+    mkdir -p \$scratchdir
 
-*fi*
+fi
 ```
 
 Por:
 
 ``` bash
 
-*scratchdir=/home/\`whoami\`/scratch*
+scratchdir=/home/\`whoami\`/scratch
 
-*if \[ ! -d \$scratchdir \]; then*
+if \[ ! -d \$scratchdir \]; then
 
-    *mkdir -p \$scratchdir*
+    mkdir -p \$scratchdir
 
-*fi*
+fi
 ```
 
 Acto seguido, creo la carpeta con el comando:
@@ -498,7 +505,8 @@ Debido al fracaso en el intento de reproducir los anteriores artículos, vuelvo 
 RStudio indica que faltan paquetes necesarios para ejecutar dicho código, que procedo a instalar y tras ello ajusto en la función setwd() para adaptarla a las carpetas de mi computadora. Ejecuto el código completo y recibo un error debido a que la función windows() no está disponible en RStudio para Linux:
 
 ``` r
-Error in windows(width = 8, height = 8) : no se pudo encontrar la función "windows"
+Error in windows(width = 8, height = 8): no se pudo encontrar la función 
+"windows"
 ```
 
 Reescribo el presente código, así como el del archivo *payoff rule.R*, para sustituir dicha función por ggplot(). Ejecuto de nuevo y tras esto el *script* llega hasta el final sin ningún problema adicional y obtengo tablas y gráficos para comparar con los del artículo publicado.
