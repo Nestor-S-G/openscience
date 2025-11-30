@@ -61,7 +61,7 @@ b\) That the data and code used are publicly available, this being reflected in 
 
 c\) Being published in 2005 or a later date, as this was when the credibility of many scientific publications began to be questioned (Ioannidis, 2005).
 
-Due to the fact that a little-researched topic is being addressed, it is not considered appropriate to add more criteria that restrict degrees of freedom and exclude articles with the potential to be tested in this study.
+Due to the fact that a little-researched topic is being addressed, it is not considered appropriate to add more criteria that restrict degrees of freedom and exclude articles with the potential to be tested in this study. \newpage
 
 **Reproduction**
 
@@ -243,6 +243,8 @@ Perry, K. (2022, January 10). Understanding Relative File Paths. *Coding Rooms.*
 
 Piketty, T. (2014). *El capital en el siglo XXI*. Fondo de Cultura Económica de España.
 
+Reuters. (2024, diciembre 6). Norway wealth fund hits record 20 trillion crowns. *Reuters.* [[https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/]{.underline}](https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/)
+
 Sampieri, R. H., Collado, C. F. y Lucio, P. B. (2010). *Metodología de la investigación* (5ª Edición). McGraw Hill.
 
 Sandve, G. K., Nekrutenko, A., Taylor, J. & Eivind, H. (2013). Ten Simple Rules for Reproducible Computational Research. *PLOS Biology, 9*(10), e1003285. [[https://doi.org/10.1371/journal.pcbi.1003285]{.underline}](https://doi.org/10.1371/journal.pcbi.1003285)
@@ -250,10 +252,6 @@ Sandve, G. K., Nekrutenko, A., Taylor, J. & Eivind, H. (2013). Ten Simple Rules 
 Siegel, J. J. (2014). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (5th Edition). McGrawHill.
 
 Siegel, J. J. & Schwartz, J. (2022). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (6th Edition). McGrawHill.
-
-Reuters. (2024, diciembre 6). Norway wealth fund hits record 20 trillion crowns. *Reuters.*
-
-[[https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/]{.underline}](https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/)
 
 Taylor, K. (2024). Duke's 3-year fraud investigation into Dan Ariely has ended, and the star professor still has a job. Does he want it?. *Business Insider.* [[https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2]{.underline}](https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2)
 
@@ -286,10 +284,8 @@ R version 4.3.3 “Angel Food Cake” and RStudio 2024.09.1+394.
 After downloading the material from Dropbox, I open RStudio and, following the instructions, adjust the directories of the function *setwd* in the file Outlier.R on lines 3, 37, 75, 108, and 144 to correspond to the folders on my computer. I proceed to execute the complete code and this results in the following error:
 
 ``` r
-> ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),
-mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
-Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = tapply(ATDs1s2$value,  : 
-  arguments imply differing number of rows: 0, 2
+Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = 
+tapply(ATDs1s2$value, : arguments imply differing number of rows: 0, 2
 ```
 
 Which is corrected by adding to line 651:
@@ -327,16 +323,16 @@ ImportError: Missing optional dependency 'xlrd'.
 Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
 ```
 
-Therefore, it cannot be reproduced with only the two conditions indicated in the python_requirements.txt file. I proceed to install xlrd and modify the line:
+Therefore, it cannot be reproduced with only the two conditions indicated in the python_requirements.txt file. I proceed to install xlrd and modify the line 17:
 
 ``` python
----> 17     temp = pd.read_excel(x, sheet_name = 'results', header = None)
+temp = pd.read_excel(x, sheet_name = 'results', header = None)
 ```
 
 With:
 
 ``` python
----> 17 temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
+temp = pd.read_excel(x, sheet_name = 'results', header = None, engine = ‘xlrd’)
 ```
 
 To indicate to pandas which engine to use in reading the .xls files, which leads to the following error:
@@ -349,13 +345,15 @@ Expected BOF record; found b'\x00\x00\x00\x01Bud1'
 Which could be due to a problem in the spreadsheets containing the data. I open the .xls files with LibreOffice Calc version: 24.2.7.2 (X86_64) to verify that they can be read correctly. Once this is verified, I proceed to install version 1.2.0 of xlrd. Given that the .xls format is becoming obsolete, the problem could be due to the current xlrd version not being suitable for that format, but rather for the more recent .xlsx. This leads to an incompatibility error with pandas:
 
 ``` python
-ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version '1.2.0' currently installed).
+ImportError: Pandas requires version '2.0.1' or newer of 'xlrd' (version 
+'1.2.0' currently installed).
 ```
 
 I then downgrade the Pandas version to 1.1.5, compatible with xlrd 1.2.0, but this turns out to be incompatible with Python version 3.10. I then choose to create a new environment, *Craving2*, with Python 3.9, Pandas 1.1.5, and xlrd 1.2.0. Upon execution, I get again the error:
 
 ``` python
-XLRDError: Unsupported format, or corrupt file: Expected BOF record; found b'\x00\x00\x00\x01Bud1'
+XLRDError: Unsupported format, or corrupt file: Expected BOF record; found 
+b'\x00\x00\x00\x01Bud1'
 ```
 
 What seems to lead to a loop with no result whatsoever.
@@ -371,7 +369,9 @@ I start from scratch in case I had made any mistakes, such as the omission of a 
 After reading the README.md file, I install FSL, Singularity, and PyDeface, for which no version is specified. I proceed to create the containers indicated in the aforementioned README.md file: heudiconv (version: 0.5.4), mriqc (version: 0.15.1), and fmriprep (version: 20.1.0). Here the first problem arises, as I get an error when installing mriqc:
 
 ``` bash
-FATAL: While performing build: conveyor failed to get: GET https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
+FATAL: While performing build: conveyor failed to get: GET 
+https://index.docker.io/v2/nipreps/mriqc/manifests/0.15.1: 
+MANIFEST_UNKNOWN: manifest unknown; unknown tag=0.15.1
 ```
 
 Error because such version is not available. I consequently proceed to install 22.0.6, as it is one of the oldest versions that still has stable maintenance. However, the version number already indicates that several intermediate versions have existed, which could pose a problem for the rest of the process.
@@ -384,7 +384,7 @@ Once the containers are created, I open the Linux terminal and follow the instru
 datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
 ```
 
-Which produces a new error. I check that the repository still exists by accessing [https://github.com/OpenNeuroDatasets/ds003745]{.underline}
+Which produces a new error. I check that the repository still exists by accessing [[https://github.com/OpenNeuroDatasets/ds003745]{.underline}](https://github.com/OpenNeuroDatasets/ds003745)
 
 Having verified its existence, I download the folders manually to continue with the process, understanding that this is a minor issue and that there will be no difference when reading the files whether they reached the hard drive via a manual download or by using a terminal command.
 
@@ -411,26 +411,26 @@ nano code/fmriprep.sh
 And I modify:
 
 ``` bash
-*scratchdir=/data/scratch/\`whoami\`*
+scratchdir=/data/scratch/\`whoami\`
 
-*if \[ ! -d \$scratchdir \]; then*
+if \[ ! -d \$scratchdir \]; then
 
-    *mkdir -p \$scratchdir*
+    *mkdir -p \$scratchdir
 
-*fi*
+fi
 ```
 
 With:
 
 ``` bash
 
-*scratchdir=/home/\`whoami\`/scratch*
+scratchdir=/home/\`whoami\`/scratch
 
-*if \[ ! -d \$scratchdir \]; then*
+if \[ ! -d \$scratchdir \]; then
 
-    *mkdir -p \$scratchdir*
+    mkdir -p \$scratchdir
 
-*fi*
+fi
 ```
 
 Then, I make the folder:
@@ -493,14 +493,15 @@ Since this is no longer a problem related to an aspect of the computational envi
 
 01/29/25
 
-R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*. The different versions of the files *run_full_script.R* and *payoff rule.R* will be controlled at [https://github.com/Nestor-S-G/openscience]{.underline}
+R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*. The different versions of the files *run_full_script.R* and *payoff rule.R* will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience)
 
 Due to the failure in the attempt to reproduce the previous articles, I try my luck again on the Open Science Framework website. I type *behavioral finance* into its search engine and one of the first results that appears is the recent Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
 
 RStudio indicates that necessary packages for executing said code are missing, which I proceed to install, and after that, I adjust the setwd() function to adapt it to the folders on my computer. I execute the complete code and receive an error because the windows() function is not available in RStudio for Linux:
 
 ``` r
-Error in windows(width = 8, height = 8) : no se pudo encontrar la función "windows"
+Error in windows(width = 8, height = 8) : no se pudo encontrar la función 
+"windows"
 ```
 
 I rewrite the present code, as well as the code in the *payoff rule.R* file, to substitute said function with ggplot(). I execute again, and after this, the *script* runs to the end without any additional problems, and I obtain tables and graphs to compare with those of the published article.
