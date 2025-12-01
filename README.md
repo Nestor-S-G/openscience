@@ -12,7 +12,7 @@ economics and behavioral finance.
 
 The main files and directories available here include:
 
-* **`Masters_Thesis.pdf` / `TFM.pdf`**: The final written thesis document.
+* **`Masters_Thesis.pdf` / `TFM.pdf`**: The final written thesis document in English and Spanish, respectively.
 * **`.qmd` files**: Quarto markdown source files used to generate the thesis.
 * **`*.R` scripts**: R scripts for data processing and statistical analysis (e.g., `run_full_script.R`, `Outlier.R`).
 * **`peqMain.m`**: A MATLAB script likely used for specific modeling or analysis.
