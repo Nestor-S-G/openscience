@@ -467,7 +467,7 @@ And it leads me to a new loop error, in this case due to missing license-related
 
 The last loop error is also related to the licenses needed to run the software. I create an empty file called *license.txt* to bypass this issue and execute bash code/run_fmriprep.sh again, which yields a new error related to the BIDS standard structure that the folders should follow.
 
-I check the structure of the *bids* folder at [https://bids-standard.github.io/bids-validator/]{.underline} and this yields several errors, including:
+I check the structure of the *bids* folder at [[https://bids-standard.github.io/bids-validator/]{.underline}](https://bids-standard.github.io/bids-validator/) and this yields several errors, including:
 
 ```         
 1. PARTICIPANT_ID_MISMATCH:
@@ -519,3 +519,9 @@ All graphs correspond faithfully to those published with the exception of *Figur
 02/06/25
 
 I try rewriting the original code, substituting the problematic windows() function with dev.new() instead of ggplot(). When running the code, I obtain identical results to the previous occasion: the same discrepancies in *Figure 10 A* and *Table 3*, and I also do not obtain the graphs that I failed to obtain using ggplot().
+
+10/01/25
+
+I resume the search for articles to test its CR. I access the [Journal of Economic Behavior & Organization](https://www.sciencedirect.com/journal/journal-of-economic-behavior-and-organization) and type *behavioral finance* in the search box. Then, I limit the scope to the years 2020-2025 and *Open access & Open archive*. I look for articles including the queries in the keywords, title or a clear reference in the title, such as a reference to 'psychology and economics'. I proceed the same way with the terms *behavioral economics, neuroconomics,* and *decision making*. When the search gives over 50 articles, I look only for the 50 first.
+
+I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/journal/journal-of-economic-psychology), and [Frontiers in Behavioral Economics](https://www.frontiersin.org/journals/behavioral-economics), with the type *Original Research* and date 01/01/2020-01/12/2025 for the latter. The process yields 46 articles to work with.
