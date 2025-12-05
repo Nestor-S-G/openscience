@@ -77,17 +77,9 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following:
+The selected studies were the following: De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
 
-*-Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022).
-
-*-Craving money? Evidence from the laboratory and the field*, by Payzan-LeNestour and Doran (2024).
-
-*-Age-related differences in ventral striatal and default mode network function during reciprocated trust*, by Fareri et al. (2022).
-
-*-Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
-
-Of these four studies, only the last one could be reproduced, partially and with modifications.
+Of these studies, only Payzan-LeNestour et al. (2024) could be reproduced, partially and with modifications.
 
 **Field Journal Analysis**
 
@@ -105,9 +97,9 @@ Errors:
 
 Results:
 
--   Non-reproducibility: 3/4.
+-   Non-reproducibility: 13/14.
 
--   Partial reproducibility with modifications: 1/4
+-   Partial reproducibility with modifications: 1/14.
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
@@ -199,9 +191,13 @@ Culina, A., van den Berg, I., Evans. S., & Sánchez-Tójar, A. (2020). Low avail
 
 Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alemania invierte en acciones, Suiza vota una paga extra. *Cinco Días*. Recuperado de [[https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html]{.underline}](https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html)
 
+De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups differently. *Journal of Economic Behavior & Organization*, *231*, 106876. <https://doi.org/10.1016/j.jebo.2024.106876>
+
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
 Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+
+Fred Van Raaij, W., Antonides, G., & Manon De Groot, I. (2020). The benefits of joint and separate financial management of couples. *Journal of Economic Psychology, 80*, 102313. <https://doi.org/10.1016/j.joep.2020.102313>
 
 Fundssociety.com. (2024, octubre 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Recuperado de [[https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/]{.underline}](https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/)
 
@@ -211,6 +207,8 @@ Hardwicke, T. E., Bohn, M., MacDonald, K., Hembacher, E., Nuijten, M. B., Peloqu
 
 Hasselbring, W., Carr, L., Hettrick, S., Packer, H., & Tiropanis, T. (2019). *FAIR and Open Computer Science Research Software*. arXiv. [[https://arxiv.org/abs/1908.05986]{.underline}](https://arxiv.org/abs/1908.05986)
 
+Hausfeld, J., Fischbacher, U., & Knoch, D. (2020). The value of decision-making power in social decisions. *Journal of Economic Behavior & Organization, 177*, 898–912. <https://doi.org/10.1016/j.jebo.2020.06.018>
+
 Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. *PLoS Medicine, 2*(8), e124. [[https://doi.org/10.1371%2Fjournal.pmed.0020124]{.underline}](https://doi.org/10.1371%2Fjournal.pmed.0020124)
 
 Job, V., Dweck, C. S., & Walton, G. M. (2010). Ego depletion - Is it all in your head? Implicit theories about willpower affect self-regulation. *Psychological Science, 21*(11), 1686–1693. [[https://doi.org/10.1177/0956797610384745]{.underline}](https://doi.org/10.1177/0956797610384745)
@@ -218,6 +216,8 @@ Job, V., Dweck, C. S., & Walton, G. M. (2010). Ego depletion - Is it all in your
 Kahneman, D. (2012). *Pensar rápido, pensar despacio.* Debate.
 
 Kitzes, J., Turek, D., & Deniz, F. (2017). The practice of reproducible research: Case studies and lessons from the data-intensive sciences. *Oakland: University of California Press*.
+
+Löfgren, Å., & Nordblom, K. (2020). A theoretical framework of decision making explaining the mechanisms of nudging. *Journal of Economic Behavior & Organization, 174*, 1–12. <https://doi.org/10.1016/j.jebo.2020.03.021>
 
 Magness, P. & Murphy, R. P. (2015). Challenging the Empirical Contribution of Thomas Piketty's Capital in the 21st Century. *Journal of Private Enterprise, 15*(2).
 
@@ -227,13 +227,19 @@ McQuarrie, E. F. (2021). Where Siegel Went Awry: Outdated Sources & Incomplete D
 
 McQuarrie, E. F. (2023). Stocks for the Long Run? Sometimes Yes, Sometimes No. *Financial Analysts Journal, 80*(1).
 
-Miyakawa, T. (2020). No raw data, no science: another possible source of the reproducibility crisis. *Molecular Brain, 13*(1), 1-6. [https://doi.org/10.1186/s13041-020-0552-2]{.underline}
+Merguei, N., Strobel, M., & Vostroknutov, A. (2022). Moral opportunism as a consequence of decision making under uncertainty. *Journal of Economic Behavior & Organization, 197*, 624–642. <https://doi.org/10.1016/j.jebo.2022.03.020>
+
+Miyakawa, T. (2020). No raw data, no science: another possible source of the reproducibility crisis. *Molecular Brain, 13*(1), 1-6. [[https://doi.org/10.1186/s13041-020-0552-2]{.underline}](https://doi.org/10.1186/s13041-020-0552-2)
 
 Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Percie du Sert, N., Simonsohn, U., Wagenmakers, E.-J., Ware, J. J., & Ioannidis, J. P. A. (2017). A manifesto for reproducible science. *Nature Human Behaviour, 1*(1), 1-9. [[https://doi.org/10.1038/s41562-016-0021]{.underline}](https://doi.org/10.1038/s41562-016-0021)
 
+Negrini, M., Riedl, A., & Wibral, M. (2022). Sunk cost in investment decisions. *Journal of Economic Behavior & Organization, 200*, 1105–1135. <https://doi.org/10.1016/j.jebo.2022.06.028>
+
 Oza, A. (2023). Reproducibility trial: 246 biologists get different results. *Nature*. [[https://www.nature.com/articles/d41586-023-03177-1]{.underline}](https://www.nature.com/articles/d41586-023-03177-1)
 
-Payzan-LeNestour, E. & Doran, J. (2024). Craving money? Evidence from the laboratory and the field. *Sciences Advances, 10*(2), eadi5034. [http://doi.org/10.1126/sciadv.adi5034]{.underline}
+Pauls, T., & Laudi, M. (2025). Temporal framing of tax stimuli and household consumption. *Journal of Economic Behavior & Organization, 235*, 107079. <https://doi.org/10.1016/j.jebo.2025.107079>
+
+Payzan-LeNestour, E. & Doran, J. (2024). Craving money? Evidence from the laboratory and the field. *Sciences Advances, 10*(2), eadi5034. [[http://doi.org/10.1126/sciadv.adi5034]{.underline}](http://doi.org/10.1126/sciadv.adi5034)
 
 Payzan-LeNestour, E. & Woodford, M. (2022). Outlier blindness: A neurobiological foundation for neglect of financial risk. *Journal of Financial Economics, 143*(3), 1316-1343. [[https://doi.org/10.1016/j.jfineco.2021.06.019]{.underline}](https://doi.org/10.1016/j.jfineco.2021.06.019)
 
@@ -253,11 +259,17 @@ Siegel, J. J. (2014). *Stocks for the Long Run: The Definitive Guide To Financia
 
 Siegel, J. J. & Schwartz, J. (2022). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (6th Edition). McGrawHill.
 
+Steinel, W., Valtcheva, K., Gross, J., Celse, J., Max, S., & Shalvi, S. (2022). (Dis)honesty in the face of uncertain gains or losses. *Journal of Economic Psychology, 90*, 102487. <https://doi.org/10.1016/j.joep.2022.102487>
+
+Tang, N. (2021). Cognitive abilities, self-efficacy, and financial behavior. *Journal of Economic Psychology, 87*, 102447. <https://doi.org/10.1016/j.joep.2021.102447>
+
 Taylor, K. (2024). Duke's 3-year fraud investigation into Dan Ariely has ended, and the star professor still has a job. Does he want it?. *Business Insider.* [[https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2]{.underline}](https://www.businessinsider.com/dan-ariely-duke-fraud-investigation-2024-2)
 
 Vallet, N., Michonneau, D., & Tournier, S. (2022). Toward practical transparent verifiable and long-term reproducible research using Guix. *Scientific Data, 9*(1), 597. [[https://doi.org/10.1038/s41597-022-01720-9]{.underline}](https://doi.org/10.1038/s41597-022-01720-9)
 
 Vines, T. H., Albert, A. Y. K., Andrew, R. L., Débarre, F., Bock, D. G., Franklin, M. T., Gilbert, K. J., Moore, J. S., Renaut, S. & Rennison, D. J. (2014). The Availability of Research Data Declines Rapidly with Article Age. *Current Biology, 24*(1), 94-97. [[https://doi.org/10.1016/j.cub.2013.11.014]{.underline}](https://doi.org/10.1016/j.cub.2013.11.014)
+
+Wang, Y., Driouchi, T., & Nguyen, D. D. (Louis). (2025). Parental death in childhood and stock market participation: Cross-cultural insights. *Journal of Economic Behavior & Organization, 236*, 107078. <https://doi.org/10.1016/j.jebo.2025.107078>
 
 Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A., ... & Mons, B. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data, 3*(1), 160018. [[https://doi.org/10.1038/sdata.2016.18]{.underline}](https://doi.org/10.1038/sdata.2016.18)
 
@@ -526,4 +538,8 @@ I resume the search for articles to test its CR. I access the [Journal of Econom
 
 I look for articles including the queries (or derivative forms, such as *moral decision-making* or *group decision-making* instead of just *decision-making*) in the keywords or title. Also, if none of the queries is present in either the title or the keywords but there is a clear reference such as talking about 'psychology and economics' or 'investment behavior' that suggest overlapping of behavioral sciences or neuroscience with economics, the article is included.
 
-I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/journal/journal-of-economic-psychology) ([*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [behavioral economics](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess), [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)), and [Frontiers in Behavioral Economics](https://www.frontiersin.org/journals/behavioral-economics) ([*behavioral finance*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20finance&publication-date=01%2F01%2F2020-01%2F12%2F2025)*, [behavioral economics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20economics&publication-date=01%2F01%2F2020-01%2F12%2F2025), [neuroeconomics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=neuroeconomics&publication-date=01%2F01%2F2020-01%2F12%2F2025)* and [*decision making*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=decision%20making&publication-date=01%2F01%2F2020-01%2F12%2F2025)), with the type *Original Research* and date 01/01/2020-01/12/2025 for the latter. The process yields 46 articles to work with.
+I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/journal/journal-of-economic-psychology) ([*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [behavioral economics](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess), [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)), and [Frontiers in Behavioral Economics](https://www.frontiersin.org/journals/behavioral-economics) ([*behavioral finance*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20finance&publication-date=01%2F01%2F2020-01%2F12%2F2025)*, [behavioral economics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20economics&publication-date=01%2F01%2F2020-01%2F12%2F2025), [neuroeconomics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=neuroeconomics&publication-date=01%2F01%2F2020-01%2F12%2F2025)* and [*decision making*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=decision%20making&publication-date=01%2F01%2F2020-01%2F12%2F2025)), with the type *Original Research* and date 01/01/2020-01/12/2025 for the latter. The process yields 45 articles to work with.
+
+10/05/25
+
+The first classification gives 10 papers no reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offers data upon request and 15 with the data publicly available.
