@@ -7,7 +7,7 @@ editor: visual
 
 **Resumen/Abstract**
 
-Existe una crisis de reproducibilidad que afecta a múltiples áreas de la ciencia. Entre otros problemas, se han encontrado dificultades paracllegar a los mismos resultados partiendo de los datos y el códigocdel estudio original; es lo que se conoce como “Reproducibilidad computacional”. Dada su relevancia social, este estudio ha indagadoccen el caso particular de la reproducibilidad computacionalcen neuroeconomía y finanzas conductuales. El resultado obtenido escque no se pudieron reproducir la mayoría de los estudios puestos a prueba. En base a la experiencia adquirida, se propone uncprotocolo a seguir para tratar de reproducir con éxito estudios publicados.
+Existe una crisis de reproducibilidad que afecta a múltiples áreas de la ciencia. Entre otros problemas, se han encontrado dificultades para llegar a los mismos resultados partiendo de los datos y el código del estudio original; es lo que se conoce como “Reproducibilidad computacional”. Dada su relevancia social, este estudio ha indagadoc en el caso particular de la reproducibilidad computacional en neuroeconomía y finanzas conductuales. El resultado obtenido es que no se pudieron reproducir la mayoría de los estudios puestos a prueba. En base a la experiencia adquirida, se propone un protocolo a seguir para tratar de reproducir con éxito estudios publicados.
 
 *Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields.* There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that most of the studies could not be reproduced. Based on the experience acquired, a protocol is proposed to try to reproduce successfully published papers.
 
@@ -203,8 +203,7 @@ Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alema
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
-Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. 
-[[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
 
 Fundssociety.com. (2024, octubre 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Recuperado de [[https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/]{.underline}](https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/)
 
