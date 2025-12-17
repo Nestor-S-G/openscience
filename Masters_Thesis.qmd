@@ -49,7 +49,7 @@ Two objectives are pursued: the first, secondary, is to evaluate the reproducibi
 
 First, a series of articles will be selected whose CR will be tested following the authors' instructions. These will be the case studies referred to in the *Objectives* section. The code will be executed on the data, and the results encountered (code failures, problems with files to be read, etc.) will be recorded in a field journal. Each of these steps is detailed in a subsequent section.
 
-This will be carried out on a computer with the Linux Mint 22 *Wilma* operating system (for the first three articles) and 22.1 *Xia* (for the last one). Errors that arise throughout the process that I cannot interpret and/or resolve will be consulted with ChatGPT-4o to try to solve them. Should this version temporarily become unavailable due to an excess of queries in a short period of time, the process will be suspended until it becomes available again.
+This will be carried out on a computer with the Linux Mint 22 *Wilma* operating system (for the first three articles), 22.1 *Xia* (for the fourth one), and 22.2 *Zara* for the rest. Errors that arise throughout the process that I cannot interpret and/or resolve will be consulted with ChatGPT-4o for articles 1-4 and Perplexity Pro for the rest to try to solve them. Should default versions become temporarily unavailable due to an excess of queries in a short period of time, the process will be suspended until it becomes available again.
 
 **Selection of Articles for Reproduction**
 
@@ -57,9 +57,7 @@ Incidental sampling will be used with the following criteria:
 
 a\) Being an article whose subject matter falls within the previously mentioned areas, according to the author's expert criteria. Those that include the keywords: *behavioral finance, behavioral economics, decision making,* and *neuroeconomics* will be sought.
 
-b\) That the data and code used are publicly available, this being reflected in the article itself (through an "Availability statement" or mentioned and linked in the text).
-
-c\) Being published in 2005 or a later date, as this was when the credibility of many scientific publications began to be questioned (Ioannidis, 2005).
+b\) Being published in 2005 or a later date, as this was when the credibility of many scientific publications began to be questioned (Ioannidis, 2005).
 
 Due to the fact that a little-researched topic is being addressed, it is not considered appropriate to add more criteria that restrict degrees of freedom and exclude articles with the potential to be tested in this study. \newpage
 
@@ -77,29 +75,31 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following: De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
+The selected studies were the following: De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
 
-Of these studies, only Payzan-LeNestour et al. (2024) could be reproduced, partially and with modifications.
+Of these studies, only Payzan-LeNestour et al. (2024), Hermann et al. (2025), Huber and Huber (2020) could be reproduced, partially and with modifications.
 
 **Field Journal Analysis**
 
-The analysis of the field journal resulted in the following thematic categories: problems of "software incompatibility," "related to the files to be analyzed," and "code problems," which were grouped into the supercategory "Errors." The "Results" obtained are divided into "non-reproducibility" and "partial reproducibility with modifications."
+The analysis of the field journal resulted in the following thematic categories: "data not shared", problems of "software incompatibility", "related to the files to be analyzed", and "code problems", which were grouped into the supercategory "Errors". The "Results" obtained are divided into "non-reproducibility" and "partial reproducibility with modifications."
 
 Coding:
 
 Errors:
 
--   Software incompatibility: 4/14.
+-   Software incompatibility: 4/26.
 
--   Related to files to be analyzed: 5/14.
+-   Related to files to be analyzed: 5/26.
 
--   Code problems: 5/14.
+-   Code problems: 7/26.
+
+-   Data not shared: 10/26.
 
 Results:
 
--   Non-reproducibility: 13/14.
+-   Non-reproducibility: 13/16.
 
--   Partial reproducibility with modifications: 1/14.
+-   Partial reproducibility with modifications: 3/16.
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
@@ -179,9 +179,9 @@ Although the definition of *computational reproducibility* given includes the us
 
 **Limitations and Conclusion**
 
-Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the four articles share the main author. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
+Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the articles share the main author. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
 
-The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that three of the selected studies could not be reproduced and the fourth, only partially and with modifications.
+The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced, and the rest, only partially and with modifications.
 
 ### **Bibliographical References**
 
@@ -208,6 +208,10 @@ Hardwicke, T. E., Bohn, M., MacDonald, K., Hembacher, E., Nuijten, M. B., Peloqu
 Hasselbring, W., Carr, L., Hettrick, S., Packer, H., & Tiropanis, T. (2019). *FAIR and Open Computer Science Research Software*. arXiv. [[https://arxiv.org/abs/1908.05986]{.underline}](https://arxiv.org/abs/1908.05986)
 
 Hausfeld, J., Fischbacher, U., & Knoch, D. (2020). The value of decision-making power in social decisions. *Journal of Economic Behavior & Organization, 177*, 898–912. <https://doi.org/10.1016/j.jebo.2020.06.018>
+
+Hermann, D., Bruns, S., & Mußhoff, O. (2025). Card or dice? An improved experimental approach to measure dishonest. *Journal of Economic Psychology, 108*. <https://doi.org/10.17605/OSF.IO/ZHNX2>
+
+Huber, C., & Huber, J. (2020). Bad bankers no more? Truth-telling and (dis)honesty in the finance industry. *Journal of Economic Behavior and Organization, 180*. <https://doi.org/10.17605/OSF.IO/C9DBJ>
 
 Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. *PLoS Medicine, 2*(8), e124. [[https://doi.org/10.1371%2Fjournal.pmed.0020124]{.underline}](https://doi.org/10.1371%2Fjournal.pmed.0020124)
 
@@ -258,6 +262,8 @@ Sandve, G. K., Nekrutenko, A., Taylor, J. & Eivind, H. (2013). Ten Simple Rules 
 Siegel, J. J. (2014). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (5th Edition). McGrawHill.
 
 Siegel, J. J. & Schwartz, J. (2022). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (6th Edition). McGrawHill.
+
+Snijder, L. L., Stallen, M., & Gross, J. (2024). Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals. *Journal of Economic Psychology, 105*. <https://doi.org/10.17605/OSF.IO/3WRSU>
 
 Steinel, W., Valtcheva, K., Gross, J., Celse, J., Max, S., & Shalvi, S. (2022). (Dis)honesty in the face of uncertain gains or losses. *Journal of Economic Psychology, 90*, 102487. <https://doi.org/10.1016/j.joep.2022.102487>
 
@@ -374,7 +380,7 @@ What seems to lead to a loop with no result whatsoever.
 
 I start from scratch in case I had made any mistakes, such as the omission of a crucial step in the previous attempt. I delete the environment and create a new one, with the same requirements indicated in the python_requirements.txt file (pandas\>=1.5.3 and numpy\>=1.24.4) and arrive at the same results.
 
-**Artícle 3:** *Age-related differences in ventral striatal and default mode network function during reciprocated trust*, by Fareri et al. (2022).
+**Article 3:** *Age-related differences in ventral striatal and default mode network function during reciprocated trust*, by Fareri et al. (2022).
 
 12/19/24
 
@@ -501,7 +507,7 @@ Exported into the file ids-validator-output.json.
 
 Since this is no longer a problem related to an aspect of the computational environment, but rather to the files themselves that should be reproduced, resolving it is beyond my competence, and I conclude that this study could also not be reproduced.
 
-**Artícle 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
+**Article 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
 
 01/29/25
 
@@ -543,3 +549,35 @@ I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/
 10/05/25
 
 The first classification gives 10 papers no reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offers data upon request and 15 with the data publicly available.
+
+12/16/25
+
+**Article 5:** *Bad bankers no more? Truth-telling and (dis)honesty in the finance industry*, by Huber & Huber (2020).
+
+R version 4.5.2 “\[Not\] Part in a Rumble” and RStudio 2025.09.2 Build 418. Operating System: Linux Mint 22.2 *Zara*.
+
+No computational environment is shared. I resume the process of reproduction with the papers that offer data publicly available with Huber & Huber (2020). I visit [the link](https://osf.io/c9dbj/) offered in the paper and download the files. I run the notebook.Rmd and get some warnings, until I get an error on "Table B3 - Ordered logit regression on the proportion of honest reports for financial professionals and students.". The error only requires to load the MASS library to be solved.
+
+I get an error in Table B8:
+
+``` r
+Error in if (is.na(s)) {: the condition has length > 1
+```
+
+The rest of the code runs without errors. I proceed to compare the results I get with the results published. I found some mismatches, such as results of 'Table 2' (according to the code) been actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found un Table B2, where I am unable to make sense of my results compared to the published ones.
+
+**Article 6:** *Card or dice? An improved experimental approach to measure dishonesty*, by Hermann et al. (2025).
+
+I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using RStudio.
+
+When I analyze the data using the script *CardOrDice.R*, I found results that are coherent with the ones published in the paper and ome small differences probably due to rounding or using different software to analyze the data.
+
+![](images/Captura%20de%20pantalla%20-2025-12-17%2007-19-50.png)
+
+![](images/Captura%20de%20pantalla%20-2025-12-17%2007-20-24.png)
+
+*Compare the results I get in a per-unit basis (above) and the results published (below).*
+
+**Article 7:** *Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*, by Snijder et al. (2024).
+
+I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts, Again, no computational environment is shared.
