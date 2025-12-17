@@ -75,7 +75,7 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following: De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
+The selected studies were the following: Alem et al. (2023), De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
 
 Of these studies, only Payzan-LeNestour et al. (2024), Hermann et al. (2025), Huber and Huber (2020) could be reproduced, partially and with modifications.
 
@@ -97,9 +97,11 @@ Errors:
 
 Results:
 
--   Non-reproducibility: 13/16.
+-   Non-reproducibility: 13/17.
 
--   Partial reproducibility with modifications: 3/16.
+-   Partial reproducibility with modifications: 3/17.
+
+-   Reproducibility: 1/17.
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
@@ -175,7 +177,9 @@ It is also important to accompany the files with the corresponding legends, sinc
 
 **Generalization to Other Disciplines**
 
-Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Consequently, the results of the present study could be generalizable to other social, behavioral, and health sciences, but cannot be extrapolated to the field of natural sciences without further consideration.
+Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Point in case: Hermann et al. (2025), which was reproduced with code written by the authors, without knowledge of the software and versions used in the original analysis.
+
+Consequently, the results of the present study could be generalizable to other social, behavioral, and health sciences, but cannot be extrapolated to the field of natural sciences without further consideration.
 
 **Limitations and Conclusion**
 
@@ -185,7 +189,9 @@ The results obtained support that the reproducibility crisis referenced in the *
 
 ### **Bibliographical References**
 
-Chang, A.C. & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
+Alem, Y., Hassen, S. & Köhlin, G. (2023). Decision-making within the household: The role of division of labor and differences in preferences. *Journal of Economic Behavior and Organization, 207*, 511-528. <https://doi.org/10.1016/j.jebo.2023.01.022>
+
+Chang, A.C., & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
 
 Culina, A., van den Berg, I., Evans. S., & Sánchez-Tójar, A. (2020). Low availability of code in ecology: A call for urgent action. *PLOS Biology, 18*(7), e3000763. [[https://doi.org/10.1371/journal. Pbio.3000763]{.underline}](https://doi.org/10.1371/journal.%20pbio.3000763)
 
@@ -581,3 +587,9 @@ When I analyze the data using the script *CardOrDice.R*, I found results that ar
 **Article 7:** *Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*, by Snijder et al. (2024).
 
 I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts, Again, no computational environment is shared.
+
+I open the script *models.R* and move the csv files to the folder "data analysis" so they can be read. I do the same for *partner choice.R*, *plots.R* and *political orientation.R*. All run without errors and I find essentially the same results (plots, tables, Gini coefficients, and so forth).
+
+12/17/25
+
+**Article 8:** *Decision-making within the household: The role of division of labor and differences in preferences*, by Alem et al. (2023).
