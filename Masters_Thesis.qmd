@@ -593,3 +593,5 @@ I open the script *models.R* and move the csv files to the folder "data analysis
 12/17/25
 
 **Article 8:** *Decision-making within the household: The role of division of labor and differences in preferences*, by Alem et al. (2023).
+
+I tried to access the website where the data is shared several times, but I wasn't able due to -I assume- problems with the server. I'll try again tomorrow.
