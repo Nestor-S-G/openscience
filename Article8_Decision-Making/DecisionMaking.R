@@ -1,51 +1,56 @@
-library(ggplot2)
 library(readstata13)
 library(AER)
+library(marginaleffects)
+library(car)
 
-# 2. Cargar los datos
+# 2. DATA LOADING & PREPARATION
 df <- read.dta13("ahkjeboallvars.dta", nonint.factors = TRUE)
 
-# 3. Preparación de variables con los nombres EXACTOS del archivo
-# Usamos 'treat5group' que identifica los 5 grupos experimentales (T1-T5)
+# Individual Treatments (T5 as reference)
 df$treatment <- as.factor(df$treat5group)
+df$treatment <- relevel(df$treatment, ref = "5")
 
-# 4. Establecer el grupo de referencia (Grupo 5: Couple)
-# En este archivo, los niveles son numéricos ("1", "2", "3", "4", "5")
-if ("5" %in% levels(df$treatment)) {
-  df$treatment <- relevel(df$treatment, ref = "5")
-}
+# Pooled Treatments (Wife T1+T3 vs Husband T2+T4)
+df$wife_pooled <- ifelse(df$treat5group %in% c(1, 3), 1, 0)
+df$husband_pooled <- ifelse(df$treat5group %in% c(2, 4), 1, 0)
 
-# 5. Estimación del Modelo Tobit (Réplica Tabla 3)
-# Ajustamos los nombres según la inspección del archivo:
-# WTP, age, educationlevel, hhsizze, valuetotalassets1000
-modelo_tobit <- tobit(WTP ~ treatment + age + educationlevel + hhsizze + valuetotalassets1000, 
-                      left = 0, 
-                      right = 150, 
-                      data = df)
+# 3. ANALYSIS: TABLE 2 (Descriptive Statistics - Mean WTP)
+cat("\n--- TABLE 2: MEAN WTP BY GROUP (Nominal ETB) ---\n")
+print(aggregate(WTP ~ treat5group, data = df, FUN = mean))
 
-# 6. Mostrar resultados
-summary(modelo_tobit)
+# 4. ANALYSIS: TABLE 3 (Individual and Pooled Models)
 
-# 1. Instalar y cargar marginaleffects
-if (!require("marginaleffects")) install.packages("marginaleffects")
-library(marginaleffects)
+# Model A: Individual Treatments (Full Specification)
+tobit_ind <- tobit(lWTP ~ treatment + age + educationlevel + hhsizze + 
+                     valuetotalassets1000 + separtekitchen + 
+                     hhwoodtime_monthly + factor(village), 
+                   left = log(1), right = log(150), data = df)
 
-# 2. Calcular los efectos marginales promedio (AME)
-# Especificamos el tipo "response" para obtener el efecto en ETB reales (WTP)
-# y no en la variable latente.
-ame_final <- avg_slopes(modelo_tobit, type = "response")
+ols_ind <- lm(lWTP ~ treatment + age + educationlevel + hhsizze + 
+                valuetotalassets1000 + separtekitchen + 
+                hhwoodtime_monthly + factor(village), data = df)
 
-# 3. Ver los resultados
-print(ame_final)
+# Model B: Pooled Treatments (Wife vs Husband vs Joint)
+tobit_pooled <- tobit(lWTP ~ wife_pooled + husband_pooled + age + educationlevel + 
+                        hhsizze + valuetotalassets1000 + separtekitchen + 
+                        hhwoodtime_monthly + factor(village), 
+                      left = log(1), right = log(150), data = df)
 
+# 5. MARGINAL EFFECTS (Reporting as per Table 3 Notes)
+cat("\n--- MARGINAL EFFECTS (POOLED TOBIT - Target 0.339) ---\n")
+print(avg_slopes(tobit_pooled, variables = c("wife_pooled", "husband_pooled")))
 
-# Gráfico corregido usando el argumento 'by'
-plot_slopes(modelo_tobit, variables = "treatment", by = "treatment") +
-  theme_minimal() +
-  labs(title = "Réplica Alem et al. (2023): Efectos Marginales de los Tratamientos",
-       subtitle = "Referencia (Línea 0): Decisión en Pareja (T5)",
-       y = "Diferencia en Disposición a Pagar (ETB)",
-       x = "Grupos de Tratamiento") +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  scale_x_discrete(labels = c("T1: Mujer/Indiv", "T2: Varón/Indiv", 
-                              "T3: Mujer/Pareja", "T4: Varón/Pareja"))
+# 6. HYPOTHESIS TESTING (Wald Tests from Article Text)
+cat("\n--- WALD TESTS (Comparing Coefficients) ---\n")
+cat("Is T1 equal to T3? (Source of money effect)\n")
+print(linearHypothesis(tobit_ind, "treatment1 = treatment3"))
+
+# 7. FINAL DETAILED SUMMARIES
+cat("\n--- TABLE 3: TOBIT (INDIVIDUAL TREATMENTS) ---\n")
+print(summary(tobit_ind))
+
+cat("\n--- TABLE 3: OLS (INDIVIDUAL TREATMENTS) ---\n")
+print(summary(ols_ind))
+
+# Total Observations
+cat(paste("\nTotal N:", nrow(df), "\n"))
