@@ -51,6 +51,8 @@ First, a series of articles will be selected whose CR will be tested following t
 
 This will be carried out on a computer with the Linux Mint 22 *Wilma* operating system (for the first three articles), 22.1 *Xia* (for the fourth one), and 22.2 *Zara* for the rest. Errors that arise throughout the process that I cannot interpret and/or resolve will be consulted with ChatGPT-4o for articles 1-4 and Perplexity Pro for the rest to try to solve them. Should default versions become temporarily unavailable due to an excess of queries in a short period of time, the process will be suspended until it becomes available again.
 
+The different versions of the files will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
+
 **Selection of Articles for Reproduction**
 
 Incidental sampling will be used with the following criteria:
@@ -75,9 +77,9 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following: Alem et al. (2023), De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Dorian (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Want et al. (2025).
+The selected studies were the following: Alem et al. (2023), Borsboom et al. (2024), De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Hilbert et al. (2022), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Mischkowski et al. (2021), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Wang et al. (2025).
 
-Of these studies, only Payzan-LeNestour et al. (2024), Hermann et al. (2025), Huber and Huber (2020) could be reproduced, partially and with modifications.
+Of these studies, Alem et al. (2023), Borsboom et al. (2024), Payzan-LeNestour et al. (2024), Hermann et al. (2025), and Huber and Huber (2020) could be reproduced, partially and with modifications; Hilbert et al. (2022) partially reproduced; and Snijder et al. (2024) reproduced.
 
 **Field Journal Analysis**
 
@@ -87,21 +89,23 @@ Coding:
 
 Errors:
 
--   Software incompatibility: 4/26.
+-   Software incompatibility: 4/28.
 
--   Related to files to be analyzed: 5/26.
+-   Related to files to be analyzed: 5/28.
 
--   Code problems: 7/26.
+-   Code problems: 9/28.
 
--   Data not shared: 10/26.
+-   Data not shared: 10/28.
 
 Results:
 
--   Non-reproducibility: 13/17.
+-   Non-reproducibility: 13/20.
 
--   Partial reproducibility with modifications: 3/17.
+-   Partial reproducibility: 1/20.
 
--   Reproducibility: 1/17.
+-   Partial reproducibility with modifications: 5/20.
+
+-   Reproducibility: 1/20.
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
@@ -139,15 +143,15 @@ Whose steps are detailed below:
 
 \-*Comparison of the obtained results with the originals.*
 
-\-*Evaluation of reproducibility: reproducible, reproducible with adjustments, partially reproducible, partially reproducible with adjustments, or non-reproducible*. Defined below:
+\-*Evaluation of reproducibility: reproducible, reproducible with modifications, partially reproducible, partially reproducible with modifications, or non-reproducible*. Defined below:
 
 -Reproducible: A study that meets the definition given at the beginning of this article: reaching consistent results (identical or with errors due exclusively to rounding) starting from the material provided by the original authors and their instructions, with no modifications other than adjusting the paths for reading the files if necessary or other superficialities that do not substantially affect the given material.
 
--Reproducible with adjustments: Consistent results have been reached, but with modifications that go beyond the instructions given or the path adjustment, such as the rewriting of part of the algorithm that must process the data.
+-Reproducible with modifications: Consistent results have been reached, but with modifications that go beyond the instructions given or the path adjustment, such as the rewriting of part of the algorithm that must process the data.
 
 -Partially reproducible: The case where only a part of the study is reproduced, either because the results in the other part diverge from the originals, or because they cannot be obtained due to technical failures (requirement of a specific library or package to analyze that part of the data that is no longer available, or similar).
 
--Partially reproducible with adjustments: A case analogous to the previous one, but where modifications in the given code were necessary to achieve that partial reproduction.
+-Partially reproducible with modifications: A case analogous to the previous one, but where modifications in the given code were necessary to achieve that partial reproduction.
 
 -Non-reproducible: Either different results from the originals are reached, or no results are reached for whatever reason (failures in reading the files, impossibility of recreating the computational environment or a sufficiently similar one that allows the code to run, etc.).
 
@@ -173,23 +177,29 @@ Interactive notebooks or computational documents (JupyterLab, Quarto, R Markdown
 
 Regarding the way to share necessary files, the ideal would be for them to be in a public repository with some type of persistent identifier, such as those cited above, and for the code itself to include the URL where they are hosted as the file path. This would reduce the manual steps that the study reproducer has to carry out (a potential source of errors), standardizing the process. Having said that, given that internet connection can be unstable in certain parts of the world, this could be a setback. One solution could be the use of relative file paths instead of absolute ones (Perry, 2022) in the code. Said code would check for the existence of the file in a subfolder included in the materials to be downloaded and, if it does not exist, would proceed to download it from the URL. A textbox that asks for the path to be entered without modifying the code could also be an alternative to consider.
 
+The use of open-source software is also important for the development of open science - when authors share materials that require proprietary software, such as Alem et al. (2023) or Hilbert et al. (2022), an invisible barrier for reproducibility is raised, especially for scientist working in countries where the price is prohibitive.
+
 It is also important to accompany the files with the corresponding legends, since without these the interpretation of the data becomes an extremely difficult, if not impossible, task for someone outside the original study.
+
+Finally, Pauls and Laudi (2025) didn't share the materials of their study due to privacy agreements. This is a sensible issue. There are some ways to share the data while respecting the anonymity of the subjects (anonymization, avatarization) that should be considered before ruling out the possibility of sharing data.
 
 **Generalization to Other Disciplines**
 
-Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Point in case: Hermann et al. (2025), which was reproduced with code written by the authors, without knowledge of the software and versions used in the original analysis.
+Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Point in case: Borsboom et al. (2024) and Hermann et al. (2025), were reproduced with code written by the authors, without knowledge of the software and versions used in the original analysis.
 
-Consequently, the results of the present study could be generalizable to other social, behavioral, and health sciences, but cannot be extrapolated to the field of natural sciences without further consideration.
+Consequently, the results of the present study could be generalized to other social, behavioral, and health sciences, but cannot be extrapolated to natural sciences without further consideration.
 
 **Limitations and Conclusion**
 
 Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the articles share the main author. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
 
-The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced, and the rest, only partially and with modifications.
+The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced.
 
 ### **Bibliographical References**
 
 Alem, Y., Hassen, S. & Köhlin, G. (2023). Decision-making within the household: The role of division of labor and differences in preferences. *Journal of Economic Behavior and Organization, 207*, 511-528. <https://doi.org/10.1016/j.jebo.2023.01.022>
+
+Borsboom, C., Duxbury, D., Nieber, A., & Zeisberger. (2024). Domain-dependent diversification: The influence of gain–loss domain on correlation choice. *Journal of Economic Behavior and Organization, 227*, 106681. <https://doi.org/10.1016/j.jebo.2024.106681>
 
 Chang, A.C., & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
 
@@ -197,7 +207,7 @@ Culina, A., van den Berg, I., Evans. S., & Sánchez-Tójar, A. (2020). Low avail
 
 Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alemania invierte en acciones, Suiza vota una paga extra. *Cinco Días*. Recuperado de [[https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html]{.underline}](https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html)
 
-De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups differently. *Journal of Economic Behavior & Organization*, *231*, 106876. <https://doi.org/10.1016/j.jebo.2024.106876>
+De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups differently. *Journal of Economic Behavior and Organization*, *231*, 106876. <https://doi.org/10.1016/j.jebo.2024.106876>
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
@@ -213,9 +223,11 @@ Hardwicke, T. E., Bohn, M., MacDonald, K., Hembacher, E., Nuijten, M. B., Peloqu
 
 Hasselbring, W., Carr, L., Hettrick, S., Packer, H., & Tiropanis, T. (2019). *FAIR and Open Computer Science Research Software*. arXiv. [[https://arxiv.org/abs/1908.05986]{.underline}](https://arxiv.org/abs/1908.05986)
 
-Hausfeld, J., Fischbacher, U., & Knoch, D. (2020). The value of decision-making power in social decisions. *Journal of Economic Behavior & Organization, 177*, 898–912. <https://doi.org/10.1016/j.jebo.2020.06.018>
+Hausfeld, J., Fischbacher, U., & Knoch, D. (2020). The value of decision-making power in social decisions. *Journal of Economic Behavior and Organization, 177*, 898–912. <https://doi.org/10.1016/j.jebo.2020.06.018>
 
 Hermann, D., Bruns, S., & Mußhoff, O. (2025). Card or dice? An improved experimental approach to measure dishonest. *Journal of Economic Psychology, 108*. <https://doi.org/10.17605/OSF.IO/ZHNX2>
+
+Hilbert. L. P., Noordewier, K. M., & Van Dijk, W. W. (2022). Financial scarcity increases discounting of gains and losses: Experimental evidence from a household task. *Journal of Economic Psychology, 92*, 102546. <https://doi.org/10.1016/j.joep.2022.102546>
 
 Huber, C., & Huber, J. (2020). Bad bankers no more? Truth-telling and (dis)honesty in the finance industry. *Journal of Economic Behavior and Organization, 180*. <https://doi.org/10.17605/OSF.IO/C9DBJ>
 
@@ -227,7 +239,9 @@ Kahneman, D. (2012). *Pensar rápido, pensar despacio.* Debate.
 
 Kitzes, J., Turek, D., & Deniz, F. (2017). The practice of reproducible research: Case studies and lessons from the data-intensive sciences. *Oakland: University of California Press*.
 
-Löfgren, Å., & Nordblom, K. (2020). A theoretical framework of decision making explaining the mechanisms of nudging. *Journal of Economic Behavior & Organization, 174*, 1–12. <https://doi.org/10.1016/j.jebo.2020.03.021>
+Löfgren, Å., & Nordblom, K. (2020). A theoretical framework of decision making explaining the mechanisms of nudging. *Journal of Economic Behavior and Organization, 174*, 1–12. <https://doi.org/10.1016/j.jebo.2020.03.021>
+
+Mischkowski, D., Glöckner, A., & Lewisch, P. (2021). Information search, coherence effects, and their interplay in legal decision making. *Journal of Economic Psychology, 87*, 102445. <https://doi.org/10.1016/j.joep.2021.102445>
 
 Magness, P. & Murphy, R. P. (2015). Challenging the Empirical Contribution of Thomas Piketty's Capital in the 21st Century. *Journal of Private Enterprise, 15*(2).
 
@@ -237,17 +251,17 @@ McQuarrie, E. F. (2021). Where Siegel Went Awry: Outdated Sources & Incomplete D
 
 McQuarrie, E. F. (2023). Stocks for the Long Run? Sometimes Yes, Sometimes No. *Financial Analysts Journal, 80*(1).
 
-Merguei, N., Strobel, M., & Vostroknutov, A. (2022). Moral opportunism as a consequence of decision making under uncertainty. *Journal of Economic Behavior & Organization, 197*, 624–642. <https://doi.org/10.1016/j.jebo.2022.03.020>
+Merguei, N., Strobel, M., & Vostroknutov, A. (2022). Moral opportunism as a consequence of decision making under uncertainty. *Journal of Economic Behavior and Organization, 197*, 624–642. <https://doi.org/10.1016/j.jebo.2022.03.020>
 
 Miyakawa, T. (2020). No raw data, no science: another possible source of the reproducibility crisis. *Molecular Brain, 13*(1), 1-6. [[https://doi.org/10.1186/s13041-020-0552-2]{.underline}](https://doi.org/10.1186/s13041-020-0552-2)
 
 Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Percie du Sert, N., Simonsohn, U., Wagenmakers, E.-J., Ware, J. J., & Ioannidis, J. P. A. (2017). A manifesto for reproducible science. *Nature Human Behaviour, 1*(1), 1-9. [[https://doi.org/10.1038/s41562-016-0021]{.underline}](https://doi.org/10.1038/s41562-016-0021)
 
-Negrini, M., Riedl, A., & Wibral, M. (2022). Sunk cost in investment decisions. *Journal of Economic Behavior & Organization, 200*, 1105–1135. <https://doi.org/10.1016/j.jebo.2022.06.028>
+Negrini, M., Riedl, A., & Wibral, M. (2022). Sunk cost in investment decisions. *Journal of Economic Behavior and Organization, 200*, 1105–1135. <https://doi.org/10.1016/j.jebo.2022.06.028>
 
 Oza, A. (2023). Reproducibility trial: 246 biologists get different results. *Nature*. [[https://www.nature.com/articles/d41586-023-03177-1]{.underline}](https://www.nature.com/articles/d41586-023-03177-1)
 
-Pauls, T., & Laudi, M. (2025). Temporal framing of tax stimuli and household consumption. *Journal of Economic Behavior & Organization, 235*, 107079. <https://doi.org/10.1016/j.jebo.2025.107079>
+Pauls, T., & Laudi, M. (2025). Temporal framing of tax stimuli and household consumption. *Journal of Economic Behavior and Organization, 235*, 107079. <https://doi.org/10.1016/j.jebo.2025.107079>
 
 Payzan-LeNestour, E. & Doran, J. (2024). Craving money? Evidence from the laboratory and the field. *Sciences Advances, 10*(2), eadi5034. [[http://doi.org/10.1126/sciadv.adi5034]{.underline}](http://doi.org/10.1126/sciadv.adi5034)
 
@@ -263,7 +277,7 @@ Reuters. (2024, diciembre 6). Norway wealth fund hits record 20 trillion crowns.
 
 Sampieri, R. H., Collado, C. F. y Lucio, P. B. (2010). *Metodología de la investigación* (5ª Edición). McGraw Hill.
 
-Sandve, G. K., Nekrutenko, A., Taylor, J. & Eivind, H. (2013). Ten Simple Rules for Reproducible Computational Research. *PLOS Biology, 9*(10), e1003285. [[https://doi.org/10.1371/journal.pcbi.1003285]{.underline}](https://doi.org/10.1371/journal.pcbi.1003285)
+Sandve, G. K., Nekrutenko, A., Taylor, J. & Hovind, E. (2013). Ten simple rules for reproducible computational research. *PLOS Biology, 9*(10), e1003285. [[https://doi.org/10.1371/journal.pcbi.1003285]{.underline}](https://doi.org/10.1371/journal.pcbi.1003285)
 
 Siegel, J. J. (2014). *Stocks for the Long Run: The Definitive Guide To Financial Market Returns & Long-Term Investment Strategies* (5th Edition). McGrawHill.
 
@@ -281,11 +295,11 @@ Vallet, N., Michonneau, D., & Tournier, S. (2022). Toward practical transparent 
 
 Vines, T. H., Albert, A. Y. K., Andrew, R. L., Débarre, F., Bock, D. G., Franklin, M. T., Gilbert, K. J., Moore, J. S., Renaut, S. & Rennison, D. J. (2014). The Availability of Research Data Declines Rapidly with Article Age. *Current Biology, 24*(1), 94-97. [[https://doi.org/10.1016/j.cub.2013.11.014]{.underline}](https://doi.org/10.1016/j.cub.2013.11.014)
 
-Wang, Y., Driouchi, T., & Nguyen, D. D. (Louis). (2025). Parental death in childhood and stock market participation: Cross-cultural insights. *Journal of Economic Behavior & Organization, 236*, 107078. <https://doi.org/10.1016/j.jebo.2025.107078>
+Wang, Y., Driouchi, T., & Nguyen, D. D. (Louis). (2025). Parental death in childhood and stock market participation: Cross-cultural insights. *Journal of Economic Behavior and Organization, 236*, 107078. <https://doi.org/10.1016/j.jebo.2025.107078>
+
+White, E. P., Baldridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
 
 Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A., ... & Mons, B. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data, 3*(1), 160018. [[https://doi.org/10.1038/sdata.2016.18]{.underline}](https://doi.org/10.1038/sdata.2016.18)
-
-White, E. P., Badridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
 
 \newpage
 
@@ -517,7 +531,7 @@ Since this is no longer a problem related to an aspect of the computational envi
 
 01/29/25
 
-R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*. The different versions of the files *run_full_script.R* and *payoff rule.R* will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience)
+R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*.
 
 Due to the failure in the attempt to reproduce the previous articles, I try my luck again on the Open Science Framework website. I type *behavioral finance* into its search engine and one of the first results that appears is the recent Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
 
@@ -546,7 +560,7 @@ I try rewriting the original code, substituting the problematic windows() functi
 
 10/01/25
 
-I resume the search for articles to test its CR. I access the [Journal of Economic Behavior & Organization](https://www.sciencedirect.com/journal/journal-of-economic-behavior-and-organization) and type [*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess) in the search box. Then, I limit the scope to the years 2020-2025 and *Open access & Open archive*. If the search gives over 50 articles, I analyze only the 50 first. I proceed the same way with the terms [*behavioral economics*](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess),* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess).
+I resume the search for articles to test its CR. I access the [Journal of Economic Behavior and Organization](https://www.sciencedirect.com/journal/journal-of-economic-behavior-and-organization) and type [*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess) in the search box. Then, I limit the scope to the years 2020-2025 and *Open access & Open archive*. If the search gives over 50 articles, I analyze only the 50 first. I proceed the same way with the terms [*behavioral economics*](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess),* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess).
 
 I look for articles including the queries (or derivative forms, such as *moral decision-making* or *group decision-making* instead of just *decision-making*) in the keywords or title. Also, if none of the queries is present in either the title or the keywords but there is a clear reference such as talking about 'psychology and economics' or 'investment behavior' that suggest overlapping of behavioral sciences or neuroscience with economics, the article is included.
 
@@ -554,7 +568,7 @@ I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/
 
 10/05/25
 
-The first classification gives 10 papers no reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offers data upon request and 15 with the data publicly available.
+The first classification gives 10 papers non-reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offers data upon request and 15 with the data publicly available.
 
 12/16/25
 
@@ -570,17 +584,17 @@ I get an error in Table B8:
 Error in if (is.na(s)) {: the condition has length > 1
 ```
 
-The rest of the code runs without errors. I proceed to compare the results I get with the results published. I found some mismatches, such as results of 'Table 2' (according to the code) been actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found un Table B2, where I am unable to make sense of my results compared to the published ones.
+The rest of the code runs without errors. I proceed to compare the results I get with the results published. I found some mismatches, such as results of 'Table 2' (according to the code) been actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the published ones.
 
 **Article 6:** *Card or dice? An improved experimental approach to measure dishonesty*, by Hermann et al. (2025).
 
-I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using RStudio.
+I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using RStudio.
 
-When I analyze the data using the script *CardOrDice.R*, I found results that are coherent with the ones published in the paper and ome small differences probably due to rounding or using different software to analyze the data.
+When I analyze the data using the script *CardOrDice.R*, I found results that are coherent with the ones published in the paper and some small differences probably due to rounding or using different software to analyze the data.
 
-![](images/Captura%20de%20pantalla%20-2025-12-17%2007-19-50.png)
+![](images/Article6MyResults.png){width="268"}
 
-![](images/Captura%20de%20pantalla%20-2025-12-17%2007-20-24.png)
+![](images/Article6published.png)
 
 *Compare the results I get in a per-unit basis (above) and the results published (below).*
 
@@ -595,3 +609,27 @@ I open the script *models.R* and move the csv files to the folder "data analysis
 **Article 8:** *Decision-making within the household: The role of division of labor and differences in preferences*, by Alem et al. (2023).
 
 I tried to access the website where the data is shared several times, but I wasn't able due to -I assume- problems with the server. I'll try again tomorrow.
+
+12/18/25
+
+I am able to download the materials now. Those are for Stata, a statistical software I have no access to. A reminder of the importance of using open source for an open science.
+
+I use the library readstata13 of R to analyze the data and get, virtually, the same results - identical for *Fig.3 WTP for ICS by Treatment*, with exceptions like −0.139 in the paper vs −0.152 in my case for *Table 4. Treatment Effects on the Log of WTP: Tobit and OLS Regression Results*.
+
+**Article 9:** *Domain-dependent diversification: The influence of gain–loss domain on correlation choice*, by Borsboom et al. (2024).
+
+I download the data and, again, I found a .xlsx and a .docx file - no computational environment or code to process the data. I write an R script to analyze it and find virtually the same results, with some variations (44.2% in the paper vs 44.6% in my results).
+
+**Article 10:** *Financial scarcity increases discounting of gains and losses: Experimental evidence from a household task*, by Hilbert et al. (2022).
+
+I download the materials for this project. Data and code are shared in .sps and .sav files, but I am unable to find information about the program used (SPSS or PSPP). I proceed to run them in PSPP, since I have no access to the proprietary SPSS.
+
+I run the Pilot and get virtually same results, with small differences such as F-value of 133.34 published vs. 133.93. Similar results are found in most experiments but *Experiment 5*, where discrepancies of sample (292 reported, 288 found of which 277 valid) are found, which leads to discrepancies in the mean, SD and n values.
+
+I am unable to get the values (such as t), I guess because of the limits of PSPP compared to SPSS.
+
+12/19/25
+
+**Article 11:** *Information search, coherence effects, and their interplay in legal decision making*, by Mischkowski et al. (2021).
+
+When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided, so I develop an R script to proceed with the analysis.
