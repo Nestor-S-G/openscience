@@ -51,6 +51,8 @@ First, a series of articles will be selected whose CR will be tested following t
 
 This will be carried out on a computer with the Linux Mint 22 *Wilma* operating system (for the first three articles), 22.1 *Xia* (for the fourth one), and 22.2 *Zara* for the rest. Errors that arise throughout the process that I cannot interpret and/or resolve will be consulted with ChatGPT-4o for articles 1-4 and Perplexity Pro for the rest to try to solve them. Should default versions become temporarily unavailable due to an excess of queries in a short period of time, the process will be suspended until it becomes available again.
 
+R version: 4.3.3 “Angel Food Cake” with RStudio 2024.09.1+394 for Article 1, 4.3.3 “Angel Food Cake” with RStudio 2024.12.0+467 for Article 4, and 4.5.2 “\[Not\] Part in a Rumble” with RStudio 2025.09.2 Build 418 for the rest.
+
 The different versions of the files will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
 
 **Selection of Articles for Reproduction**
@@ -77,9 +79,9 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following: Alem et al. (2023), Borsboom et al. (2024), De Bresser and Knoef (2025), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Hilbert et al. (2022), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Mischkowski et al. (2021), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Wang et al. (2025).
+The selected studies were the following: Alem et al. (2023), Blijlevens et al. (2024), Borsboom et al. (2024), De Bresser and Knoef (2025), Ekström et al. (2021), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Hilbert et al. (2022), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Mischkowski et al. (2021), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Wang et al. (2025).
 
-Of these studies, Alem et al. (2023), Borsboom et al. (2024), Payzan-LeNestour et al. (2024), Hermann et al. (2025), and Huber and Huber (2020) could be reproduced, partially and with modifications; Hilbert et al. (2022) partially reproduced; and Snijder et al. (2024) reproduced.
+Of these studies, Alem et al. (2023), Borsboom et al. (2024), Payzan-LeNestour et al. (2024), Hermann et al. (2025), Ekström et al. (2025), Huber and Huber (2020), and Mischkowski et al. (2021) could be reproduced, partially and with modifications; Hilbert et al. (2022) partially reproduced; and Snijder et al. (2024) reproduced.
 
 **Field Journal Analysis**
 
@@ -89,23 +91,23 @@ Coding:
 
 Errors:
 
--   Software incompatibility: 4/28.
+-   Software incompatibility: 4/29.
 
--   Related to files to be analyzed: 5/28.
+-   Related to files to be analyzed: 5/29.
 
--   Code problems: 9/28.
+-   Code problems: 10/29.
 
--   Data not shared: 10/28.
+-   Data not shared: 10/29.
 
 Results:
 
--   Non-reproducibility: 13/20.
+-   Non-reproducibility: 14/23.
 
--   Partial reproducibility: 1/20.
+-   Partial reproducibility: 1/23.
 
--   Partial reproducibility with modifications: 5/20.
+-   Partial reproducibility with modifications: 7/23.
 
--   Reproducibility: 1/20.
+-   Reproducibility: 1/23.
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
@@ -121,7 +123,7 @@ It is worth noting the authors' willingness to share their material, thus contri
 
 From the previous analysis, the protocol represented in Figure 1 is extracted:
 
-![](images/clipboard-847991682.png)
+![](img/clipboard-847991682.png)
 
 *Figure 1. Image of the flow chart created with the help of ChatGPT-4o (IN SPANISH).*
 
@@ -177,7 +179,7 @@ Interactive notebooks or computational documents (JupyterLab, Quarto, R Markdown
 
 Regarding the way to share necessary files, the ideal would be for them to be in a public repository with some type of persistent identifier, such as those cited above, and for the code itself to include the URL where they are hosted as the file path. This would reduce the manual steps that the study reproducer has to carry out (a potential source of errors), standardizing the process. Having said that, given that internet connection can be unstable in certain parts of the world, this could be a setback. One solution could be the use of relative file paths instead of absolute ones (Perry, 2022) in the code. Said code would check for the existence of the file in a subfolder included in the materials to be downloaded and, if it does not exist, would proceed to download it from the URL. A textbox that asks for the path to be entered without modifying the code could also be an alternative to consider.
 
-The use of open-source software is also important for the development of open science - when authors share materials that require proprietary software, such as Alem et al. (2023) or Hilbert et al. (2022), an invisible barrier for reproducibility is raised, especially for scientist working in countries where the price is prohibitive.
+The use of open-source software is also important for the development of open science - when authors share materials that require proprietary software, such as Alem et al. (2023) or Hilbert et al. (2022), an invisible barrier for reproducibility is raised, especially for scientists working in countries where the price is prohibitive.
 
 It is also important to accompany the files with the corresponding legends, since without these the interpretation of the data becomes an extremely difficult, if not impossible, task for someone outside the original study.
 
@@ -185,7 +187,7 @@ Finally, Pauls and Laudi (2025) didn't share the materials of their study due to
 
 **Generalization to Other Disciplines**
 
-Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Point in case: Borsboom et al. (2024) and Hermann et al. (2025), were reproduced with code written by the authors, without knowledge of the software and versions used in the original analysis.
+Although the definition of *computational reproducibility* given includes the use of the same hardware as part of the *computational environment*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same equipment essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used. Point in case: Borsboom et al. (2024), Hermann et al. (2025), and Mischkowski et al. (2021) were reproduced with code written by the authors, without knowledge of the software and versions used in the original analysis.
 
 Consequently, the results of the present study could be generalized to other social, behavioral, and health sciences, but cannot be extrapolated to natural sciences without further consideration.
 
@@ -199,6 +201,8 @@ The results obtained support that the reproducibility crisis referenced in the *
 
 Alem, Y., Hassen, S. & Köhlin, G. (2023). Decision-making within the household: The role of division of labor and differences in preferences. *Journal of Economic Behavior and Organization, 207*, 511-528. <https://doi.org/10.1016/j.jebo.2023.01.022>
 
+Blijlevens, J., Chuah, S., Neelim, A., Prasch, J. E, & Skali, A. (2024). Not all about the money: Service quality information improves consumer decision-making. *Journal of Economic Behavior and Organization, 228*, 106769. <https://doi.org/10.1016/j.jebo.2024.106769>
+
 Borsboom, C., Duxbury, D., Nieber, A., & Zeisberger. (2024). Domain-dependent diversification: The influence of gain–loss domain on correlation choice. *Journal of Economic Behavior and Organization, 227*, 106681. <https://doi.org/10.1016/j.jebo.2024.106681>
 
 Chang, A.C., & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. [[http://doi.org/10.17016/FEDS.2015.083]{.underline}](http://dx.doi.org/10.17016/FEDS.2015.083)
@@ -210,6 +214,8 @@ Conde-Batalla, L. (2024, marzo 13). Revolución en las pensiones europeas: Alema
 De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups differently. *Journal of Economic Behavior and Organization*, *231*, 106876. <https://doi.org/10.1016/j.jebo.2024.106876>
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
+
+Ekström, M., Bjorvatn, K., Mota, P. S., & Sjåstad, H. (2025). Making a promise increases the moral cost of lying: Evidence from Norway and the United States. . *Journal of Economic Behavior and Organization*, *233*, 106995. <https://doi.org/10.1016/j.jebo.2025.106995>
 
 Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
 
@@ -303,7 +309,7 @@ Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Ba
 
 \newpage
 
-**Appendix and suplementary materials**
+**Appendix and supplementary materials**
 
 **Field journal**
 
@@ -314,8 +320,6 @@ I begin the search for potentially reproducible articles through the **Open Scie
 I also find *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), which investigates the relationship between **aging and changes in executive functions** such as decision-making, specifically in the financial domain when involving other people. In the **Data and code availability** section, they include three links to download the material used.
 
 **Article 1: *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022).**
-
-R version 4.3.3 “Angel Food Cake” and RStudio 2024.09.1+394.
 
 12/04/2024
 
@@ -342,13 +346,13 @@ no es posible cambiar el directorio de trabajo
 
 This raises my suspicions, as there are only 5 folders with data to download in the Dropbox enabled for this purpose. After verifying that I do not have the mentioned .csv file, I contact the principal author of the study, Elise Payzan-LeNestour, to see if she can provide it to me to continue with the process.
 
-![](images/clipboard-3320269647.png)
+![](img/clipboard-3320269647.png)
 
 12/18/24
 
 After two weeks with no news from the principal author of the article, I contact the co-author Michael Woodford via email for the same purpose.
 
-![](images/clipboard-1322508556.png)
+![](img/clipboard-1322508556.png)
 
 **Article 2:** *Craving money? Evidence from the laboratory and the field*, by Payzan-LeNestour and Doran (2024).
 
@@ -531,8 +535,6 @@ Since this is no longer a problem related to an aspect of the computational envi
 
 01/29/25
 
-R version 4.3.3 “Angel Food Cake” and RStudio 2024.12.0+467. Operating System: Linux Mint 22.1 *Xia*.
-
 Due to the failure in the attempt to reproduce the previous articles, I try my luck again on the Open Science Framework website. I type *behavioral finance* into its search engine and one of the first results that appears is the recent Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
 
 RStudio indicates that necessary packages for executing said code are missing, which I proceed to install, and after that, I adjust the setwd() function to adapt it to the folders on my computer. I execute the complete code and receive an error because the windows() function is not available in RStudio for Linux:
@@ -548,9 +550,9 @@ I rewrite the present code, as well as the code in the *payoff rule.R* file, to 
 
 All graphs correspond faithfully to those published with the exception of *Figure 10 A*, where a clear difference is seen, especially in the *Optimal* condition. *Figures 6C,* *6D, 8C, and 9B* of the article are not generated when executing said code. I also obtain identical results for *Table 1*, as well as results with slight variations (even considering rounding) for *Table 3* and its extension as *Table 8* in Appendix F, and similar results with small variations due to rounding in *Table 4*.
 
-![](images/clipboard-2031833015.png)
+![](img/clipboard-2031833015.png)
 
-![](images/clipboard-3495160845.png)
+![](img/clipboard-3495160845.png)
 
 *Comparison of Figure 10 A in the original article (above) and the one obtained for this study (below).*
 
@@ -568,15 +570,13 @@ I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/
 
 10/05/25
 
-The first classification gives 10 papers non-reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offers data upon request and 15 with the data publicly available.
+The first classification gives 10 papers non-reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offer data upon request and 15 with the data publicly available.
 
 12/16/25
 
 **Article 5:** *Bad bankers no more? Truth-telling and (dis)honesty in the finance industry*, by Huber & Huber (2020).
 
-R version 4.5.2 “\[Not\] Part in a Rumble” and RStudio 2025.09.2 Build 418. Operating System: Linux Mint 22.2 *Zara*.
-
-No computational environment is shared. I resume the process of reproduction with the papers that offer data publicly available with Huber & Huber (2020). I visit [the link](https://osf.io/c9dbj/) offered in the paper and download the files. I run the notebook.Rmd and get some warnings, until I get an error on "Table B3 - Ordered logit regression on the proportion of honest reports for financial professionals and students.". The error only requires to load the MASS library to be solved.
+No computational environment is shared. I resume the process of reproduction with the papers that offer data publicly available with Huber & Huber (2020). I visit [the link](https://osf.io/c9dbj/) offered in the paper and download the files. I run the *notebook.Rmd* and get some warnings, until I get an error on "Table B3 - Ordered logit regression on the proportion of honest reports for financial professionals and students.". The error only requires to load the MASS library to be solved.
 
 I get an error in Table B8:
 
@@ -584,7 +584,7 @@ I get an error in Table B8:
 Error in if (is.na(s)) {: the condition has length > 1
 ```
 
-The rest of the code runs without errors. I proceed to compare the results I get with the results published. I found some mismatches, such as results of 'Table 2' (according to the code) been actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the published ones.
+The rest of the code runs without errors. I proceed to compare the results I get with the results published. I found some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the published ones.
 
 **Article 6:** *Card or dice? An improved experimental approach to measure dishonesty*, by Hermann et al. (2025).
 
@@ -592,9 +592,9 @@ I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a 
 
 When I analyze the data using the script *CardOrDice.R*, I found results that are coherent with the ones published in the paper and some small differences probably due to rounding or using different software to analyze the data.
 
-![](images/Article6MyResults.png){width="268"}
+![](img/Article6MyResults.png){width="268"}
 
-![](images/Article6published.png)
+![](img/Article6published.png)
 
 *Compare the results I get in a per-unit basis (above) and the results published (below).*
 
@@ -624,12 +624,36 @@ I download the data and, again, I found a .xlsx and a .docx file - no computatio
 
 I download the materials for this project. Data and code are shared in .sps and .sav files, but I am unable to find information about the program used (SPSS or PSPP). I proceed to run them in PSPP, since I have no access to the proprietary SPSS.
 
-I run the Pilot and get virtually same results, with small differences such as F-value of 133.34 published vs. 133.93. Similar results are found in most experiments but *Experiment 5*, where discrepancies of sample (292 reported, 288 found of which 277 valid) are found, which leads to discrepancies in the mean, SD and n values.
+I run the *pilot* and get virtually the same results, with small differences such as F-value of 133.34 reported vs. 133.93. Similar results are found in most experiments but *Experiment 5*, where discrepancies of sample (292 reported vs 288, of which 277 valid) are found, which leads to discrepancies in the mean, SD, and n values.
 
-I am unable to get the values (such as t), I guess because of the limits of PSPP compared to SPSS.
+I am unable to get some values (such as t). This is probably due to the limitations of PSPP compared to SPSS - assuming the original authors used the latter.
 
 12/19/25
 
 **Article 11:** *Information search, coherence effects, and their interplay in legal decision making*, by Mischkowski et al. (2021).
 
 When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided, so I develop an R script to proceed with the analysis.
+
+12/22/25
+
+After checking different versions of my code, I achieve results that are coherent with the reported ones, with some differences (such as a b value = -0.24 reported vs -0.22 in my case).
+
+**Article 12:** *Making a promise increases the moral cost of lying: Evidence from Norway and the United States*, by Ekström et al. (2025).
+
+Shared material are partly in .do, partly in .R files. Again, since Stata is proprietary software, I have to write a code based upon the info in the paper, at least for part of the reproduction process.
+
+First I run the *TableA3_code.R* and compare it with the materials provided in the appendix. They match the reported figures, except for:
+
+``` r
+    Estimate   StdErr      z  Pr(>|z|)    
+pi0 0.622129 0.021618 28.778 < 2.2e-16 ***
+pi1 0.377871 0.021618 17.480 < 2.2e-16 ***
+```
+
+Where the 0.377871 differs from the 0.382 beyond rounding errors.
+
+Then I proceed to write an Script to analyze the rest of the data. All data matches the reported up to the third decimal point.
+
+**Article 13:** *Not all about the money: Service quality information improves consumer decision-making*, by Blijlevens et al. (2024).
+
+I check the link provided in the paper, but all I find is a pdf file that contains no data.
