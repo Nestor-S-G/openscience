@@ -1,63 +1,76 @@
 # 1. Load necessary libraries
 library(tidyverse)
-library(lme4)      # For Mixed-Effects Models (Cluster Regression)
+library(lme4)  # For Mixed-Effects Models
 library(lmerTest)  # To get p-values for lmer models
-library(broom)     # To tidy model outputs
+library(broom)  # To tidy model outputs
 library(readxl)
+library(emmeans)  # For post-hoc contrasts
 
 # 2. Load the data
-# Ensure the file is in your working directory
-data <- read_excel("Interplay_IS_CE_Data.xls", sheet = 1)
+data <- read_excel("Interplay_IS_CE_Data.xls", sheet = "Sheet1")
 
 # 3. Data Cleaning & Preparation
-# The paper analyzes 'guilt' (final judgment) and 'hrate' (evidence evaluation)
-# Scale the guilt variable if necessary (Check paper for 0-100 vs -100 to 100)
 data_clean <- data %>%
-  filter(!is.na(guilt), !is.na(hrate)) %>%
+  filter(!is.na(guilt), !is.na(hrate), !is.na(signchosenevidence)) %>%
   mutate(
     study = as.factor(study),
     case = as.factor(case),
-    bedingung = as.factor(bedingung), # Condition
-    # Center variables for better interpretation in regression
-    hrate_centered = hrate - mean(hrate, na.rm = TRUE)
+    bedingung = as.factor(bedingung),  # Condition: 1=non-systematic, 2=systematic?
+    # Scale guilt to 0-1 (max=100 from data)
+    guilt_scaled = guilt / 100,
+    # Valence from signchosenevidence (pro-guilty=1, neutral=0, contra-guilty=-1)
+    valence = as.factor(ifelse(signchosenevidence > 0, "pro-guilty", ifelse(signchosenevidence == 0, "neutral", "contra-guilty"))),
+    # Phase from evidencenr (position)
+    phase = cut(evidencenr, breaks = c(0, 4, 7, Inf), labels = c("early", "mid", "late")),
+    # Center hrate
+    hrate_centered = hrate - mean(hrate, na.rm = TRUE),
+    # Reverse signchosenevidence for disconfirmatory (higher guilt -> lower/negative)
+    signchosenevidence_rev = -signchosenevidence,
+    # Content from chosenevidence
+    content = as.factor(chosenevidence)
   )
 
-# --- REPRODUCTION 1: The Coherence Effect ---
-# The paper argues that evidence evaluation (hrate) is shifted to be 
-# consistent with the final decision (guilt).
+# --- REPRODUCTION 1: Coherence Effects (with valence moderation) ---
+cat("### Coherence Effects (Base and with Valence) ###\n")
+coherence_base <- lmer(hrate ~ guilt_scaled + (1 | username_new) + (1 | case), data = data_clean)
+summary(coherence_base)
 
-cat("### Running Analysis for Coherence Effects ###\n")
+coherence_valence <- lmer(hrate ~ guilt_scaled * valence + (1 | username_new) + (1 | case), data = data_clean)
+summary(coherence_valence)
+emmeans(coherence_valence, pairwise ~ valence | guilt_scaled, at = list(guilt_scaled = c(0,1)))
 
-# Model: hrate ~ guilt + (1 | username_new)
-# This tests if the evaluation of a piece of evidence is predicted by the final guilt rating
-coherence_model <- lmer(hrate ~ guilt + (1 | username_new) + (1 | case), data = data_clean)
-summary(coherence_model)
+# --- REPRODUCTION 2: Information Search (with covariates and phase) ---
+cat("\n### Information Search (Base, with Covariates, by Phase) ###\n")
+search_base <- lmer(signchosenevidence_rev ~ guilt_scaled + (1 | username_new), data = data_clean)
+summary(search_base)
 
-# --- REPRODUCTION 2: Selective/Confirmatory Search ---
-# Checking if 'signchosenevidence' (the valence of the chosen piece) 
-# is predicted by the current belief (guilt).
+search_cov <- lmer(signchosenevidence_rev ~ guilt_scaled + evidencenr + content + (1 | username_new), data = data_clean)
+summary(search_cov)
 
-cat("\n### Running Analysis for Information Search (Confirmatory Bias) ###\n")
+search_phase <- lmer(signchosenevidence_rev ~ guilt_scaled * phase + (1 | username_new), data = data_clean)
+summary(search_phase)
+emmeans(search_phase, pairwise ~ phase | guilt_scaled, at = list(guilt_scaled = c(0,1)))
 
-# Model: signchosenevidence ~ guilt + (1 | username_new)
-search_model <- lmer(signchosenevidence ~ guilt + (1 | username_new), data = data_clean)
-summary(search_model)
+# --- REPRODUCTION 3: Condition Comparison (with valence, across studies) ---
+cat("\n### Condition Comparison (with Valence, Across Studies) ###\n")
+comparison_full <- lmer(hrate ~ guilt_scaled * bedingung * valence + (1 | username_new) + (1 | case) + (1 | study), data = data_clean)
+summary(comparison_full)
+emmeans(comparison_full, pairwise ~ bedingung * valence | guilt_scaled, at = list(guilt_scaled = c(0,1)))
 
-# --- REPRODUCTION 3: Comparing Conditions (Study 4) ---
-# Testing if the "No Strategic Search" condition (from your .boxs file) 
-# reduced the bias compared to the free search.
+# --- Robustness / Appendix: Add Controls (NFC=pfc, CRT=crt_total, BIS/BAS=hh/em/ex/ag/co/op totals) ---
+robustness <- lmer(hrate ~ guilt_scaled + pfc + crt_total + hh_total + em_total + ex_total + ag_total + co_total + op_total + (1 | username_new) + (1 | case), data = data_clean)
+summary(robustness)
 
-study4_data <- data_clean %>% filter(study == 4)
+# --- Additional Visualizations ---
+# Fig 1: Distribution of guilt
+ggplot(data_clean, aes(x = guilt_scaled)) + geom_histogram() + labs(title = "Distribution of Guilt Ratings")
 
-comparison_model <- lmer(hrate ~ guilt * bedingung + (1 | username_new), data = study4_data)
-summary(comparison_model)
+# Fig 2: Search by phase (mean signchosenevidence_rev by phase)
+data_clean %>% group_by(phase) %>% summarise(mean_sign = mean(signchosenevidence_rev)) %>%
+  ggplot(aes(x = phase, y = mean_sign)) + geom_bar(stat = "identity") + labs(title = "Information Search by Phase")
 
-# 4. Visualization (Standard Plot in the Paper)
-# Visualizing the relationship between final guilt and evidence rating
-ggplot(data_clean, aes(x = guilt, y = hrate)) +
-  geom_jitter(alpha = 0.1, color = "gray") +
-  geom_smooth(method = "lm", color = "blue") +
-  labs(title = "Coherence Effect: Evidence Rating vs. Final Guilt",
-       x = "Final Guilt Rating (Judgment)",
-       y = "Individual Evidence Evaluation (hrate)") +
+# Fig 3: hrate vs guilt by valence and condition
+ggplot(data_clean, aes(x = guilt_scaled, y = hrate, color = bedingung)) +
+  geom_jitter(alpha = 0.1) + geom_smooth(method = "lm") +
+  facet_wrap(~ valence) + labs(title = "Coherence by Valence and Condition") +
   theme_minimal()
