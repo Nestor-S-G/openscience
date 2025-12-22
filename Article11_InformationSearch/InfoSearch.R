@@ -17,7 +17,7 @@ data_clean <- data %>%
     case = as.factor(case),
     bedingung = as.factor(bedingung),  # Condition: 1=non-systematic, 2=systematic?
     # Scale guilt to 0-1 (max=100 from data)
-    guilt_scaled = guilt / 100,
+    guilt_scaled = guilt,
     # Valence from signchosenevidence (pro-guilty=1, neutral=0, contra-guilty=-1)
     valence = as.factor(ifelse(signchosenevidence > 0, "pro-guilty", ifelse(signchosenevidence == 0, "neutral", "contra-guilty"))),
     # Phase from evidencenr (position)
