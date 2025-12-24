@@ -49,11 +49,17 @@ Two objectives are pursued: the first, secondary, is to evaluate the reproducibi
 
 First, a series of articles will be selected whose CR will be tested following the authors' instructions. These will be the case studies referred to in the *Objectives* section. The code will be executed on the data, and the results encountered (code failures, problems with files to be read, etc.) will be recorded in a field journal. Each of these steps is detailed in a subsequent section.
 
-This will be carried out on a computer with the Linux Mint 22 *Wilma* operating system (for the first three articles), 22.1 *Xia* (for the fourth one), and 22.2 *Zara* for the rest. Errors that arise throughout the process that I cannot interpret and/or resolve will be consulted with ChatGPT-4o for articles 1-4 and Perplexity Pro for the rest to try to solve them. Should default versions become temporarily unavailable due to an excess of queries in a short period of time, the process will be suspended until it becomes available again.
+Software and Operating System Specifications Across Articles
 
-R version: 4.3.3 “Angel Food Cake” with RStudio 2024.09.1+394 for Article 1, 4.3.3 “Angel Food Cake” with RStudio 2024.12.0+467 for Article 4, and 4.5.2 “\[Not\] Part in a Rumble” with RStudio 2025.09.2 Build 418 for the rest.
+| Aspect | Articles 1–3 | Article 4 | Remaining articles |
+|------------------|------------------|------------------|------------------|
+| Operating system | Linux Mint 22 *Wilma* | Linux Mint 22.1 *Xia* | Linux Mint 22.2 *Zara* |
+| Error resolution support | ChatGPT-4o | ChatGPT-4o | ChatGPT-5 |
+| Unavailability policy | Process suspended until available | Process suspended until available | Process suspended until available |
+| R version | 4.3.3 “Angel Food Cake” | 4.3.3 “Angel Food Cake” | 4.5.2 “\[Not\] Part in a Rumble” |
+| RStudio version | 2024.09.1+394 | 2024.12.0+467 | 2025.09.2 Build 418 |
 
-The different versions of the files will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
+The different versions of the files used will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
 
 **Selection of Articles for Reproduction**
 
@@ -63,7 +69,7 @@ a\) Being an article whose subject matter falls within the previously mentioned 
 
 b\) Being published in 2005 or a later date, as this was when the credibility of many scientific publications began to be questioned (Ioannidis, 2005).
 
-Due to the fact that a little-researched topic is being addressed, it is not considered appropriate to add more criteria that restrict degrees of freedom and exclude articles with the potential to be tested in this study. \newpage
+Due to the fact that a little-researched topic is being addressed, it is not considered appropriate to add more criteria that restrict degrees of freedom and exclude articles with the potential to be tested in this study.
 
 **Reproduction**
 
@@ -79,39 +85,34 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Case Studies**
 
-The selected studies were the following: Alem et al. (2023), Blijlevens et al. (2024), Borsboom et al. (2024), De Bresser and Knoef (2025), Ekström et al. (2021), Fareri et al. (2022), Fred van Raaij et al. (2020), Hausfeld et al. (2020), Hermann et al. (2025), Hilbert et al. (2022), Huber and Huber (2020), Löfgren and Nordblom (2020), Merguei et al. (2022), Mischkowski et al. (2021), Negrini et al. (2022), Pauls and Laudi (2025), Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Snijder et al. (2024), Steinel et al. (2022), Tang (2021), Wang et al. (2025).
-
-Of these studies, Alem et al. (2023), Borsboom et al. (2024), Payzan-LeNestour et al. (2024), Hermann et al. (2025), Ekström et al. (2025), Huber and Huber (2020), and Mischkowski et al. (2021) could be reproduced, partially and with modifications; Hilbert et al. (2022) partially reproduced; and Snijder et al. (2024) reproduced.
+26 articles were selected to test their computational reproducibility.
 
 **Field Journal Analysis**
 
-The analysis of the field journal resulted in the following thematic categories: "data not shared", problems of "software incompatibility", "related to the files to be analyzed", and "code problems", which were grouped into the supercategory "Errors". The "Results" obtained are divided into "non-reproducibility" and "partial reproducibility with modifications."
+The analysis of the field journal resulted in the following thematic categories: "data not shared", problems of *software incompatibility, related to the files to be analyzed*, and *code problems*, which were grouped into the supercategory *Errors*. The *Results* obtained are divided among all categories.
 
 Coding:
 
-Errors:
-
--   Software incompatibility: 4/29.
-
--   Related to files to be analyzed: 5/29.
-
--   Code problems: 10/29.
-
--   Data not shared: 10/29.
+| Error category                   | Number of errors (n = 29) |
+|----------------------------------|---------------------------|
+| Software incompatibility         | 4/29                      |
+| Issues related to files analyzed | 5/29                      |
+| Code-related problems            | 10/29                     |
+| Data not shared                  | 10/29                     |
 
 Results:
 
--   Non-reproducibility: 14/23.
-
--   Partial reproducibility: 1/23.
-
--   Partial reproducibility with modifications: 7/23.
-
--   Reproducibility: 1/23.
+| Reproducibility outcome                   | Number of studies (n = 25) |
+|-------------------------------------------|----------------------------|
+| Non-reproducible                          | 15                         |
+| Partially reproducible                    | 1                          |
+| Partially reproducible with modifications | 7                          |
+| Reproducible                              | 1                          |
+| Reproducible with modifications           | 1                          |
 
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is very possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2024), however, this only required substituting one function with its equivalent in Linux.
 
-In the case of Fareri et al. (2022), the indicated version of the mriqc package could not be found, but a later one. Although the problem with this study was of another nature, this could have affected the results in some way. These examples serve to recall the importance of sharing the computational environment already mentioned.
+In the case of Fareri et al. (2022), the indicated version of the mriqc package could not be found, but a later one. Although the problem with this study was of another nature, this may have affected the results in some way. These examples serve to recall the importance of sharing the computational environment already mentioned.
 
 As for the problems related to the files to be analyzed, they insurmountably hindered the attempt to reproduce the article by Payzan-LeNestour and Woodford (2022), due to the lack of a necessary .csv file, and that of Fareri et al. (2022), where the following errors were found when checking if the material complied with the *Brain Image Data Structure* ('BIDS') standard: “*There is a mismatch between the participant IDs defined in the participants.tsv file and other files in the dataset*” and “*The file names in the scan TSVs do not match the files present in the dataset*,” both literal quotes from the field journal. It is possible that the article by Payzan-LeNestour and Doran (2024) could have been reproduced if an .xlsx format had been used instead of .xls, but this is only a hypothesis.
 
@@ -167,13 +168,13 @@ Among the problems found are the lack of knowledge of the complete computational
 
 The following conclusions are drawn from the entire process, which can serve as a guide for future 'reproducers':
 
--   Verifying the integrity of the available files at the beginning of the process can save time later. Had the BIDS structure of the folders and files provided to reproduce the study by Fareri et al. (2022) been checked first, it could have been concluded in minutes that it could not be reproduced. One of the errors associated with the article by Payzan-LeNestour and Doran (2024) could have been due to the .xls files being damaged, according to the possibilities offered by ChatGPT-4o. Although this was not the case, it would have been good to check it first to rule it out. If the files were damaged, the original authors could be contacted in case they wanted to remedy it and share functional files online.
+-   Verifying the integrity of the available files at the beginning of the process can save time later. Had the BIDS structure of the folders and files provided to reproduce the study by Fareri et al. (2022) been checked first, it could have been concluded in minutes that it could not be reproduced. One of the errors associated with the article by Payzan-LeNestour and Doran (2024) might have been due to the .xls files being damaged, according to the possibilities offered by ChatGPT-4o. Although this was not the case, it would have been good to check it first to rule it out. If the files were damaged, the original authors could be contacted in case they wanted to remedy it and share functional files online.
 
 -   In case of not having the necessary information to install a software computational environment like that of the original study, it can be approximated by searching for the latest stable versions available at the time of the article's publication, taking into account that this could be the cause of the error. Should the article not be reproducible and whatever the result, this fact must be recorded.
 
--   Any error when running the code must be meticulously documented, as well as the solutions that are applied, whether they are useful or not. For this, the simplest and most congruent with the principles of open science is to use a code version control system (Sandve et al., 2013). Those unfamiliar with computer programming may find the usual names given to illegible files, so it would be desirable to make these as clear as possible.
+-   Any error when running the code must be meticulously documented, as well as the solutions that are applied, whether they are useful or not. For this, the simplest and most congruent with the principles of open science is to use a code version control system (Sandve et al., 2013). Those unfamiliar with computer programming may find typical file names unintelligible, so it would be desirable to make these as clear as possible.
 
-With respect to authors who want to make their studies computationally reproducible, most of the inconveniences encountered would be resolved with the use of reproducible computational environments like Guix (Vallet et al., 2022), so that would be a path to explore. That article mentions the limitations of containers like Docker or Singularity, especially due to the difficulty of maintaining them in the long term. This must be taken into account if one chooses to share the environment in that way.
+With respect to authors who want to make their studies computationally reproducible, most of the inconveniences encountered could be resolved with the use of reproducible computational environments like Guix (Vallet et al., 2022), so that would be a path to explore. That article mentions the limitations of containers like Docker or Singularity, especially due to the difficulty of maintaining them in the long term. This must be taken into account if one chooses to share the environment in that way.
 
 Interactive notebooks or computational documents (JupyterLab, Quarto, R Markdown, etc.) make it easier for other researchers to reproduce our studies by integrating code, text, and graphics into a single document.
 
@@ -193,7 +194,7 @@ Consequently, the results of the present study could be generalized to other soc
 
 **Limitations and Conclusion**
 
-Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the articles share the main author. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
+Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the articles share the main author, although not all yielded the same result, what mitigates the potential bias. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
 
 The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced.
 
@@ -201,7 +202,11 @@ The results obtained support that the reproducibility crisis referenced in the *
 
 Alem, Y., Hassen, S. & Köhlin, G. (2023). Decision-making within the household: The role of division of labor and differences in preferences. *Journal of Economic Behavior and Organization, 207*, 511-528. <https://doi.org/10.1016/j.jebo.2023.01.022>
 
+Aydogan, I., Berger, L., & Théroude, V. (2024).Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity. *Journal of Economic Psychology, 104*, 102757. <https://doi.org/10.1016/j.joep.2024.102757>
+
 Blijlevens, J., Chuah, S., Neelim, A., Prasch, J. E, & Skali, A. (2024). Not all about the money: Service quality information improves consumer decision-making. *Journal of Economic Behavior and Organization, 228*, 106769. <https://doi.org/10.1016/j.jebo.2024.106769>
+
+Barrafrem, K., Västfjäll, D., & Tinghög, G.. (2021). The arithmetic of outcome editing in financial and social domains. *Journal of Economic Psychology, 86*, 102408. <https://doi.org/10.1016/j.joep.2021.102408>
 
 Borsboom, C., Duxbury, D., Nieber, A., & Zeisberger. (2024). Domain-dependent diversification: The influence of gain–loss domain on correlation choice. *Journal of Economic Behavior and Organization, 227*, 106681. <https://doi.org/10.1016/j.jebo.2024.106681>
 
@@ -215,9 +220,11 @@ De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups d
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
-Ekström, M., Bjorvatn, K., Mota, P. S., & Sjåstad, H. (2025). Making a promise increases the moral cost of lying: Evidence from Norway and the United States. . *Journal of Economic Behavior and Organization*, *233*, 106995. <https://doi.org/10.1016/j.jebo.2025.106995>
+Ekström, M., Bjorvatn, K., Mota, P. S., & Sjåstad, H. (2025). Making a promise increases the moral cost of lying: Evidence from Norway and the United States. *Journal of Economic Behavior and Organization*, 233\*, 106995. <https://doi.org/10.1016/j.jebo.2025.106995>
 
-Fareri, D. S., Hacket, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+Fareri, D. S., Hackett, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
+
+Fišar, M., Cingl, L., Reggiani, T., Kundtová-Klocová, E., Kundt, R., Krátký, J., Kostolanská, K., Bencúrová, P., Kudličková Pešková, M., & Marečková, K. (2023). Ovulatory shift, hormonal changes, and no effects on incentivized decision-making. *Journal of Economic Psychology, 98*, 102656.
 
 Fred Van Raaij, W., Antonides, G., & Manon De Groot, I. (2020). The benefits of joint and separate financial management of couples. *Journal of Economic Psychology, 80*, 102313. <https://doi.org/10.1016/j.joep.2020.102313>
 
@@ -600,7 +607,7 @@ When I analyze the data using the script *CardOrDice.R*, I found results that ar
 
 **Article 7:** *Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*, by Snijder et al. (2024).
 
-I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts, Again, no computational environment is shared.
+I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts. Again, no computational environment is shared.
 
 I open the script *models.R* and move the csv files to the folder "data analysis" so they can be read. I do the same for *partner choice.R*, *plots.R* and *political orientation.R*. All run without errors and I find essentially the same results (plots, tables, Gini coefficients, and so forth).
 
@@ -652,8 +659,68 @@ pi1 0.377871 0.021618 17.480 < 2.2e-16 ***
 
 Where the 0.377871 differs from the 0.382 beyond rounding errors.
 
-Then I proceed to write an Script to analyze the rest of the data. All data matches the reported up to the third decimal point.
+Then I proceed to write a script to analyze the rest of the data. All data matches the reported up to the third decimal point.
 
 **Article 13:** *Not all about the money: Service quality information improves consumer decision-making*, by Blijlevens et al. (2024).
 
 I check the link provided in the paper, but all I find is a pdf file that contains no data.
+
+**Article 14:** *Ovulatory shift, hormonal changes, and no effects on incentivized decision-making*, by Fišar et al. (2023).
+
+Again, shared materials are for Stata, as well as files with extensions .ztq and .ztt.
+
+I develop a code in R to analyze the .dta files and I get some results close to the original ones, but not the same. For instance in table 5 I get:
+
+``` r
+testosterone          -0.0109513  0.0132570  -0.826   0.4097
+```
+
+While the paper reports −0.0081 and 0.0109.
+
+**Article 15:** *Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity*, by Aydogan et al. (2024).
+
+This paper contains a readme.txt with the version of Stata used to analyze the data. Again, I have to write a script to make my own analysis. This yields essentially the same results that the reported ones in Aydogan et al. (2024),
+
+``` R
+print(table_6_dist)
+# A tibble: 2 × 7
+  treatment Amb_Aversion Amb_Neutral Amb_Seeking CR_Aversion CR_Neutral CR_Seeking
+  <fct>            <dbl>       <dbl>       <dbl>       <dbl>      <dbl>      <dbl>
+1 PPS               52.3        34.1        13.6        37.5       38.6       23.9
+2 RPS               55.8        31.4        12.8        42.0       34.1       23.9
+```
+
+12/23/25
+
+**Article 16:** *The arithmetic of outcome editing in financial and social domains*, by Barrafrem et al. (2021).
+
+Two .dta files are shared - neither code nor instructions are shared.
+
+| Study | Reproducibility Status |
+|------------------------------------|------------------------------------|
+| Alem et al. (2023) | Partially reproducible with modifications |
+| Aydogan et al. (2024) | Reproducible with modifications |
+| Barrafrem et al. (2021) | \- |
+| Blijlevens et al. (2024) | Non-reproducible |
+| Borsboom et al. (2024) | Partially reproducible with modifications |
+| De Bresser and Knoef (2025) | Non-reproducible |
+| Ekström et al. (2025) | Partially reproducible with modifications |
+| Fareri et al. (2022) | Non-reproducible |
+| Fišar et al. (2023) | Non-reproducible |
+| Fred van Raaij et al. (2020) | Non-reproducible |
+| Hausfeld et al. (2020) | Non-reproducible |
+| Hermann et al. (2025) | Partially reproducible with modifications |
+| Hilbert et al. (2022) | Partially reproducible |
+| Huber and Huber (2020) | Partially reproducible with modifications |
+| Löfgren and Nordblom (2020) | Non-reproducible |
+| Merguei et al. (2022) | Non-reproducible |
+| Mischkowski et al. (2021) | Partially reproducible with modifications |
+| Negrini et al. (2022) | Non-reproducible |
+| Pauls and Laudi (2025) | Non-reproducible |
+| Payzan-LeNestour and Doran (2024) | Non-reproducible |
+| Payzan-LeNestour and Woodford (2022) | Non-reproducible |
+| Payzan-LeNestour et al. (2024) | Partially reproducible with modifications |
+| Snijder et al. (2024) | Reproducible |
+| Steinel et al. (2022) | Non-reproducible |
+| Tang (2021) | Non-reproducible |
+| Wang et al. (2025) | Non-reproducible |
