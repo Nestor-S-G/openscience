@@ -605,7 +605,22 @@ I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a 
 
 When I analyze the data using the script *CardOrDice.R*, I find results that are coherent with the ones published in the paper and some small differences probably due to rounding or using different software to analyze the data.
 
-![](img/Article6MyResults.png){width="268"}
+``` r
+rint(dist_dice)
+# A tibble: 24 × 4
+   place_fac      dice     n   prop
+   <fct>         <dbl> <int>  <dbl>
+ 1 Camb_farmers      1    30 0.107 
+ 2 Camb_farmers      2    25 0.0893
+ 3 Camb_farmers      3    55 0.196 
+ 4 Camb_farmers      4    55 0.196 
+ 5 Camb_farmers      5    93 0.332 
+ 6 Camb_farmers      6    22 0.0786
+ 7 Camb_students     1    32 0.148 
+ 8 Camb_students     2    26 0.120 
+ 9 Camb_students     3    33 0.153 
+10 Camb_students     4    43 0.199 
+```
 
 ![](img/Article6published.png)
 
