@@ -7,7 +7,7 @@ editor: visual
 
 **Abstract**
 
-There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that most of the studies could not be reproduced. Based on the experience acquired, a protocol is proposed to try to reproduce successfully published papers.
+There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that 58.6% of the studies could not be reproduced. Based on the experience acquired, a protocol for systematically assessing computational reproducibility is proposed.
 
 Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
 
@@ -104,7 +104,7 @@ Results:
 
 | Reproducibility outcome                   | Number of studies (n = 29) |
 |-------------------------------------------|----------------------------|
-| Non-reproducible                          | 16                         |
+| Non-reproducible                          | 17                         |
 | Partially reproducible                    | 1                          |
 | Partially reproducible with modifications | 9                          |
 | Reproducible                              | 1                          |
@@ -733,11 +733,31 @@ After developing a script for R, I realized some results are not reproducible wi
 
 **Article 18:** *The impact of language on decision-making: Auction winners are less cursed in a foreign language*, by Fu et al. (2025).
 
-Again, materials are shared for Stata. A README.txt file is included with the version of Stata (16+) required.
+Again, materials are shared for Stata. A README.txt file is included with the version of Stata (16+) required. After writing a code for R, all I get is some results that are close to the reported ones, but not the same:
+
+``` R
+======================================================
+> cat("   SECTION 3.1: ROUND 1 DESCRIPTIVES (PDF PAGE 6)\n")
+   SECTION 3.1: ROUND 1 DESCRIPTIVES (PDF PAGE 6)
+> cat("========================================================\n")
+========================================================
+> cat("Native Mean Naive Dev (Paper: -4.76):  ", round(r1_stats$mean_naive_dev[1], 2), "\n")
+Native Mean Naive Dev (Paper: -4.76):   -4.82 
+> cat("Foreign Mean Naive Dev (Paper: -20.23): ", round(r1_stats$mean_naive_dev[2], 2), "\n")
+Foreign Mean Naive Dev (Paper: -20.23):  -19.87 
+> cat("Difference (Paper: -15.47):             ", round(r1_stats$mean_naive_dev[2] - r1_stats$mean_naive_dev[1], 2), "\n")
+Difference (Paper: -15.47):              -15.05 
+> cat("t-statistic (Paper: 4.37):              ", round(abs(t_test_r1$statistic), 2), "\n")
+t-statistic (Paper: 4.37):               4.31 
+> cat("p-value (Paper: < 0.001):               ", format.pval(t_test_r1$p.value), "\n")
+p-value (Paper: < 0.001):                2.1498e-05 
+```
 
 **Article 19:** *Volatility shocks and investment behavior*, by Huber et al. (2021).
 
 I access the link provided in the paper, but I find no files there to proceed with a reproduction.
+
+Realizing no useful results are found in the last entries of the field journal, the authors decided to stop here the process of reproduction.
 
 | Study | Reproducibility Status |
 |------------------------------------|------------------------------------|
@@ -751,7 +771,7 @@ I access the link provided in the paper, but I find no files there to proceed wi
 | Fareri et al. (2022) | Non-reproducible |
 | Fišar et al. (2023) | Non-reproducible |
 | Fred van Raaij et al. (2020) | Non-reproducible |
-| Fu et al. (2025) | \- |
+| Fu et al. (2025) | Non-reproducible |
 | Hausfeld et al. (2020) | Non-reproducible |
 | Hermann et al. (2025) | Partially reproducible with modifications |
 | Hilbert et al. (2022) | Partially reproducible |
