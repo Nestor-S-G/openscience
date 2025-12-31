@@ -7,7 +7,7 @@ editor: visual
 
 **Abstract**
 
-There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that 58.6% of the studies could not be reproduced. Based on the experience acquired, a protocol for systematically assessing computational reproducibility is proposed.
+There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study has focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. The result is that 58.6% of the studies could not be fully reproduced. Based on the experience acquired, a protocol for systematically assessing computational reproducibility is proposed.
 
 Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
 
@@ -89,7 +89,7 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Field Journal Analysis**
 
-The analysis of the field journal resulted in the following thematic categories: data not shared, problems of *software incompatibility, related to the files to be analyzed*, and *code problems*, which were grouped into the supercategory *Errors*. The *Results* obtained are divided among all categories.
+The analysis of the field journal resulted in the following thematic categories: *data not shared*, *software incompatibility, issues related to files analyzed, code-related problems, proprietary software dependency*, and *lack of analysis documentation*, which were grouped into the supercategory *Errors*. The *Results* obtained are divided among all categories.
 
 Coding:
 
@@ -196,7 +196,7 @@ Consequently, the results of the present study could be generalized to other soc
 
 **Limitations and Conclusion**
 
-Among the limitations of the present study is its low representativeness, accentuated by the fact that three of the articles share the main author, although not all yielded the same result, what mitigates the potential bias. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
+Among the limitations of the present study is its low representativeness, accentuated by the fact that some articles share authors (Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2024), Huber and Huber (2020), and Huber et al. (2021)), although not all yielded the same result, what mitigates the potential bias. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases exponentially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, behavioral finance, neuroeconomics, etc.) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
 
 The results obtained support that the reproducibility crisis referenced in the *Introduction* also affects neuroeconomics and behavioral finance, at least with regard to computational reproducibility: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced.
 
@@ -222,7 +222,7 @@ De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups d
 
 Domínguez, N. (2017). La ciencia vive una epidemia de estudios inservibles. *Elpais.com*. Recuperado de [[https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html]{.underline}](https://elpais.com/elpais/2017/01/10/ciencia/1484073680_523691.html)
 
-Ekström, M., Bjorvatn, K., Mota, P. S., & Sjåstad, H. (2025). Making a promise increases the moral cost of lying: Evidence from Norway and the United States. *Journal of Economic Behavior and Organization*, 233\*, 106995. <https://doi.org/10.1016/j.jebo.2025.106995>
+Ekström, M., Bjorvatn, K., Mota, P. S., & Sjåstad, H. (2025). Making a promise increases the moral cost of lying: Evidence from Norway and the United States. *Journal of Economic Behavior and Organization*, *233*, 106995. <https://doi.org/10.1016/j.jebo.2025.106995>
 
 Fareri, D. S., Hackett, K., Tepfer, L. J., Kelly, V., Henninger, N., Reeck, C., Giovannetti, T. & Smith, D. V. (2022). Age-related differences in ventral striatal and default mode network function during reciprocated trust. *NeuroImage, 256*. [[https://doi.org/10.1016/j.neuroimage.2022.119267]{.underline}](https://doi.org/10.1016/j.neuroimage.2022.119267)
 
