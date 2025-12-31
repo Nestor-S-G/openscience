@@ -31,13 +31,13 @@ The FAIR principles can be framed within a larger movement: Open Science, which 
 
 **Scientific Rigor, Behavioral Finance, and Neuroeconomics**
 
-In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), a kind of collateral damage can occur when knowledge that does not have the rigor expected of the scientific method is used to take measures that have a direct impact on people's lives. Economic sciences are an example of this and are not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel y Schwartz, 2022) regarding the superiority of investing in stocks over fixed income in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of behavioral economist Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024). To this controversy should be added the fact that the validity of some findings related to behavioral economics, such as the phenomenon called ego depletion, have been questioned (Job et al., 2010).
+In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), a kind of collateral damage can occur when knowledge that does not have the rigor expected of the scientific method is used to take measures that have a direct impact on people's lives. Economic sciences are an example of this and are not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel & Schwartz, 2022) regarding the superiority of investing in stocks over fixed income in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of behavioral economist Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024).
 
 If the reproducibility crisis is a problem in any discipline, in this case it would be aggravated by the social relevance of its practical applications: the Government Pension Fund of Norway manages around \$1.8 trillion (Reuters, 2024); 15.3% of Spaniards have part of their savings in a pension plan (Funds Society, 2024); Germany recently announced a reform to invest part of the money that guarantees its citizens' future pensions in the stock market (Conde-Batalla, 2024); etc., etc. One must ask where the managers of these huge amounts of money, on which the well-being and quality of life of future retirees will partially depend, extract their knowledge. And if the answer is *from studies that do not meet the standards of the scientific method*, we could be facing a serious problem.
 
 Although work on economic inequality in society has little interest in asset management, the same is not true for the various disciplines that somehow integrate psychology and/or neuroscience with economic sciences (neuroeconomics, behavioral finance, neuromarketing, etc.), whose emphasis on decision-making processes and the biases associated with them are directly related to investment practice: a person analyzing an asset that has been on a long upward streak must be careful that the recency bias does not lead them to think it is a good investment just because it has been rising lately (or the opposite, if the streak has been downward) regardless of what a cold and rigorous analysis of that asset says; if the person in charge of analyzing whether it is a good time or not to buy shares of Harley-Davidson or Ferrari is a motor enthusiast, they must be cautious that the confirmation bias does not make them see an opportunity that does not really exist due to their personal preferences. Etc, etc.
 
-In addition to having this direct relationship, these disciplines have become popular partly due to the publication of popular science books, such as Kahneman (2012), and partly because some of their researchers have won the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel (popularly and erroneously known as the *Nobel in Economics*): Daniel Kahneman (2002), Robert J. Shiller (2013), and Richard H. Thaler (2017). Consequently, non-professional investors can also be expected to be familiar with them and use this knowledge with the aim of increasing their wealth.
+In addition to having this direct relationship, these disciplines have become popular partly due to the publication of popular science books, such as Kahneman (2011), and partly because some of their researchers have won the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel (popularly and erroneously known as the *Nobel in Economics*): Daniel Kahneman (2002), Robert J. Shiller (2013), and Richard H. Thaler (2017). Consequently, non-professional investors can also be expected to be familiar with them and use this knowledge with the aim of increasing their wealth.
 
 **Objectives**
 
@@ -89,16 +89,18 @@ The recurring themes and patterns that emerge in a first reading of the journal 
 
 **Field Journal Analysis**
 
-The analysis of the field journal resulted in the following thematic categories: "data not shared", problems of *software incompatibility, related to the files to be analyzed*, and *code problems*, which were grouped into the supercategory *Errors*. The *Results* obtained are divided among all categories.
+The analysis of the field journal resulted in the following thematic categories: data not shared, problems of *software incompatibility, related to the files to be analyzed*, and *code problems*, which were grouped into the supercategory *Errors*. The *Results* obtained are divided among all categories.
 
 Coding:
 
-| Error category                   | Number of errors (n = 32) |
+| Errors                           | Number of errors (n = 52) |
 |----------------------------------|---------------------------|
-| Software incompatibility         | 4                         |
-| Issues related to files analyzed | 5                         |
-| Code-related problems            | 12                        |
-| Data not shared                  | 11                        |
+| Software incompatibility         | 2                         |
+| Issues related to files analyzed | 2                         |
+| Code-related problems            | 9                         |
+| Data not shared                  | 16                        |
+| Proprietary software dependency  | 8                         |
+| Lack of analysis documentation   | 15                        |
 
 Results:
 
@@ -250,9 +252,7 @@ Huber, C., Huber, J., & Kirchler, M. (2021). Volatility shocks and investment be
 
 Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. *PLoS Medicine, 2*(8), e124. [[https://doi.org/10.1371%2Fjournal.pmed.0020124]{.underline}](https://doi.org/10.1371%2Fjournal.pmed.0020124)
 
-Job, V., Dweck, C. S., & Walton, G. M. (2010). Ego depletion - Is it all in your head? Implicit theories about willpower affect self-regulation. *Psychological Science, 21*(11), 1686–1693. [[https://doi.org/10.1177/0956797610384745]{.underline}](https://doi.org/10.1177/0956797610384745)
-
-Kahneman, D. (2012). *Pensar rápido, pensar despacio.* Debate.
+Kahneman, D. (2011). *Thinking, Fast and Slow.* Farrar, Straus and Giroux.
 
 Kitzes, J., Turek, D., & Deniz, F. (2017). The practice of reproducible research: Case studies and lessons from the data-intensive sciences. *Oakland: University of California Press*.
 
@@ -288,7 +288,7 @@ Payzan-LeNestour, E., Yang, Y., Thelaus, S. & Balleine, B. (2024). Stubborn by D
 
 Perry, K. (2022, January 10). Understanding Relative File Paths. *Coding Rooms.* Recuperado de [[https://www.codingrooms.com/blog/file-paths]{.underline}](https://www.codingrooms.com/blog/file-paths)
 
-Piketty, T. (2014). *El capital en el siglo XXI*. Fondo de Cultura Económica de España.
+Piketty, T. (2014). *Capital in the Twenty-First Century* . Belknap Press: An Imprint of Harvard University Press.
 
 Reuters. (2024, diciembre 6). Norway wealth fund hits record 20 trillion crowns. *Reuters.* [[https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/]{.underline}](https://www.reuters.com/business/finance/norway-wealth-fund-hits-record-20-trillion-crowns-2024-12-06/)
 
