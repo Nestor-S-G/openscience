@@ -11,7 +11,7 @@ editor: visual
 
 **11/25/24**
 
-I begin the search for potentially reproducible articles through the **Open Science Framework** website ([https://osf.io/]{.underline}), using the search terms *behavioral finance, behavioral economics, decision making,* and *neuroeconomics*. Among the results obtained, I investigate those that have the **"Open Data"** and **"Open Materials"** badges, assuming that it will be more likely to find studies that fit the established criteria there. After reading several articles that remain after this initial screening, I come to *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022), and on its seventh page, I see the link to download the study materials: [https://supplementarymat.weebly.com]{.underline}, within which the materials for *Craving money? Evidence from the laboratory and the field* (Payzan-LeNestour and Doran, 2024) are also found. Its abstract mentions combining 'elements of Pavlovian psychology' with 'standard economic theory' in a single model, so I include it as an object of the case studies.
+I begin the search for potentially reproducible articles through [the **Open Science Framework** website](https://osf.io/), using the search terms *behavioral finance, behavioral economics, decision making,* and *neuroeconomics*. Among the results obtained, I investigate those that have the **"Open Data"** and **"Open Materials"** badges, assuming that it will be more likely to find studies that fit the established criteria there. After reading several articles that remain after this initial screening, I come to *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022), and on its seventh page, I see [the link to download](https://supplementarymat.weebly.com) the study materials, within which the materials for *Craving money? Evidence from the laboratory and the field* (Payzan-LeNestour and Doran, 2024) are also found. Its abstract mentions combining 'elements of Pavlovian psychology' with 'standard economic theory' in a single model, so I include it as an object of the case studies.
 
 I also find *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), which investigates the relationship between **aging and changes in executive functions** such as decision-making, specifically in the financial domain when involving other people. In the **Data and code availability** section, they include three links to download the material used.
 
@@ -19,7 +19,7 @@ I also find *Age-related differences in ventral striatal and default mode networ
 
 12/04/2024
 
-After downloading the material from Dropbox, I open RStudio and, following the instructions, adjust the directories of the function *setwd* in the file Outlier.R on lines 3, 37, 75, 108, and 144 to correspond to the folders on my computer. I proceed to execute the complete code and this results in the following error:
+After downloading the material from Dropbox, I open RStudio and, following the instructions, adjust the directories of the function *setwd* in the file Outlier.R on lines 3, 37, 75, 108, and 144 to correspond to the folders on my computer. I run the complete code and this results in the following error:
 
 ``` r
 Error in data.frame(treatment = levels(ATDs1s2$Variable), mean = 
@@ -32,7 +32,7 @@ Which is corrected by adding to line 651:
 ATDs1s2$Variable <- as.factor(Variable)
 ```
 
-After this, I execute the complete code again and a new failure appears because the *setwd* function is used again on line 883 to set a sixth folder as the directory where the file *earningsbyuser.csv* should be found:
+After this, I run the complete code again and a new failure appears because the *setwd* function is used again on line 883 to set a sixth folder as the directory where the file *earningsbyuser.csv* should be found:
 
 ``` r
 >setwd("/Users/danielagrinblatt/Desktop/Elise/Data")
@@ -50,11 +50,11 @@ After two weeks with no news from the principal author of the article, I contact
 
 ![](img/clipboard-1322508556.png)
 
+12/09/24
+
 **Article 2:** *Craving money? Evidence from the laboratory and the field*, by Payzan-LeNestour and Doran (2024).
 
-#### 12/09/2024
-
-After reading the README.md and python_requirements.txt files, I install Conda 24.11.1 to try to reproduce the study within the environment that this software provides. I create an environment called *craving* with Python 3.10 (not specified by the authors, but a plausible option for the time the study was conducted, given that it was a stable version compatible with the key libraries) and pandas 1.5.3 and numpy 1.24.4, given that these two are the only requirements included in the python_requirements.txt file. Once the installation of these versions is verified, I use Jupyter Lab 4.3.3 to open the file 01_combine_participant_data.ipynb, I modify *data_path* as the author herself indicates to adjust it to the folder on my computer where the data is located, and I proceed to execute the code, which leads me to the following error:
+After reading the README.md and python_requirements.txt files, I install Conda 24.11.1 to try to reproduce the study within the environment that this software provides. I create an environment called *craving* with Python 3.10 (not specified by the authors, but a plausible option for the time the study was conducted, given that it was a stable version compatible with the key libraries) and pandas 1.5.3 and numpy 1.24.4, given that these two are the only requirements specified. Once the installation of these versions is verified, I use Jupyter Lab 4.3.3 to open the file 01_combine_participant_data.ipynb, I modify *data_path* as the authors indicate to adjust it to the folder on my computer where the data is located, and I proceed to run the code, which leads me to the following error:
 
 ``` python
 ImportError: Missing optional dependency 'xlrd'.
@@ -122,13 +122,11 @@ Once the containers are created, I open the Linux terminal and follow the instru
 datalad clone https://github.com/OpenNeuroDatasets/ds003745.git bids
 ```
 
-Which produces a new error. I check that the repository still exists by accessing [[https://github.com/OpenNeuroDatasets/ds003745]{.underline}](https://github.com/OpenNeuroDatasets/ds003745)
-
-Having verified its existence, I download the folders manually to continue with the process, understanding that this is a minor issue and that there will be no difference when reading the files whether they reached the hard drive via a manual download or by using a terminal command.
+Which produces a new error. I check the existence [of the repository](https://github.com/OpenNeuroDatasets/ds003745) still exists. Having verified its existence, I download the folders manually to continue the process, understanding that this is a minor issue and that there will be no difference when reading the files whether they reached the hard drive via a manual download or by using a terminal command.
 
 12/30/24
 
-Following the instructions in the README.md file, I open the Linux terminal from the srndna-trustgame-main folder and execute the following command:
+Following the instructions in the README.md file, I open the Linux terminal from the *srndna-trustgame-main* folder and run the following command:
 
 ``` bash
 bash code/run_fmriprep.sh
@@ -199,11 +197,17 @@ To modify the path to current location of the file .simg. Again:
 bash code/run_fmriprep.sh
 ```
 
-And it leads me to a new loop error, in this case due to missing license-related files. As they are not strictly necessary, I simply comment out those lines of code. Following this, I encounter a new loop error.
+And it leads me to a new loop error, in this case due to missing license-related files. Since they are not strictly necessary, I just comment out those lines of code. Following this, I encounter a new loop error.
 
 01/02/2025
 
-The last loop error is also related to the licenses needed to run the software. I create an empty file called *license.txt* to bypass this issue and execute bash code/run_fmriprep.sh again, which yields a new error related to the BIDS standard structure that the folders should follow.
+The last loop error is also related to the licenses needed. I create an empty file called *license.txt* to bypass this issue and run again:
+
+``` bash
+ bash code/run_fmriprep.sh
+```
+
+Which yields a new error related to the BIDS standard structure that the folders should follow.
 
 I check the structure of the *bids* folder at [[https://bids-standard.github.io/bids-validator/]{.underline}](https://bids-standard.github.io/bids-validator/) and this yields several errors, including:
 
@@ -227,11 +231,11 @@ Exported into the file ids-validator-output.json.
 
 Since this is no longer a problem related to an aspect of the computational environment, but rather to the files themselves that should be reproduced, resolving it is beyond my competence, and I conclude that this study could also not be reproduced.
 
-**Article 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
-
 01/29/25
 
-Due to the failure in the attempt to reproduce the previous articles, I try my luck again on the Open Science Framework website. I type *behavioral finance* into its search engine and one of the first results that appears is the recent Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
+**Article 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
+
+Due to the failure in the attempt to reproduce the previous articles, I check again on the OSF website. I type *behavioral finance* into its search engine and one of the first results that appears is Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
 
 RStudio indicates that necessary packages for executing said code are missing, which I proceed to install, and after that, I adjust the setwd() function to adapt it to the folders on my computer. I execute the complete code and receive an error because the windows() function is not available in RStudio for Linux:
 
@@ -256,15 +260,15 @@ All graphs correspond faithfully to those published with the exception of *Figur
 
 I try rewriting the original code, substituting the problematic windows() function with dev.new() instead of ggplot(). When running the code, I obtain identical results to the previous occasion: the same discrepancies in *Figure 10 A* and *Table 3*, and I also do not obtain the graphs that I failed to obtain using ggplot().
 
-10/01/25
+11/01/25
 
-I resume the search for articles to test their CR. I access the [Journal of Economic Behavior and Organization](https://www.sciencedirect.com/journal/journal-of-economic-behavior-and-organization) and type [*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess) in the search box. Then, I limit the scope to the years 2020-2025 and *Open access & Open archive*. If the search gives over 50 articles, I analyze only the 50 first. I proceed the same way with the terms [*behavioral economics*](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess),* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess).
+I resume the search for articles to test their CR. I access the [Journal of Economic Behavior and Organization](https://www.sciencedirect.com/journal/journal-of-economic-behavior-and-organization) and type [*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess) in the search box. Then, I limit the scope to the years 2020-2025 and *Open access & Open archive*. If the search returns over 50 articles, I analyze only the 50 first. I proceed the same way with the terms [*behavioral economics*](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess),* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Behavior+%26+Organization&cid=271649&years=2025%2C2023%2C2024%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess).
 
-I look for articles including the queries (or derivative forms, such as *moral decision-making* or *group decision-making* instead of just *decision-making*) in the keywords or title. Also, if none of the queries is present in either the title or the keywords but there is a clear reference such as talking about 'psychology and economics' or 'investment behavior' that suggest overlapping of behavioral sciences or neuroscience with economics, the article is included.
+I look for articles including the queries (or derivative forms, such as *moral decision-making* or *group decision-making* instead of just *decision-making*) in the keywords or title. Also, if none of the queries is present in either the title or the keywords but there is a clear reference such as talking about 'investment behavior' that suggest overlapping of behavioral sciences or neuroscience with economics, the article is included.
 
 I do the same in [Journal of Economic Psychology](https://www.sciencedirect.com/journal/journal-of-economic-psychology) ([*behavioral finance*](https://www.sciencedirect.com/search?qs=behavioral+finance&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)*, [behavioral economics](https://www.sciencedirect.com/search?qs=behavioral+economics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess), [neuroeconomics](https://www.sciencedirect.com/search?qs=neuroeconomics&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)* and [*decision making*](https://www.sciencedirect.com/search?qs=decision+making&pub=Journal+of+Economic+Psychology&cid=271667&years=2025%2C2024%2C2023%2C2022%2C2021%2C2020&lastSelectedFacet=accessTypes&accessTypes=openaccess)), and [Frontiers in Behavioral Economics](https://www.frontiersin.org/journals/behavioral-economics) ([*behavioral finance*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20finance&publication-date=01%2F01%2F2020-01%2F12%2F2025)*, [behavioral economics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=behavioral%20economics&publication-date=01%2F01%2F2020-01%2F12%2F2025), [neuroeconomics](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=neuroeconomics&publication-date=01%2F01%2F2020-01%2F12%2F2025)* and [*decision making*](https://www.frontiersin.org/journals/behavioral-economics/articles?type=24&query=decision%20making&publication-date=01%2F01%2F2020-01%2F12%2F2025)), with the type *Original Research* and date 01/01/2020-01/12/2025 for the latter. The process yields 45 articles to work with.
 
-10/05/25
+11/05/25
 
 The first classification gives 10 papers non-reproducible (either because nothing is said about sharing data or because explicitly states data cannot be shared), 20 papers that offer data upon request and 15 with the data publicly available.
 
@@ -280,13 +284,13 @@ I get an error in Table B8:
 Error in if (is.na(s)) {: the condition has length > 1
 ```
 
-The rest of the code runs without errors. I proceed to compare the results I get with the results published. I find some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the published ones.
+The rest of the code runs without errors. I proceed to compare the results I get with the results published. I find some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the reported ones.
 
 **Article 6:** *Card or dice? An improved experimental approach to measure dishonesty*, by Hermann et al. (2025).
 
-I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using RStudio.
+I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using R.
 
-When I analyze the data using the script *CardOrDice.R*, I find results that are coherent with the ones published in the paper and some small differences probably due to rounding or using different software to analyze the data.
+When I analyze the data using the script *CardOrDice.R*, I find results that are coherent with the published ones as well as some small differences probably due to rounding or using different software to analyze the data.
 
 ``` r
 rint(dist_dice)
@@ -313,7 +317,7 @@ rint(dist_dice)
 
 I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts. Again, no computational environment is shared.
 
-I open the script *models.R* and move the csv files to the folder "data analysis" so they can be read. I do the same for *partner choice.R*, *plots.R* and *political orientation.R*. All run without errors and I find essentially the same results (plots, tables, Gini coefficients, and so forth).
+I open *models.R* and move the csv files to the folder "data analysis" so they can be read. I do the same for *partner choice.R*, *plots.R* and *political orientation.R*. All run without errors and I find essentially the same results (plots, tables, Gini coefficients, and so forth).
 
 12/17/25
 
@@ -439,6 +443,8 @@ p-value (Paper: < 0.001):                2.1498e-05
 **Article 19:** *Volatility shocks and investment behavior*, by Huber et al. (2021).
 
 I access the link provided in the paper, but I find no files there to proceed with a reproduction.
+
+Realizing no useful results are found in the last entries of the field journal, the authors decided to stop here the process of reproduction.
 
 | Study | Reproducibility Status |
 |------------------------------------|------------------------------------|
