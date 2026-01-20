@@ -1,0 +1,1 @@
+Files related to the reproduction of the reported results of the paper Financial scarcity increases discounting of gains and losses: Experimental evidence from a household task, by Hilbert et al. (2022).
