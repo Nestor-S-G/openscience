@@ -44,6 +44,7 @@ library(lfe)
 library(viridis)
 library(car)
 library(Rmisc)
+library(MASS, exclude = "select")
 ```
 
 First, we import, tidy, reshape, and merge the raw data files from the
@@ -157,7 +158,7 @@ tt_stud <- tt_stud %>%
          lies = choice1 + choice2 + choice3 + choice4 + choice5,
          beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
          ) %>%  
-  select(-starts_with("participant."),
+  dplyr::select(-starts_with("participant."),
          -starts_with("session."),
          -starts_with("postexp"),
          -starts_with("tt."),
@@ -241,7 +242,7 @@ norms_stud <- norms_stud %>%
          wordsf = word1f + word3f + word4f + word6f,       
          beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
          ) %>%
-  select(-starts_with("participant."),
+  dplyr::select(-starts_with("participant."),
          -starts_with("session."),
          -starts_with("postexp"),
          -starts_with("tt_norms."),
@@ -347,7 +348,7 @@ tt_before <- tt_before %>%
          lies = choice1 + choice2 + choice3 + choice4 + choice5,
          beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
   ) %>%  
-  select(-starts_with("participant."),
+  dplyr::select(-starts_with("participant."),
          -starts_with("session."),
          -starts_with("postexp"),
          -starts_with("tt."),
@@ -433,7 +434,7 @@ norms_before <- norms_before %>%
          wordsf = word1f + word3f + word4f + word6f,       
          beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
   ) %>%
-  select(-starts_with("participant."),
+  dplyr::select(-starts_with("participant."),
          -starts_with("session."),
          -starts_with("postexp"),
          -starts_with("tt_norms."),
@@ -543,7 +544,7 @@ norms_studprof <- norms_studprof %>%
          wordsf = word1f + word3f + word4f + word6f,       
          beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
          ) %>%
-  select(-starts_with("participant."),
+  dplyr::select(-starts_with("participant."),
          -starts_with("session."),
          -starts_with("postexp"),
          -starts_with("tt_norms."),
