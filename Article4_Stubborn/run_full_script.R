@@ -3,8 +3,8 @@
 script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 # Set the working directory to the "Data" folder
-setwd("/home/nestor/Documentos/UNED/TFM/Stubborn/Reproducibility/Data")
-suppl_code_path=file.path(script_path, "Supplementary Codes")
+setwd("Data")
+suppl_code_path=file.path(script_path, "Supplementary_Codes")
 
 #Please install the below R Packagaes before running the code
 suppressMessages({
@@ -295,8 +295,7 @@ sum(major_by_n_test$major >2)#Other
   
   
   # Run test
-  t_test_6 <- t.test(betting_rate_bc ~ uncertainty, data = data_6,
-                     alternative = 'less', paired = TRUE)
+  t_test_6 <- t.test(data_6$betting_rate_bc[data_6$uncertainty == 'High'], data_6$betting_rate_bc[data_6$uncertainty == 'Low'], alternative = 'less', paired = TRUE)
   
   effect_size_t_6 <- (
     (mean(data_6$betting_rate_bc[data_6$uncertainty == 'High']) - mean(data_6$betting_rate_bc[data_6$uncertainty == 'Low']))/
@@ -625,9 +624,9 @@ print(table_4)}
 
 #Main results and Figure 7
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model Comparison with the lab data.R"))
+source(file.path(suppl_code_path, "Model Comparison with the lab data.R"))
 #Option 2: direclty load the stored results obtained by us, which is adopted here
-load("Model comparison with the lab data_beta40to60_exploration and loss tolerance.RData")
+#load("Model comparison with the lab data_beta40to60_exploration and loss tolerance.RData")
 
 #Figure 6. Model fit comparisons for participant behavior
 {
@@ -789,9 +788,9 @@ mean(payoff_2_75>0)
 
 #STEP 1 : Simulate Pavlovian agents and run model comparison
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model recovery with simulated Pavlovian agents_no uncertainty effect.R"))
+source(file.path(suppl_code_path, "Model recovery with simulated Pavlovian agents_no uncertainty effect.R"))
 #Option 2: direclty load the results stored by us, which is adopted here
-load("Model Recovery with simulated CbD agents and no uncertainty effect_low trembling_40to60.RData")
+#load("Model Recovery with simulated CbD agents and no uncertainty effect_low trembling_40to60.RData")
 index=which(Bet_yellow_fit>0.01)
 #Percentage of maladpative bettors where the Pavlovian model outperforms the base model
 mean(OOS_CbD_no_uncertain[index]<OOS_rational[index])
@@ -810,9 +809,9 @@ mean(OOS_CbD_no_uncertain[index]<OOS_rational[index])
 
 #STEP 2: Simulate RL agents and run model comparison
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model Recovery with simulated RL agents.R"))
+source(file.path(suppl_code_path, "Model recovery with simulated RL agents.R"))
 #Option 2: direclty load the results stored by us, which is adopted here
-load("Model Recovery with simulated RL agents.RData")
+#load("Model Recovery with simulated RL agents.RData")
 index=which(Bet_yellow_fit>0.01)
 #Percentage of maladpative bettors where the RL model outperforms the base model
 mean(OOS_rational[index]<OOS_RL[index])
@@ -848,9 +847,9 @@ load("Model recovery with a mixed uncertainty effect_low_trembling_40to60_same p
 
 #STEP 3: Simulate Pavlovian agents, without uncertainty effect
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model recovery with simulated Pavlovian agents_no uncertainty effect.R"))
+source(file.path(suppl_code_path, "Model recovery with simulated Pavlovian agents_no uncertainty effect.R"))
 #Option 2: direclty load the results stored by us, which is adopted here
-load("Model Recovery with simulated CbD agents and no uncertainty effect_low trembling_40to60.RData")
+#load("Model Recovery with simulated CbD agents and no uncertainty effect_low trembling_40to60.RData")
 {
   index=which(Bet_yellow_fit>0.01)
   A <- dfba_wilcoxon(OOS_CbD[index],OOS_CbD_no_uncertain[index])
@@ -865,9 +864,9 @@ load("Model Recovery with simulated CbD agents and no uncertainty effect_low tre
 #Robustness check-----
 #Undirected exploraion and loss aversion
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model Comparison with the lab data.R"))
+source(file.path(suppl_code_path, "Model Comparison with the lab data.R"))
 #Option 2: direclty load the stored results obtained by us, which is adopted here
-load("Model comparison with the lab data_beta40to60_exploration and loss tolerance.RData")
+#load("Model comparison with the lab data_beta40to60_exploration and loss tolerance.RData")
 
 #The base model fits better than the RL with undirected exploration
 {
@@ -885,9 +884,9 @@ load("Model comparison with the lab data_beta40to60_exploration and loss toleran
 
 #Running on all samples and allow for high choice randomness
 #Option 1: process the data by yourself which may take a while, just remove the # in the below line
-#source(file.path(suppl_code_path, "Model Comparison with the lab data_full samples and choice randomness.R"))
+source(file.path(suppl_code_path, "Model Comparison with the lab data_full samples and choice randomness.R"))
 #Option 2: direclty load the stored results obtained by us, which is adopted here
-load("Model comparison with the lab data_high trembling_10to60.RData")
+#load("Model comparison with the lab data_high trembling_10to60.RData")
 #Paired Wilcoxon test compairing base vs. RL
 {
   wilcox_result <- wilcox.test(OOS_rational, OOS_RL, alternative = 'l', paired = TRUE)
