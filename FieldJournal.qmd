@@ -29,7 +29,8 @@ tapply(ATDs1s2$value, : arguments imply differing number of rows: 0, 2
 Which is corrected by adding to line 651:
 
 ``` r
-ATDs1s2$Variable <- as.factor(Variable)
+ATDs1s2<-cbind(ATDs1s2,Variable)
+ATDs1s2$Variable <- factor(ATDs1s2$Variable)
 ```
 
 After this, I run the complete code again and a new failure appears because the *setwd* function is used again on line 883 to set a sixth folder as the directory where the file *earningsbyuser.csv* should be found:
