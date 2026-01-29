@@ -3,7 +3,7 @@
 script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 # Set the working directory to the "Data" folder
-setwd("Data")
+setwd("Article4_Stubborn/Data")
 suppl_code_path=file.path(script_path, "Supplementary_Codes")
 
 #Please install the below R Packagaes before running the code
