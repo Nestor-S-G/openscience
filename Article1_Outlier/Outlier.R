@@ -1,6 +1,6 @@
 #IMPORTING AND MERGING DATA
 
-setwd("/home/nestor/Escritorio/git/Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_hue_task_5trial_adaptation")
+setwd("Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_hue_task_5trial_adaptation")
 
 datap1_01<-read.csv(file("guest1.csv"),nrows=1000,header=T,sep=",")
 datap1_02<-read.csv(file("guest2.csv"),nrows=1000,header=T,sep=",")
@@ -34,7 +34,7 @@ datap1_29<-read.csv(file("guest29.csv"),nrows=1000,header=T,sep=",")
 datap1_30<-read.csv(file("guest30.csv"),nrows=1000,header=T,sep=",")
 datap1_31<-read.csv(file("guest31.csv"),nrows=1000,header=T,sep=",")
 
-setwd("/home/nestor/Escritorio/git/Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_hue_task_placebo")
+setwd("../DATA_hue_task_placebo")
 
 datap2_01<-read.csv(file("guest1.csv"),nrows=960,header=T,sep=",")
 datap2_02<-read.csv(file("guest2.csv"),nrows=960,header=T,sep=",")
@@ -72,7 +72,7 @@ datap2_33<-read.csv(file("guest33.csv"),nrows=960,header=T,sep=",")
 datap2_34<-read.csv(file("guest34.csv"),nrows=960,header=T,sep=",")
 datap2_35<-read.csv(file("guest35.csv"),nrows=960,header=T,sep=",")
 
-setwd("/home/nestor/Escritorio/git/Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_huetask_main_exepriment_session1")
+setwd("../DATA_huetask_main_exepriment_session1")
 
 datas1_01<-read.csv(file("guest1.csv"),nrows=1248,header=T,sep=",")
 datas1_02<-read.csv(file("guest2.csv"),nrows=1248,header=T,sep=",")
@@ -105,7 +105,7 @@ datas1_29<-read.csv(file("guest29.csv"),nrows=1128,header=T,sep=",")
 datas1_30<-read.csv(file("guest30.csv"),nrows=1128,header=T,sep=",")
 datas1_31<-read.csv(file("guest31.csv"),nrows=1128,header=T,sep=",")
 
-setwd("/home/nestor/Escritorio/git/Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_huetask_main_experiment_session2")
+setwd("../DATA_huetask_main_experiment_session2")
 
 datas2_01<-read.csv(file("guest1.csv"),nrows=1128,header=T,sep=",")
 datas2_02<-read.csv(file("guest2.csv"),nrows=1128,header=T,sep=",")
@@ -141,7 +141,7 @@ datas2_31<-read.csv(file("guest31.csv"),nrows=1128,header=T,sep=",")
 datas2_32<-read.csv(file("guest32.csv"),nrows=1128,header=T,sep=",")
 datas2_33<-read.csv(file("guest33.csv"),nrows=1128,header=T,sep=",")
 
-setwd("/home/nestor/Escritorio/git/Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_huetask_double_response_time")
+setwd("../DATA_huetask_double_response_time")
 
 datas3_01<-read.csv(file("guest1.csv"),nrows=1128,header=T,sep=",")
 datas3_02<-read.csv(file("guest2.csv"),nrows=1128,header=T,sep=",")
@@ -649,12 +649,8 @@ ATDs1s2<-subset(accuracytestdata,session=="s1s2")
 ATDs1s2<-melt(ATDs1s2)
 Variable<-ifelse(ATDs1s2$variable=="accuracy_adaptivetest","Adaptive Test Trials",ifelse(ATDs1s2$variable=="accuracy_controltest","Control Test Trials",0))
 ATDs1s2<-cbind(ATDs1s2,Variable)
-ATDs1s2.summary <- data.frame(
-  treatment = unique(ATDs1s2$Variable),
-  mean = tapply(ATDs1s2$value, ATDs1s2$Variable, mean),
-  n = tapply(ATDs1s2$value, ATDs1s2$Variable, length),
-  sd = tapply(ATDs1s2$value, ATDs1s2$Variable, sd)
-)
+ATDs1s2$Variable <- factor(ATDs1s2$Variable)
+ATDs1s2.summary<-data.frame(treatment=levels(ATDs1s2$Variable),mean=tapply(ATDs1s2$value,ATDs1s2$Variable,mean),n=tapply(ATDs1s2$value,ATDs1s2$Variable,length),sd=tapply(ATDs1s2$value,ATDs1s2$Variable,sd))
 ATDs1s2.summary$se<-ATDs1s2.summary$sd/sqrt(ATDs1s2.summary$n)
 mainexperimentaccuracybar<-ggplot(ATDs1s2.summary,aes(x=treatment,y=mean)) +geom_bar(position=position_dodge(),stat="identity",fill="skyblue",width=0.4) +geom_errorbar(aes(ymin=mean-se,ymax=mean+se),width=0.1)+labs(title="Bar Plot: \nMean Accuracy for Control Test Trials and Adaptive Test Trials \nin Main Experiment",size=12) +theme_bw()+theme(panel.grid.major=element_blank(),plot.title=element_text(size=12),axis.title=element_text(size=12))+ylab("Mean Accuracy")+xlab(" ") +geom_signif(comparisons=list(c("Adaptive Test Trials","Control Test Trials")),map_signif_level=TRUE,y_position=c(0.9,0.95))+ylim(0,0.98) 
 
