@@ -89,7 +89,7 @@ tt_stud <- data %>%
   filter((session.code == "6vi3dw2b"|session.code == "9auk5aea"|session.code=="7q355nra"|session.code == "s1pa9lws"|session.code == "9d565pyp"|session.code == "o75chhp9"), participant._index_in_pages>=11)
 
 tt_stud <- tt_stud %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt.1.player.context,
          treatment = tt.1.player.treatment,
          subject = participant.code,
@@ -173,7 +173,7 @@ norms_stud <- data %>%
          & participant._index_in_pages==27)
 
 norms_stud <- norms_stud %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt_norms.1.player.context,
          subject = participant.code,
          norms_true1 = tt_norms.1.player.norm_true,
@@ -281,7 +281,7 @@ tt_before <- data %>%
          & participant._index_in_pages==12)
 
 tt_before <- tt_before %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt.1.player.context,
          subject = participant.code,
          choice1 = tt.1.player.choice_1,
@@ -364,7 +364,7 @@ norms_before <- data %>%
          & participant._index_in_pages==28)
 
 norms_before <- norms_before %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt_norms.1.player.context,
          subject = participant.code,
          norms_true1 = tt_norms.1.player.norm_true,
@@ -475,7 +475,7 @@ norms_studprof <- data %>%
          & participant._index_in_pages==27)
 
 norms_studprof <- norms_studprof %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt_norms.1.player.context,
          subject = participant.code,
          norms_true1 = tt_norms.1.player.norm_true,
@@ -581,7 +581,7 @@ csv2 <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-17.csv")
 data <- rbind(csv, csv1, csv2) %>% tbl_df()
 
 exp <- read.csv("_raw/data_prolific/prolific_export_5e1478086e8aaba68ddcfa31.csv") %>% 
-  rename(participant.label = participant_id,
+  dplyr::rename(participant.label = participant_id,
          age.prolific = age)
 
 data <- left_join(data, exp,
@@ -592,7 +592,7 @@ tt_pf <- data %>%
          & participant._index_in_pages==12)
 
 tt_pf <- tt_pf %>%
-  rename(session = session.code,
+  dplyr::rename(session = session.code,
          context = tt.1.player.context,
          treatment = tt.1.player.treatment,
          subject = participant.code,
