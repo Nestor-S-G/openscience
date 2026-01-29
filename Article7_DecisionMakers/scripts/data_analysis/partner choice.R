@@ -29,13 +29,13 @@ agg_switch_sem.rm <- function(x) if(is.factor(x) | is.character(x)) unique(x)[1]
 
 ### Prepare data
 
-dat = read_csv("dat_institutions.csv")
+dat = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_institutions.csv")
 head(dat)
 
-dat_long = read_csv("dat_long.csv")
+dat_long = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_long.csv")
 head(dat_long)
 
-dat_fair = read_csv("dat_fair.csv")
+dat_fair = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_fair.csv")
 head(dat_fair)
 
 ###################################################################################################################################
