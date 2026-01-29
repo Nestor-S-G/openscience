@@ -3,9 +3,8 @@ library(rmarkdown)
 library(here)
 
 root <- here()
-
 #Script Article 1
-try(source("Article1_Outlier/Outlier.R"), silent = TRUE)
+try(source("Article1_Outlier/Outlier.R"), silent = FALSE)
 
 #Script Article 4
 setwd(root)
@@ -13,7 +12,7 @@ source("Article4_Stubborn/run_full_script.R")
 
 # #Script Article 5
 setwd(root)
-rmarkdown::render("Article5_BadBankers/notebook.Rmd")
+try(rmarkdown::render("Article5_BadBankers/notebook.Rmd"))
 
 # #Script Article 7
 setwd(root)
