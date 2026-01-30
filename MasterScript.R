@@ -3,18 +3,18 @@ library(rmarkdown)
 library(here)
 
 root <- here()
-#Script Article 1
+#Script Payzan-LeNestour and Woodford (2022)
 try(source("Article1_Outlier/Outlier.R"), silent = FALSE)
 
-#Script Article 4
+#Script Payzan-LeNestour et al. (2024)
 setwd(root)
 source("Article4_Stubborn/run_full_script.R")
 
-# #Script Article 5
+# #Script Huber and Huber (2020)
 setwd(root)
 try(rmarkdown::render("Article5_BadBankers/notebook.Rmd"))
 
-# #Script Article 7
+# #Script Snijder et al. (2024)
 setwd(root)
 source("Article7_DecisionMakers/scripts/data_analysis/models.R")
 setwd(root)
@@ -26,6 +26,6 @@ source("Article7_DecisionMakers/scripts/data_analysis/political orientation.R")
 setwd(root)
 source("Article7_DecisionMakers/scripts/process_data/process data.R")
 
-# #Script Article 12 (R part)
+# #Script Ekström et al. (2025), (R part)
 setwd(root)
 source("Article12_MakingAPromise/MakingAPromise.R")
