@@ -1,0 +1,5 @@
+blmer                   Fit Bayesian Linear and Generalized Linear
+                        Mixed-Effects Models
+bmerDist-class          Bayesian Linear Mixed-Effects Model Prior
+                        Representations and bmer*Dist Methods
+bmerMod-class           Class "bmerMod" of Fitted Mixed-Effect Models
