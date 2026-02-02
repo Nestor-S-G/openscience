@@ -1,8 +1,14 @@
 #Master script
+gc()
+rm(list = ls())
+
+#Libraries
 library(rmarkdown)
 library(here)
 
+renv::restore()
 root <- here()
+
 #Script Payzan-LeNestour and Woodford (2022)
 try(source("Article1_Outlier/Outlier.R"), silent = FALSE)
 
