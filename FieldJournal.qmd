@@ -1,5 +1,5 @@
 ---
-title: "Field Journal of the paper "'Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields'""
+title: "Field Journal of the paper 'Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields'"
 author: "Néstor Suárez González, Daniel Vicente Morillo Cuadrado"
 format: pdf
 editor: visual
@@ -11,7 +11,7 @@ editor: visual
 
 **11/25/24**
 
-I begin the search for potentially reproducible articles through [the **Open Science Framework** website](https://osf.io/), using the search terms *behavioral finance, behavioral economics, decision making,* and *neuroeconomics*. Among the results obtained, I investigate those that have the **"Open Data"** and **"Open Materials"** badges, assuming that it will be more likely to find studies that fit the established criteria there. After reading several articles that remain after this initial screening, I come to *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022), and on its seventh page, I see [the link to download](https://supplementarymat.weebly.com) the study materials, within which the materials for *Craving money? Evidence from the laboratory and the field* (Payzan-LeNestour and Doran, 2024) are also found. Its abstract mentions combining 'elements of Pavlovian psychology' with 'standard economic theory' in a single model, so I include it as an object of the case studies.
+I begin the search for potentially reproducible articles through [the **Open Science Framework** website](https://osf.io/), using the search terms *behavioral finance, behavioral economics, decision making,* and *neuroeconomics*. Among the results obtained, I investigate those that have the **"Open Data"** and **"Open Materials"** badges, assuming that it will be more likely to find studies that fit the established criteria there. After reading several articles that remain after this initial screening, I come to *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022), and on its seventh page, I find [the link to download](https://supplementarymat.weebly.com) the study materials, within which the materials for *Craving money? Evidence from the laboratory and the field* (Payzan-LeNestour and Doran, 2024) are also found. Its abstract mentions combining 'elements of Pavlovian psychology' with 'standard economic theory' in a single model, so I include it as an object of the case studies.
 
 I also find *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), which investigates the relationship between **aging and changes in executive functions** such as decision-making, specifically in the financial domain when involving other people. In the **Data and code availability** section, they include three links to download the material used.
 
@@ -330,8 +330,6 @@ I tried to access the website where the data is shared several times, but I wasn
 
 I am able to download the materials now. Those files are for Stata, a statistical package to which I have no access -a reminder of the importance of using open source for an open science.
 
-I use the library readstata13 of R to analyze the data and get, virtually, the same results - identical for *Fig.3 WTP for ICS by Treatment*, with exceptions like −0.139 in the paper vs −0.152 in my case for *Table 4. Treatment Effects on the Log of WTP: Tobit and OLS Regression Results*.
-
 **Article 9:** *Domain-dependent diversification: The influence of gain–loss domain on correlation choice*, by Borsboom et al. (2024).
 
 I download the data and, again, I find a .xlsx and a .docx file - no computational environment or code to process the data. I write an R script to analyze it and find virtually the same results, with some variations (44.2% in the paper vs 44.6% in my results).
@@ -356,9 +354,7 @@ After checking different versions of my code, I achieve results that are coheren
 
 **Article 12:** *Making a promise increases the moral cost of lying: Evidence from Norway and the United States*, by Ekström et al. (2025).
 
-Shared material are partly in .do, partly in .R files. Again, since Stata is proprietary software, I have to write a code based upon the info in the paper, at least for part of the reproduction process.
-
-First I run the *TableA3_code.R* and compare it with the materials provided in the appendix. They match the reported figures, except for:
+Shared material are partly in .do, partly in .R files. I run the *TableA3_code.R* and compare it with the materials provided in the appendix. They match the reported figures, except for:
 
 ``` r
     Estimate   StdErr      z  Pr(>|z|)    
@@ -368,8 +364,6 @@ pi1 0.377871 0.021618 17.480 < 2.2e-16 ***
 
 Where the 0.377871 differs from the 0.382 beyond rounding errors.
 
-Then I proceed to write a script to analyze the rest of the data. All data matches the reported up to the third decimal point.
-
 **Article 13:** *Not all about the money: Service quality information improves consumer decision-making*, by Blijlevens et al. (2024).
 
 I check the link provided in the paper, but all I find is a pdf file that contains no data.
@@ -378,26 +372,9 @@ I check the link provided in the paper, but all I find is a pdf file that contai
 
 Again, shared materials are for Stata, as well as files with extensions .ztq and .ztt.
 
-I develop a code in R to analyze the .dta files and I get some results close to the original ones, but not the same. For instance in table 5 I get:
-
-``` r
-testosterone          -0.0109513  0.0132570  -0.826   0.4097
-```
-
-While the paper reports −0.0081 and 0.0109.
-
 **Article 15:** *Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity*, by Aydogan et al. (2024).
 
-This paper contains a readme.txt with the version of Stata used to analyze the data. Again, I have to write a script to make my own analysis. This yields essentially the same results that the reported ones in Aydogan et al. (2024),
-
-``` r
-print(table_6_dist)
-# A tibble: 2 × 7
-  treatment Amb_Aversion Amb_Neutral Amb_Seeking CR_Aversion CR_Neutral CR_Seeking
-  <fct>            <dbl>       <dbl>       <dbl>       <dbl>      <dbl>      <dbl>
-1 PPS               52.3        34.1        13.6        37.5       38.6       23.9
-2 RPS               55.8        31.4        12.8        42.0       34.1       23.9
-```
+This paper contains a readme.txt with the version of Stata used to analyze the data.
 
 12/23/25
 
@@ -417,29 +394,9 @@ Such as the -0.0178, reported as -0.020 in Table 2.
 
 Authors have share data and scripts for Stata, but no computational environment or info of what version of Stata was used.
 
-After developing a script for R, I realized some results are not reproducible with the materials shared. Among the reproducible ones, I get minor discrepancies due to rounding.
-
 **Article 18:** *The impact of language on decision-making: Auction winners are less cursed in a foreign language*, by Fu et al. (2025).
 
-Again, materials are shared for Stata. A README.txt file is included with the version of Stata (16+) required. After writing a code for R, all I get is some results that are close to the reported ones, but not the same:
-
-``` r
-======================================================
-> cat("   SECTION 3.1: ROUND 1 DESCRIPTIVES (PDF PAGE 6)\n")
-   SECTION 3.1: ROUND 1 DESCRIPTIVES (PDF PAGE 6)
-> cat("========================================================\n")
-========================================================
-> cat("Native Mean Naive Dev (Paper: -4.76):  ", round(r1_stats$mean_naive_dev[1], 2), "\n")
-Native Mean Naive Dev (Paper: -4.76):   -4.82 
-> cat("Foreign Mean Naive Dev (Paper: -20.23): ", round(r1_stats$mean_naive_dev[2], 2), "\n")
-Foreign Mean Naive Dev (Paper: -20.23):  -19.87 
-> cat("Difference (Paper: -15.47):             ", round(r1_stats$mean_naive_dev[2] - r1_stats$mean_naive_dev[1], 2), "\n")
-Difference (Paper: -15.47):              -15.05 
-> cat("t-statistic (Paper: 4.37):              ", round(abs(t_test_r1$statistic), 2), "\n")
-t-statistic (Paper: 4.37):               4.31 
-> cat("p-value (Paper: < 0.001):               ", format.pval(t_test_r1$p.value), "\n")
-p-value (Paper: < 0.001):                2.1498e-05 
-```
+Materials are shared for Stata. A README.txt file is included with the version of Stata (16+) required.
 
 **Article 19:** *Volatility shocks and investment behavior*, by Huber et al. (2021).
 
@@ -449,17 +406,17 @@ Realizing no useful results are found in the last entries of the field journal, 
 
 | Study | Reproducibility Status |
 |------------------------------------|------------------------------------|
-| Alem et al. (2023) | Partially reproducible with modifications |
-| Aydogan et al. (2024) | Reproducible with modifications |
+| Alem et al. (2023) | Non-evaluable |
+| Aydogan et al. (2024) | Non-evaluable |
 | Barrafrem et al. (2021) | Partially reproducible with modifications |
 | Blijlevens et al. (2024) | Non-reproducible |
 | Borsboom et al. (2024) | Partially reproducible with modifications |
 | De Bresser and Knoef (2025) | Non-reproducible |
-| Ekström et al. (2025) | Partially reproducible with modifications |
+| Ekström et al. (2025) | Partially reproducible |
 | Fareri et al. (2022) | Non-reproducible |
-| Fišar et al. (2023) | Non-reproducible |
+| Fišar et al. (2023) | Non-evaluable |
 | Fred van Raaij et al. (2020) | Non-reproducible |
-| Fu et al. (2025) | Non-reproducible |
+| Fu et al. (2025) | Non-evaluable |
 | Hausfeld et al. (2020) | Non-reproducible |
 | Hermann et al. (2025) | Partially reproducible with modifications |
 | Hilbert et al. (2022) | Partially reproducible |
@@ -477,4 +434,4 @@ Realizing no useful results are found in the last entries of the field journal, 
 | Steinel et al. (2022) | Non-reproducible |
 | Tang (2021) | Non-reproducible |
 | Wang et al. (2025) | Non-reproducible |
-| Zhang et al. (2024) | Partially reproducible with modifications |
+| Zhang et al. (2024) | Non-evaluable |
