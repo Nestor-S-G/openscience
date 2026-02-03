@@ -51,13 +51,13 @@ First, a series of articles will be selected whose CR will be tested following t
 
 Software and Operating System Specifications Across Articles
 
-| Aspect                   | All articles                      |
-|--------------------------|-----------------------------------|
-| Operating system         | Linux Mint 22.3 *Zena*            |
-| Error resolution support | ChatGPT-5o                        |
-| Unavailability policy    | Process suspended until available |
-| R version                | 4.5.2 “\[Not\] Part in a Rumble”  |
-| RStudio version          | 2026.01.0+392                     |
+| Aspect                   |                                    |
+|--------------------------|------------------------------------|
+| Operating system         | Linux Mint 22.3 *Zena.*            |
+| Error resolution support | ChatGPT-5o.                        |
+| Unavailability policy    | Process suspended until available. |
+| R version                | 4.5.2 “\[Not\] Part in a Rumble”.  |
+| RStudio version          | 2026.01.0+392.                     |
 
 The different versions of the files used will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
 
@@ -160,6 +160,8 @@ Whose steps are detailed below:
 -Partially reproducible with modifications: A case analogous to the previous one, but where modifications in the given code were necessary to achieve that partial reproduction.
 
 -Non-reproducible: Either different results from the originals are reached, or no results are reached for whatever reason (failures in reading the files, impossibility of recreating the computational environment or a sufficiently similar one that allows the code to run, etc.).
+
+-Non-evaluable: Materials are shared, but its reproducibility couldn't be assesed for various reasons, for instance, being shared in proprietary software not everyone has access to.
 
 ### **Discussion**
 
