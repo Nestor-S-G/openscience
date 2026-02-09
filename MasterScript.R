@@ -17,6 +17,8 @@ setwd(root)
 source("Article1_Outlier/Outlier.R")
 
 #Script Payzan-LeNestour et al. (2024)
+setwd(root)
+source("Article4_Stubborn/run_full_script.R")
 
 # #Script Huber and Huber (2020)
 setwd(root)
