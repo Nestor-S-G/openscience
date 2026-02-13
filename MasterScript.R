@@ -20,23 +20,27 @@ source("Article4_Stubborn/run_full_script.R")
 try(
   xfun::Rscript_call(function() {
     
+    library(here)
+    setwd(here::here())
+    
     log_file <- "Article1_Outlier/Outlier_log.txt"
     
-    # Abrir conexión
+    # Crear carpeta si no existe (no el archivo)
+    dir.create(dirname(log_file),
+               recursive = TRUE,
+               showWarnings = FALSE)
+    
     con <- file(log_file, open = "wt")
     
-    # Redirigir stdout y stderr
     sink(con)
     sink(con, type = "message")
     
     on.exit({
       sink(type = "message")
       sink()
+      sink()
       close(con)
     }, add = TRUE)
-    
-    library(here)
-    setwd(here::here())
     
     source("Article1_Outlier/Outlier.R", local = TRUE)
     
@@ -44,15 +48,19 @@ try(
   silent = FALSE
 )
 
-# #Script Huber and Huber (2020)
-setwd(root)
-try(rmarkdown::render("Article5_BadBankers/notebook.Rmd"))
-
 # Script Huber and Huber (2020)
 try(
   xfun::Rscript_call(function() {
     
+    library(here)
+    setwd(here::here())
+    
     log_file <- "Article5_BadBankers/Huber2020_render_log.txt"
+    
+    dir.create(dirname(log_file),
+               recursive = TRUE,
+               showWarnings = FALSE)
+    
     con <- file(log_file, open = "wt")
     
     sink(con)
@@ -61,12 +69,11 @@ try(
     on.exit({
       sink(type = "message")
       sink()
+      sink()
       close(con)
     }, add = TRUE)
     
-    setwd(here::here())
-    
-    # Wrapper para ggsave que crea automáticamente directorios
+    # Wrapper para ggsave (sin modificar el código del artículo)
     unlockBinding("ggsave", asNamespace("ggplot2"))
     original_ggsave <- ggplot2::ggsave
     
@@ -79,19 +86,14 @@ try(
     
     lockBinding("ggsave", asNamespace("ggplot2"))
     
-    tryCatch(
-      rmarkdown::render(
-        input         = "Article5_BadBankers/notebook.Rmd",
-        output_format = "pdf_document",
-        output_file   = "Huber2020_reproduced.pdf",
-        clean         = FALSE,
-        envir         = new.env(),
-        quiet         = FALSE
-      ),
-      error = function(e) {
-        cat("\n--- ERROR DURING RENDER ---\n")
-        print(e)
-      }
+    # ← SIN tryCatch (crítico para diagnóstico reproducible)
+    rmarkdown::render(
+      input         = "Article5_BadBankers/notebook.Rmd",
+      output_format = "pdf_document",
+      output_file   = "Huber2020_reproduced.pdf",
+      clean         = FALSE,
+      envir         = globalenv(),
+      quiet         = FALSE
     )
     
   }),
