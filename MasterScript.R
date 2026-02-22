@@ -3,7 +3,6 @@
 gc()
 rm(list = ls())
 
-if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
 renv::restore()
 
 #Libraries
