@@ -1,5 +1,5 @@
 #Master script
-# R version: 4.5.2
+# R version: 4.5.3
 gc()
 rm(list = ls())
 
@@ -10,10 +10,14 @@ library(rmarkdown)
 library(here)
 library(xfun)
 
-#Script Payzan-LeNestour et al. (2024)
-root <- here()
-setwd(root)
-source("Article4_Stubborn/run_full_script.R")
+if (FALSE) {
+  
+  # Script Payzan-LeNestour et al. (2024)
+  root <- here()
+  setwd(root)
+  source("Article4_Stubborn/run_full_script.R")
+
+}
 
 # Script Payzan-LeNestour and Woodford (2022)
 try(
@@ -138,7 +142,6 @@ try(
   }),
   silent = FALSE
 )
-
 
 # #Script Ekström et al. (2025), (R part)
 try(
