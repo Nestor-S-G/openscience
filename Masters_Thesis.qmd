@@ -56,7 +56,7 @@ Software and Operating System Specifications Across Articles
 | Operating system         | Linux Mint 22.3 *Zena.*            |
 | Error resolution support | ChatGPT-5o.                        |
 | Unavailability policy    | Process suspended until available. |
-| R version                | 4.5.2 “\[Not\] Part in a Rumble”.  |
+| R version                | 4.5.3 “Reassured Reassurer”.       |
 | RStudio version          | 2026.01.0+392.                     |
 
 The different versions of the files used will be controlled at [[https://github.com/Nestor-S-G/openscience]{.underline}](https://github.com/Nestor-S-G/openscience).
