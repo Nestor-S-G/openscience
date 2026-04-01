@@ -73,7 +73,7 @@ Due to the fact that a little-researched topic is being addressed, it is not con
 
 **Reproduction**
 
-Once the articles are selected, an attempt will be made to reproduce them from scratch following the given instructions using a bottom-up process. Should such instructions not exist, this constitutes an error on the part of the original authors who have not published the corresponding metadata as suggested by White et al. (2013) for research data, and which I consider pertinent to extend to all types of data necessary to proceed with reproduction. This will be noted, and the procedure indicated in the article will be followed, attempting to deduce the required steps from what is published therein.
+Once the articles are selected, an attempt will be made to reproduce them from scratch following the given instructions using a bottom-up process.
 
 **Field Journal**
 
@@ -316,8 +316,6 @@ Vallet, N., Michonneau, D., & Tournier, S. (2022). Toward practical transparent 
 Vines, T. H., Albert, A. Y. K., Andrew, R. L., Débarre, F., Bock, D. G., Franklin, M. T., Gilbert, K. J., Moore, J. S., Renaut, S. & Rennison, D. J. (2014). The Availability of Research Data Declines Rapidly with Article Age. *Current Biology, 24*(1), 94-97. [[https://doi.org/10.1016/j.cub.2013.11.014]{.underline}](https://doi.org/10.1016/j.cub.2013.11.014)
 
 Wang, Y., Driouchi, T., & Nguyen, D. D. (Louis). (2025). Parental death in childhood and stock market participation: Cross-cultural insights. *Journal of Economic Behavior and Organization, 236*, 107078. <https://doi.org/10.1016/j.jebo.2025.107078>
-
-White, E. P., Baldridge, E., Brym, Z. T., Locey, K. J., McGlinn, D. J. & Supp, S. R. (2013). Nine simple ways to make it easier to (re)use your data. *Ideas in Ecology and Evolution, 6*(2), Article 2. [[https://ojs.library.queensu.ca/index.php/IEE/article/view/4608]{.underline}](https://ojs.library.queensu.ca/index.php/IEE/article/view/4608)
 
 Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A., ... & Mons, B. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data, 3*(1), 160018. [[https://doi.org/10.1038/sdata.2016.18]{.underline}](https://doi.org/10.1038/sdata.2016.18)
 
