@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "https://experiment.unsw.edu.au/dmuu-experiment/static/css/main.297357ba.chunk.css",
+    "main.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/main.d5913b8a.chunk.js",
+    "main.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/main.d5913b8a.chunk.js.map",
+    "polyfills-dom.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/polyfills-dom.ddc547bd.chunk.js",
+    "polyfills-dom.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/polyfills-dom.ddc547bd.chunk.js.map",
+    "runtime-main.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/runtime-main.4e99e0f0.js",
+    "runtime-main.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/runtime-main.4e99e0f0.js.map",
+    "static/css/3.49b25099.chunk.css": "https://experiment.unsw.edu.au/dmuu-experiment/static/css/3.49b25099.chunk.css",
+    "static/js/3.973f1cdf.chunk.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/3.973f1cdf.chunk.js",
+    "static/js/3.973f1cdf.chunk.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/3.973f1cdf.chunk.js.map",
+    "static/js/4.b1e2c734.chunk.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/4.b1e2c734.chunk.js",
+    "static/js/4.b1e2c734.chunk.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/4.b1e2c734.chunk.js.map",
+    "static/js/5.1ee7186f.chunk.js": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/5.1ee7186f.chunk.js",
+    "static/js/5.1ee7186f.chunk.js.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/5.1ee7186f.chunk.js.map",
+    "index.html": "https://experiment.unsw.edu.au/dmuu-experiment/index.html",
+    "static/css/3.49b25099.chunk.css.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/css/3.49b25099.chunk.css.map",
+    "static/css/main.297357ba.chunk.css.map": "https://experiment.unsw.edu.au/dmuu-experiment/static/css/main.297357ba.chunk.css.map",
+    "static/js/3.973f1cdf.chunk.js.LICENSE.txt": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/3.973f1cdf.chunk.js.LICENSE.txt",
+    "static/js/polyfills-dom.ddc547bd.chunk.js.LICENSE.txt": "https://experiment.unsw.edu.au/dmuu-experiment/static/js/polyfills-dom.ddc547bd.chunk.js.LICENSE.txt",
+    "static/media/break_image.9d439a9b.jpg": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/break_image.9d439a9b.jpg",
+    "static/media/loader.13e1dc21.svg": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/loader.13e1dc21.svg",
+    "static/media/match.43f8d948.png": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/match.43f8d948.png",
+    "static/media/tick.a830ac2f.mp3": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/tick.a830ac2f.mp3",
+    "static/media/wheel.2facc521.png": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/wheel.2facc521.png",
+    "static/media/Winwheel.css": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/wheel_back.8a25913c.png",
+    "static/media/wheel_highlight.0a5d6587.png": "https://experiment.unsw.edu.au/dmuu-experiment/static/media/wheel_highlight.0a5d6587.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4e99e0f0.js",
+    "static/css/3.49b25099.chunk.css",
+    "static/js/3.973f1cdf.chunk.js",
+    "static/css/main.297357ba.chunk.css",
+    "static/js/main.d5913b8a.chunk.js"
+  ]
+}

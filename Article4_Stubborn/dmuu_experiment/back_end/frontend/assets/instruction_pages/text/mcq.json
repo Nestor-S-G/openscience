@@ -1,0 +1,65 @@
+{
+    "q1": {
+        "q": "In this game your final earnings are computed as your total net accumulated outcomes in the game minus a threshold value which the experimenter will determine once the game is over.",
+        "q_extra": null,
+        "answers": {
+            "c1": "True",
+            "c2": "False"
+        },
+        "correct": "c2",
+        "ans_info": "The threshold value has already been fixed before the game starts and in any instance it will not be changed during/after the game"
+    },
+    "q2": { 
+        "q": "In this game you can only win money, in any instance your final earnings will be positive.",
+        "q_extra": null,
+        "answers": {
+            "c1": "True",
+            "c2": "False"
+        },
+        "correct": "c2",
+        "ans_info": "If your net accumulated outcomes at the end of the game are below the threshold value, your final earnings in the game are negative and you will lose the amount corresponding to the difference (threshold value - net accumulated outcomes)."
+    },
+    "q3": { 
+        "q": "There are sessions of rounds with a yellow background, and others with a blue background. What does that mean?",
+        "q_extra": {
+            "option1": "{{low_color}} indicates that the chance of a winning spin in a given round is low ({{low_probability}}%); {{high_color}} indicates that it is high ({{high_probability}}%)",
+            "option2": "{{low_color}} indicates that the chance of a winning spin in a given round is high ({{high_probability}}%); {{high_color}} indicates that it is low ({{low_probability}}%)"
+        },
+        "answers": {
+            "c1": "Option 1",
+            "c2": "Option 2"
+        },
+        "correct": "c1",
+        "ans_info": ""
+    },
+    "q4": { 
+        "q": "Betting costs me 70 cents every time.",
+        "q_extra": null,
+        "answers": {
+            "c1": "True",
+            "c2": "False"
+        },
+        "correct": "c1",
+        "ans_info": "Don't forget you can lose money in this game."
+    },
+    "q5": { 
+        "q": "The winning chance in each type of session (blue/yellow) may change over time.",
+        "q_extra": null,
+        "answers": {
+            "c1": "True",
+            "c2": "False"
+        },
+        "correct": "c2",
+        "ans_info": "Everything is fixed (odds of winning, cost of betting, probability that Aaron is in a cheeky mood, probability that he refuses to press the lever if he's in a cheeky mood, etc.)"
+    },
+    "q6": { 
+        "q": "All the information provided in these instructions are correct.",
+        "q_extra": null,
+        "answers": {
+            "c1": "True",
+            "c2": "False"
+        },
+        "correct": "c1",
+        "ans_info": "In this lab the \"no deception rule\" applies. This means there are no \"tricks\" and experimenters are not allowed to provide incorrect or misleading information to the task participants."
+    }
+}
