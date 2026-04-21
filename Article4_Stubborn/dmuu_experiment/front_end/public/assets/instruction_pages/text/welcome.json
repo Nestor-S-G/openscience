@@ -1,0 +1,6 @@
+{
+    "title": "Welcome!",
+    "para1": "Hello guest, I’m Aaron, the host. Welcome to my game. Please read the following game instructions carefully, to make sure that you don’t miss any opportunity to win money!",
+    "para2": "In this game there is a slot machine, and on each round you will have to decide whether you want me to press a lever to launch the spin. If the shapes are the same when the wheels stop spinning, you win ${{money_low}} or ${{money_high}} (depending on the sessions; more next). However, if the shapes are different you get nothing. ",
+    "para3": "If you want me to spin the machine, you have to give me ${{bet_amount}}. Alternatively, you can pass, in which case you do not need to pay me anything, but you do not earn anything either; you just move on to the next round."
+}
