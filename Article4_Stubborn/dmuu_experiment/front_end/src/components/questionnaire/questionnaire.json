@@ -1,0 +1,130 @@
+{
+    "elements": [
+        {
+            "type": "matrix",
+            "name": "questionnaire",
+            "title": "Please indicate to what extent you agree with each of the following statements.",
+            "columns": [
+                {
+                    "value": 1,
+                    "text": "Completely disagree"
+                },
+                {
+                    "value": 2,
+                    "text": "Somewhat disagree"
+                },
+                {
+                    "value": 3,
+                    "text": "Not sure"
+                },
+                {
+                    "value": 4,
+                    "text": "Somewhat agree"
+                },
+                {
+                    "value": 5,
+                    "text": "Completely agree"
+                }
+            ],
+            "rows": [
+                {
+                    "value": "To achieve something in life one has to take risks.",
+                    "text": "To achieve something in life one has to take risks."
+                },
+                {
+                    "value": "I willingly take responsibility in my workplace.",
+                    "text": "I willingly take responsibility in my workplace."
+                },
+                {
+                    "value": "I avoid activities whose results depend too much on chance.",
+                    "text": "I avoid activities whose results depend too much on chance."
+                },
+                {
+                    "value": "While taking risks, I have a feeling of a very pleasant flutter.",
+                    "text": "While taking risks, I have a feeling of a very pleasant flutter."
+                },
+                {
+                    "value": "If I play a game (e.g. cards) I prefer to play for money.",
+                    "text": "If I play a game (e.g. cards) I prefer to play for money."
+                },
+                {
+                    "value": "I tend to make risky decisions quickly.",
+                    "text": "I tend to make risky decisions quickly."
+                },
+                {
+                    "value": "To gain high profits in business, one has to take high risks.",
+                    "text": "To gain high profits in business, one has to take high risks."
+                },
+                {
+                    "value": "I am attracted to different dangerous activities.",
+                    "text": "I am attracted to different dangerous activities."
+                },
+                {
+                    "value": "I take risks only if it is absolutely necessary to achieve an important goal.",
+                    "text": "I take risks only if it is absolutely necessary to achieve an important goal."
+                },
+                {
+                    "value": "The skill of reasonable risk taking is one of the most important skills in life.",
+                    "text": "The skill of reasonable risk taking is one of the most important skills in life."
+                },
+                {
+                    "value": "In business, one should take risks only if the situation can be controlled.",
+                    "text": "In business, one should take risks only if the situation can be controlled."
+                },
+                {
+                    "value": "If there is a big chance of profit, I take even very high risks.",
+                    "text": "If there is a big chance of profit, I take even very high risks."
+                },
+                {
+                    "value": "Gambling seems like something very exciting to me.",
+                    "text": "Gambling seems like something very exciting to me."
+                },
+                {
+                    "value": "I enjoy risk taking.",
+                    "text": "I enjoy risk taking."
+                },
+                {
+                    "value": "I often take risks just for fun.",
+                    "text": "I often take risks just for fun."
+                },
+                {
+                    "value": "At work, I would prefer a stable position with a lower salary, to a position with a high salary which could be lost easily.",
+                    "text": "At work, I would prefer a stable position with a lower salary, to a position with a high salary which could be lost easily."
+                },
+                {
+                    "value": "I am easily tempted by things I know are not good if taken in excess.",
+                    "text": "I am easily tempted by things I know are not good if taken in excess."
+                },
+                {
+                    "value": "I would not try substances which might have dangerous effects, even if I expect them to be pleasurable.",
+                    "text": "I would not try substances which might have dangerous effects, even if I expect them to be pleasurable."
+                },
+                {
+                    "value": "I don't often find myself craving certain foods.",
+                    "text": "I don't often find myself craving certain foods."
+                },
+                {
+                    "value": "When I see an opportunity to get something I really want, I get excited and have to act right away.",
+                    "text": "When I see an opportunity to get something I really want, I get excited and have to act right away."
+                },
+                {
+                    "value": "I enjoy consuming news/social media and frequently find myself doing it for longer than I expected to.",
+                    "text": "I enjoy consuming news/social media and frequently find myself doing it for longer than I expected to."
+                }
+            ],
+            "isAllRowRequired": true
+        },
+        {
+            "type": "text",
+            "name": "email",
+            "title": "Please enter you e-mail",
+            "isRequired": true,
+            "validators": [
+                {
+                    "type": "email"
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off"
+}

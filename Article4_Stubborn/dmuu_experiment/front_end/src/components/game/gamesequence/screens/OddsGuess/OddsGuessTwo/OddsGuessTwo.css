@@ -1,0 +1,21 @@
+.odds-guess-two-title {
+    border: solid black 1px;
+}
+
+.not-sure-btn {
+    border: solid black 1px;
+    padding: 5px;
+}
+
+.not-sure-btn:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.odds-guess-warning {
+    color: red;
+}
+
+.odds-guess-two-msg {
+    color: green;
+}
