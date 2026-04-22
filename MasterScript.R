@@ -10,14 +10,13 @@ library(rmarkdown)
 library(here)
 library(xfun)
 
-if (FALSE) {
-  
-  # Script Payzan-LeNestour et al. (2024)
+# Script Payzan-LeNestour et al. (2025)
+try({
   root <- here()
   setwd(root)
-  source("Article4_Stubborn/run_full_script.R")
+  source("Article4_Stubborn/Reproducibility/run_full_script.R")
+})
 
-}
 
 # Script Payzan-LeNestour and Woodford (2022)
 try(
