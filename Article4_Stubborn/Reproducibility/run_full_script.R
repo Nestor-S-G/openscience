@@ -1,17 +1,9 @@
 #### Set up the environment--------
 # Get the path of the current R script, if you don't have Rstudio, then manually input the path of this script
-if (!exists("script_path")) {
-  if (requireNamespace("rstudioapi", quietly = TRUE) &&
-      rstudioapi::isAvailable()) {
-    
-    script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
-    
-  } else {
-    stop("script_path must be provided when not running in RStudio")
-  }
-}
+script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+
 # Set the working directory to the "Data" folder
-setwd(file.path(script_path, "Data"))
+setwd(file.path(script_path, "Article4_Stubborn/Reproducibility/Data"))
 suppl_code_path=file.path(script_path, "Article4_Stubborn/Reproducibility/Supplementary Codes")
 
 #Please install the below R Packagaes before running the code
