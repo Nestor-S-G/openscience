@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.3",
+    "Version": "4.6.0",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -173,20 +173,20 @@
     },
     "GPArotation": {
       "Package": "GPArotation",
-      "Version": "2025.3-1",
+      "Version": "2026.4-1",
       "Source": "Repository",
       "Title": "Gradient Projection Factor Rotation",
-      "Authors@R": "c(  person(\"Coen\", \"Bernaards\", email = \"cab.gparotation@gmail.com\", role = c(\"aut\",\"cre\")), person(\"Paul\", \"Gilbert\", email = \"pgilbert.ttv9z@ncf.ca\", role = \"aut\"), person(\"Robert\", \"Jennrich\", role = \"aut\") )",
+      "Authors@R": "c( person(\"Coen\", \"Bernaards\", email = \"cab.gparotation@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Paul\", \"Gilbert\", role = \"aut\"), person(\"Robert\", \"Jennrich\", role = \"aut\") )",
       "Depends": [
-        "R (>= 2.0.0)"
+        "R (>= 3.5.0)"
       ],
-      "Description": "Gradient Projection Algorithms for Factor Rotation.  For details see ?GPArotation. When using this package, please cite Bernaards and Jennrich (2005) <doi:10.1177/0013164404272507> 'Gradient Projection Algorithms and Software  for Arbitrary Rotation Criteria in Factor Analysis'.",
-      "LazyData": "yes",
+      "Description": "Gradient projection algorithms for orthogonal and oblique rotation of factor loadings matrices in factor analysis. Implements a comprehensive set of rotation criteria including quartimax, quartimin, oblimin, geomin, simplimax, the Crawford-Ferguson family, and target rotation, among others.  Supports multiple random starts. For details see Bernaards and Jennrich (2005) <doi:10.1177/0013164404272507>.",
+      "License": "GPL (>= 2)",
+      "URL": "https://cran.r-project.org/package=GPArotation",
       "Imports": [
         "stats"
       ],
-      "License": "GPL (>= 2)",
-      "URL": "https://optimizer.r-forge.r-project.org/GPArotation_www/",
+      "LazyData": "yes",
       "NeedsCompilation": "no",
       "Author": "Coen Bernaards [aut, cre], Paul Gilbert [aut], Robert Jennrich [aut]",
       "Maintainer": "Coen Bernaards <cab.gparotation@gmail.com>",
@@ -447,10 +447,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.1.1-1",
+      "Version": "1.1.1-1.1",
       "Source": "Repository",
       "Title": "Seamless R and C++ Integration",
-      "Date": "2026-04-02",
+      "Date": "2026-04-19",
       "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\", comment = c(ORCID = \"0000-0001-6419-907X\")), person(\"Romain\", \"Francois\", role = \"aut\", comment = c(ORCID = \"0000-0002-2444-4226\")), person(\"JJ\", \"Allaire\", role = \"aut\", comment = c(ORCID = \"0000-0003-0174-9868\")), person(\"Kevin\", \"Ushey\", role = \"aut\", comment = c(ORCID = \"0000-0003-2880-7407\")), person(\"Qiang\", \"Kou\", role = \"aut\", comment = c(ORCID = \"0000-0001-6786-5453\")), person(\"Nathan\", \"Russell\", role = \"aut\"), person(\"Iñaki\", \"Ucar\", role = \"aut\", comment = c(ORCID = \"0000-0001-6403-5550\")), person(\"Doug\", \"Bates\", role = \"aut\", comment = c(ORCID = \"0000-0001-8316-9503\")), person(\"John\", \"Chambers\", role = \"aut\"))",
       "Description": "The 'Rcpp' package provides R functions as well as C++ classes which offer a seamless integration of R and C++. Many R data types and objects can be mapped back and forth to C++ equivalents which facilitates both writing of new code as well as easier integration of third-party libraries. Documentation about 'Rcpp' is provided by several vignettes included in this package, via the 'Rcpp Gallery' site at <https://gallery.rcpp.org>, the paper by Eddelbuettel and Francois (2011, <doi:10.18637/jss.v040.i08>), the book by Eddelbuettel (2013, <doi:10.1007/978-1-4614-6868-4>) and the paper by Eddelbuettel and Balamuta (2018, <doi:10.1080/00031305.2017.1375990>); see 'citation(\"Rcpp\")' for details.",
       "Depends": [
@@ -480,13 +480,13 @@
     },
     "RcppArmadillo": {
       "Package": "RcppArmadillo",
-      "Version": "15.2.4-1",
+      "Version": "15.2.6-1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "'Rcpp' Integration for the 'Armadillo' Templated Linear Algebra Library",
-      "Date": "2026-03-17",
+      "Date": "2026-04-20",
       "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\", comment = c(ORCID = \"0000-0001-6419-907X\")), person(\"Romain\", \"Francois\", role = \"aut\", comment = c(ORCID = \"0000-0002-2444-4226\")), person(\"Doug\", \"Bates\", role = \"aut\", comment = c(ORCID = \"0000-0001-8316-9503\")), person(\"Binxiang\", \"Ni\", role = \"aut\"), person(\"Conrad\", \"Sanderson\", role = \"aut\", comment = c(ORCID = \"0000-0002-0049-4501\")))",
-      "Description": "'Armadillo' is a templated C++ linear algebra library aiming towards a good balance between speed and ease of use. It provides high-level syntax and functionality deliberately similar to Matlab. It is useful for algorithm development directly in C++, or quick conversion of research code into production environments. It provides efficient classes for vectors, matrices and cubes where dense and sparse matrices are supported. Integer, floating point and complex numbers are supported. A sophisticated expression evaluator (based on template meta-programming) automatically combines several operations to increase speed and efficiency. Dynamic evaluation automatically chooses optimal code paths based on detected matrix structures. Matrix decompositions are provided through integration with LAPACK, or one of its high performance drop-in replacements (such as 'MKL' or 'OpenBLAS'). It can automatically use 'OpenMP' multi-threading (parallelisation) to speed up computationally expensive operations. . The 'RcppArmadillo' package includes the header files from the 'Armadillo' library; users do not need to install 'Armadillo' itself in order to use 'RcppArmadillo'. Starting from release 15.0.0, the minimum compilation standard is C++14 so 'Armadillo' version 14.6.3 is included as a fallback when an R package forces the C++11 standard. Package authors should set a '#define' to select the 'current' version, or select the 'legacy' version (also chosen as default) if they must. See 'GitHub issue #475' for details. . Since release 7.800.0, 'Armadillo' is licensed under Apache License 2; previous releases were under licensed as MPL 2.0 from version 3.800.0 onwards and LGPL-3 prior to that; 'RcppArmadillo' (the 'Rcpp' bindings/bridge to Armadillo) is licensed under the GNU GPL version 2 or later, as is the rest of 'Rcpp'.",
+      "Description": "'Armadillo' is a templated C++ linear algebra library aiming towards a good balance between speed and ease of use. It provides high-level syntax and functionality deliberately similar to Matlab. It is useful for algorithm development directly in C++, or quick conversion of research code into production environments. It provides efficient classes for vectors, matrices and cubes where dense and sparse matrices are supported. Integer, floating point and complex numbers are supported. A sophisticated expression evaluator (based on template meta-programming) automatically combines several operations to increase speed and efficiency. Dynamic evaluation automatically chooses optimal code paths based on detected matrix structures. Matrix decompositions are provided through integration with LAPACK, or one of its high performance drop-in replacements (such as 'MKL' or 'OpenBLAS'). It can automatically use 'OpenMP' multi-threading (parallelisation) to speed up computationally expensive operations. . The 'RcppArmadillo' package includes the header files from the 'Armadillo' library; users do not need to install 'Armadillo' itself in order to use 'RcppArmadillo'. Starting from release 15.0.0, the minimum compilation standard is C++14. . Since release 7.800.0, 'Armadillo' is licensed under Apache License 2; previous releases were under licensed as MPL 2.0 from version 3.800.0 onwards and LGPL-3 prior to that; 'RcppArmadillo' (the 'Rcpp' bindings/bridge to Armadillo) is licensed under the GNU GPL version 2 or later, as is the rest of 'Rcpp'.",
       "License": "GPL (>= 2)",
       "LazyLoad": "yes",
       "Depends": [
@@ -496,7 +496,7 @@
         "Rcpp"
       ],
       "Imports": [
-        "Rcpp (>= 1.0.12)",
+        "Rcpp (>= 1.1.1)",
         "stats",
         "utils",
         "methods"
@@ -511,6 +511,8 @@
       "URL": "https://github.com/RcppCore/RcppArmadillo, https://dirk.eddelbuettel.com/code/rcpp.armadillo.html",
       "BugReports": "https://github.com/RcppCore/RcppArmadillo/issues",
       "RoxygenNote": "6.0.1",
+      "Encoding": "UTF-8",
+      "VignetteBuilder": "Rcpp",
       "NeedsCompilation": "yes",
       "Author": "Dirk Eddelbuettel [aut, cre] (ORCID: <https://orcid.org/0000-0001-6419-907X>), Romain Francois [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>), Doug Bates [aut] (ORCID: <https://orcid.org/0000-0001-8316-9503>), Binxiang Ni [aut], Conrad Sanderson [aut] (ORCID: <https://orcid.org/0000-0002-0049-4501>)",
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
@@ -614,7 +616,7 @@
     },
     "S7": {
       "Package": "S7",
-      "Version": "0.2.1-1",
+      "Version": "0.2.2",
       "Source": "Repository",
       "Title": "An Object Oriented System Meant to Become a Successor to S3 and S4",
       "Authors@R": "c( person(\"Object-Oriented Programming Working Group\", role = \"cph\"), person(\"Davis\", \"Vaughan\", role = \"aut\"), person(\"Jim\", \"Hester\", role = \"aut\", comment = c(ORCID = \"0000-0002-2739-7082\")), person(\"Tomasz\", \"Kalinowski\", role = \"aut\"), person(\"Will\", \"Landau\", role = \"aut\"), person(\"Michael\", \"Lawrence\", role = \"aut\"), person(\"Martin\", \"Maechler\", role = \"aut\", comment = c(ORCID = \"0000-0002-8685-9910\")), person(\"Luke\", \"Tierney\", role = \"aut\"), person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4757-117X\")) )",
@@ -919,35 +921,37 @@
     },
     "bit64": {
       "Package": "bit64",
-      "Version": "4.6.0-1",
+      "Version": "4.8.0",
       "Source": "Repository",
       "Title": "A S3 Class for Vectors of 64bit Integers",
-      "Authors@R": "c( person(\"Michael\", \"Chirico\", email = \"michaelchirico4@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Jens\", \"Oehlschlägel\", role = \"aut\"), person(\"Leonardo\", \"Silvestri\", role = \"ctb\"), person(\"Ofek\", \"Shilon\", role = \"ctb\") )",
+      "Authors@R": "c( person(\"Michael\", \"Chirico\", email=\"michaelchirico4@gmail.com\", role=c(\"aut\", \"cre\")), person(\"Jens\", \"Oehlschlägel\", role=\"aut\"), person(\"Leonardo\", \"Silvestri\", role=\"ctb\"), person(\"Ofek\", \"Shilon\", role=\"ctb\"), person(\"Christian\", \"Ullerich\", role=\"ctb\") )",
       "Depends": [
-        "R (>= 3.4.0)",
-        "bit (>= 4.0.0)"
+        "R (>= 3.5.0)"
       ],
       "Description": "Package 'bit64' provides serializable S3 atomic 64bit (signed) integers. These are useful for handling database keys and exact counting in +-2^63. WARNING: do not use them as replacement for 32bit integers, integer64 are not supported for subscripting by R-core and they have different semantics when combined with double, e.g. integer64 + double => integer64. Class integer64 can be used in vectors, matrices, arrays and data.frames. Methods are available for coercion from and to logicals, integers, doubles, characters and factors as well as many elementwise and summary functions. Many fast algorithmic operations such as 'match' and 'order' support inter- active data exploration and manipulation and optionally leverage caching.",
       "License": "GPL-2 | GPL-3",
       "LazyLoad": "yes",
       "ByteCompile": "yes",
-      "URL": "https://github.com/r-lib/bit64",
+      "URL": "https://github.com/r-lib/bit64, https://bit64.r-lib.org",
       "Encoding": "UTF-8",
       "Imports": [
+        "bit (>= 4.0.0)",
         "graphics",
         "methods",
         "stats",
         "utils"
       ],
       "Suggests": [
-        "testthat (>= 3.0.3)",
+        "patrick (>= 0.3.0)",
+        "testthat (>= 3.3.0)",
         "withr"
       ],
       "Config/testthat/edition": "3",
-      "Config/needs/development": "testthat",
-      "RoxygenNote": "7.3.2",
+      "Config/Needs/development": "patrick, testthat",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "yes",
-      "Author": "Michael Chirico [aut, cre], Jens Oehlschlägel [aut], Leonardo Silvestri [ctb], Ofek Shilon [ctb]",
+      "Author": "Michael Chirico [aut, cre], Jens Oehlschlägel [aut], Leonardo Silvestri [ctb], Ofek Shilon [ctb], Christian Ullerich [ctb]",
       "Maintainer": "Michael Chirico <michaelchirico4@gmail.com>",
       "Repository": "CRAN"
     },
@@ -1041,7 +1045,7 @@
     },
     "brglm2": {
       "Package": "brglm2",
-      "Version": "1.0.1",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Title": "Bias Reduction in Generalized Linear Models",
       "Authors@R": "c(person(given = \"Ioannis\", family = \"Kosmidis\", role = c(\"aut\", \"cre\"), email = \"ioannis.kosmidis@warwick.ac.uk\", comment = c(ORCID = \"0000-0003-1556-0302\")), person(given = c(\"Euloge\", \"Clovis\"), family = c(\"Kenne Pagui\"), role = \"aut\", email = \"kenne@stat.unipd.it\", comment = c(ORCID = \"0000-0002-8998-9251\")), person(given = \"Federico\", family = \"Boiocchi\", role = \"ctb\", email = \"federico.boiocchi@gmail.com\"), person(given = \"Philipp\", family = \"Sterzinger\", role = \"ctb\", email = \"P.Sterzinger@lse.ac.uk\", comment = c(ORCID = \"0009-0007-7348-5810\")), person(given = \"Kjell\", family = \"Konis\", role = \"ctb\", email = \"kjell.konis@me.com\"), person(given = \"Nicola\", family = \"Sartori\", role = \"ctb\", email = \"sartori@stat.unipd.it\"))",
@@ -1073,8 +1077,7 @@
         "covr",
         "tinytest",
         "VGAM",
-        "brglm",
-        "mbrglm"
+        "brglm"
       ],
       "VignetteBuilder": "knitr",
       "NeedsCompilation": "yes",
@@ -1829,7 +1832,7 @@
     },
     "curl": {
       "Package": "curl",
-      "Version": "7.0.0",
+      "Version": "7.1.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "A Modern and Flexible Web Client for R",
@@ -1897,7 +1900,7 @@
     },
     "datawizard": {
       "Package": "datawizard",
-      "Version": "1.3.0",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Easy Data Wrangling and Statistical Transformations",
@@ -1911,7 +1914,7 @@
         "R (>= 4.0)"
       ],
       "Imports": [
-        "insight (>= 1.4.2)",
+        "insight (>= 1.4.6)",
         "stats",
         "utils"
       ],
@@ -1925,6 +1928,7 @@
         "dplyr (>= 1.1)",
         "effectsize",
         "emmeans",
+        "fixest",
         "gamm4",
         "ggplot2 (>= 3.5.0)",
         "gt",
@@ -1935,6 +1939,7 @@
         "mediation",
         "modelbased",
         "nanoparquet",
+        "openssl",
         "parameters (>= 0.21.7)",
         "performance (>= 0.14.0)",
         "poorman (>= 0.2.7)",
@@ -2326,11 +2331,11 @@
     },
     "enrichwith": {
       "Package": "enrichwith",
-      "Version": "0.4.0",
+      "Version": "0.5.0",
       "Source": "Repository",
       "Title": "Methods to Enrich R Objects with Extra Components",
       "Authors@R": "person(\"Ioannis\", \"Kosmidis\", email = \"ioannis.kosmidis@warwick.ac.uk\", role = c(\"aut\", \"cre\"))",
-      "Description": "Provides the \"enrich\" method to enrich list-like R objects with new, relevant components. The current version has methods for enriching objects of class 'family', 'link-glm', 'lm', 'glm' and 'betareg'. The resulting objects preserve their class, so all methods associated with them still apply. The package also provides the 'enriched_glm' function that has the same interface as 'glm' but results in objects of class 'enriched_glm'. In addition to the usual components in a `glm` object, 'enriched_glm' objects carry an object-specific simulate method and functions to compute the scores, the observed and expected information matrix, the first-order bias, as well as model densities, probabilities, and quantiles at arbitrary parameter values. The package can also be used to produce customizable source code templates for the structured implementation of methods to compute new components and enrich arbitrary objects.",
+      "Description": "Provides the \"enrich()\" method for augmenting list-like R objects with additional, model-specific components. Methods are currently available for objects of class \"family\", \"link-glm\", \"lm\", \"glm\", and \"betareg\". Enriched objects retain their original class and remain compatible with existing methods. For example, enriching a \"glm\" object produces an \"enriched_glm\" object that also inherits from \"glm\". In addition to the standard components, the \"enriched_glm\" object includes methods for simulation and functions to compute scores, observed and expected information matrices, first-order bias, and other model quantities such as densities, probabilities, and quantiles, which can be evaluated at use-supplied parameter values. The package also provides tools for generating customizable source code templates for the structured implementation of methods to compute new components and enrich arbitrary objects.",
       "Depends": [
         "R (>= 3.0.0)"
       ],
@@ -2339,11 +2344,12 @@
       "License": "GPL-3",
       "Encoding": "UTF-8",
       "LazyData": "true",
-      "RoxygenNote": "7.3.2",
+      "RoxygenNote": "7.3.3",
       "Suggests": [
         "whisker",
         "SuppDists",
         "brglm",
+        "brglm2",
         "ggplot2",
         "MASS",
         "knitr",
@@ -2443,7 +2449,7 @@
     },
     "fixest": {
       "Package": "fixest",
-      "Version": "0.14.0",
+      "Version": "0.14.1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Fast Fixed-Effects Estimations",
@@ -2667,10 +2673,10 @@
     },
     "fracdiff": {
       "Package": "fracdiff",
-      "Version": "1.5-3",
+      "Version": "1.5-4",
       "Source": "Repository",
-      "VersionNote": "Released 1.5-0 on 2019-12-09, 1.5-1 on 2020-01-20, 1.5-2 on 2022-10-31",
-      "Date": "2024-02-01",
+      "VersionNote": "Released 1.5-3 on 2024-02-01, 1.5-2 on 2022-10-31, 1.5-1 on 2020-01-20",
+      "Date": "2026-04-27",
       "Title": "Fractionally Differenced ARIMA aka ARFIMA(P,d,q) Models",
       "Authors@R": "c(person(\"Martin\",\"Maechler\", role=c(\"aut\",\"cre\"), email=\"maechler@stat.math.ethz.ch\", comment = c(ORCID = \"0000-0002-8685-9910\")) , person(\"Chris\", \"Fraley\", role=c(\"ctb\",\"cph\"), comment = \"S original; Fortran code\") , person(\"Friedrich\", \"Leisch\", role = \"ctb\", comment = c(\"R port\", ORCID = \"0000-0001-7278-1983\")) , person(\"Valderio\", \"Reisen\", role=\"ctb\", comment = \"fdGPH() & fdSperio()\") , person(\"Artur\",  \"Lemonte\",  role=\"ctb\", comment = \"fdGPH() & fdSperio()\") , person(\"Rob\", \"Hyndman\", email=\"Rob.Hyndman@monash.edu\", role=\"ctb\", comment = c(\"residuals() & fitted()\", ORCID = \"0000-0002-2140-5352\")) )",
       "Description": "Maximum likelihood estimation of the parameters of a fractionally differenced ARIMA(p,d,q) model (Haslett and Raftery, Appl.Statistics, 1989); including inference and basic methods.  Some alternative algorithms to estimate \"H\".",
@@ -2687,7 +2693,7 @@
       "BugReports": "https://github.com/mmaechler/fracdiff/issues",
       "Encoding": "UTF-8",
       "NeedsCompilation": "yes",
-      "Author": "Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>), Chris Fraley [ctb, cph] (S original; Fortran code), Friedrich Leisch [ctb] (R port, <https://orcid.org/0000-0001-7278-1983>), Valderio Reisen [ctb] (fdGPH() & fdSperio()), Artur Lemonte [ctb] (fdGPH() & fdSperio()), Rob Hyndman [ctb] (residuals() & fitted(), <https://orcid.org/0000-0002-2140-5352>)",
+      "Author": "Martin Maechler [aut, cre] (ORCID: <https://orcid.org/0000-0002-8685-9910>), Chris Fraley [ctb, cph] (S original; Fortran code), Friedrich Leisch [ctb] (R port, ORCID: <https://orcid.org/0000-0001-7278-1983>), Valderio Reisen [ctb] (fdGPH() & fdSperio()), Artur Lemonte [ctb] (fdGPH() & fdSperio()), Rob Hyndman [ctb] (residuals() & fitted(), ORCID: <https://orcid.org/0000-0002-2140-5352>)",
       "Maintainer": "Martin Maechler <maechler@stat.math.ethz.ch>",
       "Repository": "CRAN"
     },
@@ -2816,7 +2822,7 @@
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "4.0.2",
+      "Version": "4.0.3",
       "Source": "Repository",
       "Title": "Create Elegant Data Visualisations Using the Grammar of Graphics",
       "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\", comment = c(ORCID = \"0000-0003-4757-117X\")), person(\"Winston\", \"Chang\", role = \"aut\", comment = c(ORCID = \"0000-0002-1576-2126\")), person(\"Lionel\", \"Henry\", role = \"aut\"), person(\"Thomas Lin\", \"Pedersen\", , \"thomas.pedersen@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-5147-4711\")), person(\"Kohske\", \"Takahashi\", role = \"aut\"), person(\"Claus\", \"Wilke\", role = \"aut\", comment = c(ORCID = \"0000-0002-7470-9261\")), person(\"Kara\", \"Woo\", role = \"aut\", comment = c(ORCID = \"0000-0002-5125-4188\")), person(\"Hiroaki\", \"Yutani\", role = \"aut\", comment = c(ORCID = \"0000-0002-3385-7233\")), person(\"Dewey\", \"Dunnington\", role = \"aut\", comment = c(ORCID = \"0000-0002-9415-4582\")), person(\"Teun\", \"van den Brand\", role = \"aut\", comment = c(ORCID = \"0000-0002-9335-7468\")), person(\"Posit, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")) )",
@@ -2974,12 +2980,12 @@
     },
     "glmnet": {
       "Package": "glmnet",
-      "Version": "4.1-10",
+      "Version": "5.0",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Lasso and Elastic-Net Regularized Generalized Linear Models",
-      "Date": "2025-07-15",
-      "Authors@R": "c(person(\"Jerome\", \"Friedman\", role=c(\"aut\")), person(\"Trevor\", \"Hastie\", role=c(\"aut\", \"cre\"), email = \"hastie@stanford.edu\"), person(\"Rob\", \"Tibshirani\", role=c(\"aut\")), person(\"Balasubramanian\", \"Narasimhan\", role=c(\"aut\")), person(\"Kenneth\",\"Tay\",role=c(\"aut\")), person(\"Noah\", \"Simon\", role=c(\"aut\")), person(\"Junyang\", \"Qian\", role=c(\"ctb\")), person(\"James\", \"Yang\", role=c(\"aut\")))",
+      "Date": "2026-04-27",
+      "Authors@R": "c(person(\"Jerome\", \"Friedman\", role=c(\"aut\")), person(\"Trevor\", \"Hastie\", role=c(\"aut\", \"cre\"), email = \"hastie@stanford.edu\"), person(\"Rob\", \"Tibshirani\", role=c(\"aut\")), person(\"Balasubramanian\", \"Narasimhan\", role=c(\"aut\")), person(\"Kenneth\",\"Tay\",role=c(\"aut\")), person(\"Noah\", \"Simon\", role=c(\"aut\")), person(\"Junyang\", \"Qian\", role=c(\"ctb\")), person(\"James\", \"Yang\", role=c(\"aut\")), person(\"Jonathan\",\"Taylor\", role=c(\"aut\")))",
       "Depends": [
         "R (>= 3.6.0)",
         "Matrix (>= 1.0-6)"
@@ -2995,6 +3001,7 @@
       "Suggests": [
         "knitr",
         "lars",
+        "nnet",
         "testthat",
         "xfun",
         "rmarkdown"
@@ -3005,13 +3012,13 @@
       "VignetteBuilder": "knitr",
       "Encoding": "UTF-8",
       "URL": "https://glmnet.stanford.edu",
-      "RoxygenNote": "7.3.2",
+      "RoxygenNote": "7.3.3",
       "LinkingTo": [
         "RcppEigen",
         "Rcpp"
       ],
       "NeedsCompilation": "yes",
-      "Author": "Jerome Friedman [aut], Trevor Hastie [aut, cre], Rob Tibshirani [aut], Balasubramanian Narasimhan [aut], Kenneth Tay [aut], Noah Simon [aut], Junyang Qian [ctb], James Yang [aut]",
+      "Author": "Jerome Friedman [aut], Trevor Hastie [aut, cre], Rob Tibshirani [aut], Balasubramanian Narasimhan [aut], Kenneth Tay [aut], Noah Simon [aut], Junyang Qian [ctb], James Yang [aut], Jonathan Taylor [aut]",
       "Maintainer": "Trevor Hastie <hastie@stanford.edu>",
       "Repository": "CRAN"
     },
@@ -5583,7 +5590,7 @@
     },
     "processx": {
       "Package": "processx",
-      "Version": "3.8.7",
+      "Version": "3.9.0",
       "Source": "Repository",
       "Title": "Execute and Control System Processes",
       "Authors@R": "c( person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\", \"cph\"), comment = c(ORCID = \"0000-0001-7098-9676\")), person(\"Winston\", \"Chang\", role = \"aut\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")), person(\"Ascent Digital Services\", role = c(\"cph\", \"fnd\")) )",
@@ -5595,7 +5602,7 @@
         "R (>= 3.4.0)"
       ],
       "Imports": [
-        "ps (>= 1.2.0)",
+        "ps (>= 1.9.3)",
         "R6",
         "utils"
       ],
@@ -5616,7 +5623,7 @@
       "Config/testthat/edition": "3",
       "Config/usethis/last-upkeep": "2025-04-25",
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.2",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "yes",
       "Author": "Gábor Csárdi [aut, cre, cph] (ORCID: <https://orcid.org/0000-0001-7098-9676>), Winston Chang [aut], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>), Ascent Digital Services [cph, fnd]",
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
@@ -5657,7 +5664,7 @@
     },
     "ps": {
       "Package": "ps",
-      "Version": "1.9.2",
+      "Version": "1.9.3",
       "Source": "Repository",
       "Title": "List, Query, Manipulate System Processes",
       "Authors@R": "c( person(\"Jay\", \"Loden\", role = \"aut\"), person(\"Dave\", \"Daeschler\", role = \"aut\"), person(\"Giampaolo\", \"Rodola'\", role = \"aut\"), person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")) )",
@@ -5689,7 +5696,7 @@
       "Config/testthat/edition": "3",
       "Config/usethis/last-upkeep": "2025-04-28",
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.2",
+      "RoxygenNote": "7.3.3",
       "NeedsCompilation": "yes",
       "Author": "Jay Loden [aut], Dave Daeschler [aut], Giampaolo Rodola' [aut], Gábor Csárdi [aut, cre], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
