@@ -10,7 +10,7 @@ library(rmarkdown)
 library(here)
 library(xfun)
 
-# Script Payzan-LeNestour et al. (2025)
+# Payzan-LeNestour et al. (2025)
 try({
   root <- here()
   setwd(root)
@@ -18,7 +18,7 @@ try({
 })
 
 
-# Script Payzan-LeNestour and Woodford (2022)
+# Payzan-LeNestour and Woodford (2022)
 try(
   xfun::Rscript_call(function() {
     
@@ -50,7 +50,7 @@ try(
   silent = FALSE
 )
 
-# Script Huber and Huber (2020)
+# Huber and Huber (2020)
 
 local({
   # ── PARCHE STARGAZER: compatibilidad con R 4.x ────────────────────────────
@@ -106,7 +106,7 @@ local({
   )
 })
 
-# #Script Snijder et al. (2024)
+# Snijder et al. (2024)
 try(
   xfun::Rscript_call(function() {
     
@@ -145,7 +145,7 @@ try(
   silent = FALSE
 )
 
-# #Script Ekström et al. (2025), (R part)
+# Ekström et al. (2025), (R part)
 try(
   xfun::Rscript_call(function() {
     
