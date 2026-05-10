@@ -1,6 +1,6 @@
 #IMPORTING AND MERGING DATA
 
-setwd("Article1_Outlier/DATA_OUTLIER_BLINDNESS_PAPER/DATA_hue_task_5trial_adaptation")
+setwd("payzan-lenestourOutlierBlindnessNeurobiological2022/DATA_OUTLIER_BLINDNESS_PAPER/DATA_hue_task_5trial_adaptation")
 
 datap1_01<-read.csv(file("guest1.csv"),nrows=1000,header=T,sep=",")
 datap1_02<-read.csv(file("guest2.csv"),nrows=1000,header=T,sep=",")
