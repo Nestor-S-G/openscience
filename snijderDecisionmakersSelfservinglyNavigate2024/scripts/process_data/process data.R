@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 
 #load dat_raw
-raw <- read.csv("Article7_DecisionMakers/scripts/process_data/raw.csv")
+raw <- read.csv("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/raw.csv")
 #View(raw)
 
 ##########################################################################################

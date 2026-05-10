@@ -53,13 +53,13 @@ cooperationCol <- '#01a300'
 
 ### Prepare data
 
-dat = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_institutions.csv")
+dat = read_csv("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/dat_institutions.csv")
 head(dat)
 
-dat_long = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_long.csv")
+dat_long = read_csv("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/dat_long.csv")
 head(dat_long)
 
-dat_fair = read_csv("Article7_DecisionMakers/scripts/data_analysis/dat_fair.csv")
+dat_fair = read_csv("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/dat_fair.csv")
 head(dat_fair)
 
 ###################################################################################################################################
