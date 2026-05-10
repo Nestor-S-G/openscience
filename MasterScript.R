@@ -7,7 +7,6 @@ renv::restore()
 
 #Libraries
 library(rmarkdown)
-library(here)
 library(xfun)
 
 # Payzan-LeNestour et al. (2025)
