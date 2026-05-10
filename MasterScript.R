@@ -11,12 +11,35 @@ library(here)
 library(xfun)
 
 # Payzan-LeNestour et al. (2025)
-try({
-  root <- here()
-  setwd(root)
-  source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R")
-})
-
+try(
+  xfun::Rscript_call(function() {
+    
+    library(here)
+    setwd(here::here())
+    
+    log_file <- "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt"
+    dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
+    con <- file(log_file, open = "wt")
+    sink(con, type = "message")  # primero stderr
+    sink(con)                     # luego stdout
+    on.exit({
+      sink(type = "message")
+      sink()
+      close(con)
+    }, add = TRUE)
+    
+    assignInNamespace(
+      "getActiveDocumentContext",
+      function(...) list(path = file.path(here::here(), "run_full_script.R")),
+      ns = "rstudioapi"
+    )
+    
+    source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R",
+           local = TRUE)
+    
+  }),
+  silent = FALSE
+)
 
 # Payzan-LeNestour and Woodford (2022)
 try(
