@@ -5,7 +5,7 @@ library(fixest)
 
 # 1. Load the data 
 # Ensure the file is in your working directory
-df <- read.csv("Article12_MakingAPromise/data_combined.csv")
+df <- read.csv("ekstromMakingPromiseIncreases2025/data_combined.csv")
 
 # --- REPRODUCING MAIN RESULTS (TABLE 2 / REGRESSIONS) ---
 
