@@ -14,7 +14,7 @@ library(xfun)
 try({
   root <- here()
   setwd(root)
-  source("Article4_Stubborn/Reproducibility/run_full_script.R")
+  source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R")
 })
 
 
@@ -25,7 +25,7 @@ try(
     library(here)
     setwd(here::here())
     
-    log_file <- "Article1_Outlier/Outlier_log.txt"
+    log_file <- "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt"
     
     # Crear carpeta si no existe (no el archivo)
     dir.create(dirname(log_file),
@@ -44,7 +44,7 @@ try(
       close(con)
     }, add = TRUE)
     
-    source("Article1_Outlier/Outlier.R", local = TRUE)
+    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
     
   }),
   silent = FALSE
@@ -80,7 +80,7 @@ local({
       library(here)
       setwd(here::here())
       assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
-      log_file <- "Article5_BadBankers/Huber2020_render_log.txt"
+      log_file <- "huberBadBankersNo2020/Huber2020_render_log.txt"
       dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
       con <- file(log_file, open = "wt")
       sink(con)
@@ -94,7 +94,7 @@ local({
       }, envir = asNamespace("ggplot2"))
       lockBinding("ggsave", asNamespace("ggplot2"))
       rmarkdown::render(
-        input         = "Article5_BadBankers/notebook.Rmd",
+        input         = "huberBadBankersNo2020/notebook.Rmd",
         output_format = "pdf_document",
         output_file   = "Huber2020_reproduced.pdf",
         clean         = FALSE,
@@ -110,7 +110,7 @@ local({
 try(
   xfun::Rscript_call(function() {
     
-    log_file <- "Article7_DecisionMakers/Snijder2024_log.txt"
+    log_file <- "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt"
     con <- file(log_file, open = "wt")
     
     # Redirigir stdout y stderr
@@ -126,19 +126,19 @@ try(
     setwd(here::here())
     
     # Ejecutar scripts con impresión explícita
-    source("Article7_DecisionMakers/scripts/data_analysis/models.R",
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R",
            local = TRUE, echo = TRUE)
     
-    source("Article7_DecisionMakers/scripts/data_analysis/partner choice.R",
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R",
            local = TRUE, echo = TRUE)
     
-    source("Article7_DecisionMakers/scripts/data_analysis/plots.R",
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R",
            local = TRUE, echo = TRUE)
     
-    source("Article7_DecisionMakers/scripts/data_analysis/political orientation.R",
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R",
            local = TRUE, echo = TRUE)
     
-    source("Article7_DecisionMakers/scripts/process_data/process data.R",
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R",
            local = TRUE, echo = TRUE)
     
   }),
@@ -149,7 +149,7 @@ try(
 try(
   xfun::Rscript_call(function() {
     
-    log_file <- "Article12_MakingAPromise/MakingAPromise_log.txt"
+    log_file <- "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt"
     
     # Abrir conexión de log
     con <- file(log_file, open = "wt")
@@ -167,7 +167,7 @@ try(
     library(here)
     setwd(here::here())
     
-    source("Article12_MakingAPromise/MakingAPromise.R", local = TRUE)
+    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
     
   }),
   silent = FALSE
