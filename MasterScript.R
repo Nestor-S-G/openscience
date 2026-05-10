@@ -1,5 +1,5 @@
 #Master script
-# R version: 4.5.3
+# R version: 4.6.0
 gc()
 rm(list = ls())
 
@@ -51,57 +51,60 @@ try(
 )
 
 # Script Huber and Huber (2020)
-try(
-  xfun::Rscript_call(function() {
-    
-    library(here)
-    setwd(here::here())
-    
-    log_file <- "Article5_BadBankers/Huber2020_render_log.txt"
-    
-    dir.create(dirname(log_file),
-               recursive = TRUE,
-               showWarnings = FALSE)
-    
-    con <- file(log_file, open = "wt")
-    
-    sink(con)
-    sink(con, type = "message")
-    
-    on.exit({
-      sink(type = "message")
-      sink()
-      sink()
-      close(con)
-    }, add = TRUE)
-    
-    # Wrapper para ggsave (sin modificar el código del artículo)
-    unlockBinding("ggsave", asNamespace("ggplot2"))
-    original_ggsave <- ggplot2::ggsave
-    
-    assign("ggsave", function(filename, ...) {
-      dir.create(dirname(filename),
-                 recursive = TRUE,
-                 showWarnings = FALSE)
-      original_ggsave(filename, ...)
-    }, envir = asNamespace("ggplot2"))
-    
-    lockBinding("ggsave", asNamespace("ggplot2"))
-    
-    # ← SIN tryCatch (crítico para diagnóstico reproducible)
-    rmarkdown::render(
-      input         = "Article5_BadBankers/notebook.Rmd",
-      output_format = "pdf_document",
-      output_file   = "Huber2020_reproduced.pdf",
-      clean         = FALSE,
-      envir         = globalenv(),
-      quiet         = FALSE
-    )
-    
-  }),
-  silent = FALSE
-)
 
+local({
+  # ── PARCHE STARGAZER: compatibilidad con R 4.x ────────────────────────────
+  sg_path <- find.package("stargazer")
+  tmp_tar <- tempfile(fileext = ".tar.gz")
+  download.file(
+    "https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz",
+    destfile = tmp_tar, quiet = TRUE)
+  tmp_dir <- tempdir()
+  untar(tmp_tar, exdir = tmp_dir)
+  code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+  l1 <- grep("if (is.na(s))", code, fixed = TRUE)
+  code[l1] <- gsub("if (is.na(s))",
+                   "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
+  l2 <- grep('if (s=="")', code, fixed = TRUE)
+  code[l2] <- gsub('if (s=="")',
+                   'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
+  writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+  install.packages(file.path(tmp_dir, "stargazer"),
+                   repos = NULL, type = "source", quiet = TRUE,
+                   lib = dirname(sg_path))
+  cat("stargazer parcheado para R 4.x\n")
+  # ──────────────────────────────────────────────────────────────────────────
+  
+  try(
+    xfun::Rscript_call(function() {
+      library(here)
+      setwd(here::here())
+      assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
+      log_file <- "Article5_BadBankers/Huber2020_render_log.txt"
+      dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
+      con <- file(log_file, open = "wt")
+      sink(con)
+      sink(con, type = "message")
+      on.exit({ sink(type = "message"); sink(); sink(); close(con) }, add = TRUE)
+      unlockBinding("ggsave", asNamespace("ggplot2"))
+      original_ggsave <- ggplot2::ggsave
+      assign("ggsave", function(filename, ...) {
+        dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+        original_ggsave(filename, ...)
+      }, envir = asNamespace("ggplot2"))
+      lockBinding("ggsave", asNamespace("ggplot2"))
+      rmarkdown::render(
+        input         = "Article5_BadBankers/notebook.Rmd",
+        output_format = "pdf_document",
+        output_file   = "Huber2020_reproduced.pdf",
+        clean         = FALSE,
+        envir         = globalenv(),
+        quiet         = FALSE
+      )
+    }),
+    silent = FALSE
+  )
+})
 
 # #Script Snijder et al. (2024)
 try(
@@ -119,7 +122,7 @@ try(
       sink()
       close(con)
     }, add = TRUE)
-    
+    library(here)
     setwd(here::here())
     
     # Ejecutar scripts con impresión explícita
