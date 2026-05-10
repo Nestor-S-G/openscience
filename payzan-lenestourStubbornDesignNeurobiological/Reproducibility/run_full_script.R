@@ -3,8 +3,8 @@
 script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 # Set the working directory to the "Data" folder
-setwd(file.path(script_path, "Article4_Stubborn/Reproducibility/Data"))
-suppl_code_path=file.path(script_path, "Article4_Stubborn/Reproducibility/Supplementary Codes")
+setwd(file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Data"))
+suppl_code_path=file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Supplementary Codes")
 
 #Please install the below R Packagaes before running the code
 suppressMessages({
