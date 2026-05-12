@@ -15,7 +15,7 @@ run_script_project <- function(
 ) {
   
   expr <- substitute(expr)
-  
+  message("\nSTART: ", log_file)
   try(
     
     xfun::Rscript_call(
@@ -66,6 +66,7 @@ run_script_project <- function(
     
     silent = FALSE
   )
+  message("END: ", log_file)
 }
 
 # Payzan-LeNestour et al. (2025)
@@ -128,7 +129,6 @@ run_script_project(
 )
 
 # Huber and Huber (2020)
-
 local({
   # ── PARCHE STARGAZER: compatibilidad con R 4.x ────────────────────────────
   sg_path <- find.package("stargazer")
@@ -184,46 +184,37 @@ local({
 })
 
 # Snijder et al. (2024)
-try(
-  xfun::Rscript_call(function() {
+run_script_project(
+  
+  log_file =
+    "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
+  
+  expr = {
     
-    log_file <- "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt"
-    con <- file(log_file, open = "wt")
-    
-    # Redirigir stdout y stderr
-    sink(con)
-    sink(con, type = "message")
-    
-    on.exit({
-      sink(type = "message")
-      sink()
-      close(con)
-    }, add = TRUE)
     library(here)
     setwd(here::here())
     
-    # Ejecutar scripts con impresión explícita
+    # Ejecutar scripts en orden (manteniendo el orden original)
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R",
-           local = TRUE, echo = TRUE)
+           local = TRUE)
     
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R",
-           local = TRUE, echo = TRUE)
+           local = TRUE)
     
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R",
-           local = TRUE, echo = TRUE)
+           local = TRUE)
     
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R",
-           local = TRUE, echo = TRUE)
+           local = TRUE)
     
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R",
-           local = TRUE, echo = TRUE)
+           local = TRUE)
     
-  }),
-  silent = FALSE
+  }
+  
 )
 
 # Ekström et al. (2025), (R part)
-
 run_script_project(
   
   log_file =
