@@ -9,67 +9,122 @@ renv::restore()
 library(rmarkdown)
 library(xfun)
 
+run_script_project <- function(
+    expr,
+    log_file
+) {
+  
+  expr <- substitute(expr)
+  
+  try(
+    
+    xfun::Rscript_call(
+      
+      function(expr, log_file) {
+        
+        # ── Evitar browser interactivo en sesión hija ──
+        options(error = quote(quit(status = 1)))
+        # ──────────────────────────────────────────────
+        
+        library(here)
+        
+        setwd(here::here())
+        
+        dir.create(
+          dirname(log_file),
+          recursive = TRUE,
+          showWarnings = FALSE
+        )
+        
+        con <- file(log_file, open = "wt")
+        
+        sink(con)
+        sink(con, type = "message")
+        
+        on.exit({
+          
+          sink(type = "message")
+          sink()
+          
+          close(con)
+          
+        }, add = TRUE)
+        
+        eval(
+          expr,
+          envir = new.env(parent = globalenv())
+        )
+        
+      },
+      
+      args = list(
+        expr = expr,
+        log_file = log_file
+      )
+      
+    ),
+    
+    silent = FALSE
+  )
+}
+
 # Payzan-LeNestour et al. (2025)
-try(
-  xfun::Rscript_call(function() {
-    
-    library(here)
-    setwd(here::here())
-    
-    log_file <- "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt"
-    dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
-    con <- file(log_file, open = "wt")
-    sink(con, type = "message")  # primero stderr
-    sink(con)                     # luego stdout
-    on.exit({
-      sink(type = "message")
-      sink()
-      close(con)
-    }, add = TRUE)
+run_script_project(
+  
+  log_file =
+    "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
+  
+  expr = {
     
     assignInNamespace(
       "getActiveDocumentContext",
-      function(...) list(path = file.path(here::here(), "run_full_script.R")),
+      function(...) list(
+        path = file.path(here::here(), "run_full_script.R")
+      ),
       ns = "rstudioapi"
     )
     
-    source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R",
-           local = TRUE)
+    local({
+      orig <- get("effectsize", envir = asNamespace("effectsize"))
+      assignInNamespace(
+        "effectsize",
+        function(x, ...) {
+          tryCatch(
+            orig(x, ...),
+            error = function(e) {
+              message("effectsize error (skipped): ", conditionMessage(e))
+              invisible(NULL)
+            }
+          )
+        },
+        ns = "effectsize"
+      )
+    })
     
-  }),
-  silent = FALSE
+    source(
+      "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R",
+      local = TRUE
+    )
+    
+  }
+  
 )
 
 # Payzan-LeNestour and Woodford (2022)
-try(
-  xfun::Rscript_call(function() {
+run_script_project(
+  
+  log_file =
+    "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
+  
+  expr = {
     
-    library(here)
-    setwd(here::here())
+    source(
+      "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R",
+      local = TRUE
+    )
     
-    log_file <- "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt"
-    
-    # Crear carpeta si no existe (no el archivo)
-    dir.create(dirname(log_file),
-               recursive = TRUE,
-               showWarnings = FALSE)
-    
-    con <- file(log_file, open = "wt")
-    
-    sink(con)
-    sink(con, type = "message")
-    
-    on.exit({
-      sink(type = "message")
-      sink()
-      sink()
-      close(con)
-    }, add = TRUE)
-    
-    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
-    
-  }),
-  silent = FALSE
+  }
+  
 )
 
 # Huber and Huber (2020)
@@ -168,29 +223,19 @@ try(
 )
 
 # Ekström et al. (2025), (R part)
-try(
-  xfun::Rscript_call(function() {
+
+run_script_project(
+  
+  log_file =
+    "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
+  
+  expr = {
     
-    log_file <- "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt"
+    source(
+      "ekstromMakingPromiseIncreases2025/MakingAPromise.R",
+      local = TRUE
+    )
     
-    # Abrir conexión de log
-    con <- file(log_file, open = "wt")
-    
-    # Redirigir stdout y stderr
-    sink(con)
-    sink(con, type = "message")
-    
-    on.exit({
-      sink(type = "message")
-      sink()
-      close(con)
-    }, add = TRUE)
-    
-    library(here)
-    setwd(here::here())
-    
-    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
-    
-  }),
-  silent = FALSE
+  }
+  
 )
