@@ -15,7 +15,7 @@ I begin the search for potentially reproducible articles through [the **Open Sci
 
 I also find *Age-related differences in ventral striatal and default mode network function during reciprocated trust* (Fareri et al., 2022), which investigates the relationship between **aging and changes in executive functions** such as decision-making, specifically in the financial domain when involving other people. In the **Data and code availability** section, they include three links to download the material used.
 
-**Article 1:** *Outlier blindness: A neurobiological foundation for neglect of financial risk,* by Payzan-LeNestour and Woodford (2022).
+***Outlier blindness: A neurobiological foundation for neglect of financial risk,*** **by Payzan-LeNestour and Woodford (2022).**
 
 12/04/2024
 
@@ -53,7 +53,7 @@ After two weeks with no news from the principal author of the article, I contact
 
 12/09/24
 
-**Article 2:** *Craving money? Evidence from the laboratory and the field*, by Payzan-LeNestour and Doran (2024).
+***Craving money? Evidence from the laboratory and the field*****, by Payzan-LeNestour and Doran (2024).**
 
 After reading the README.md and python_requirements.txt files, I install Conda 24.11.1 to try to reproduce the study within the environment that this software provides. I create an environment called *craving* with Python 3.10 (not specified by the authors, but a plausible option for the time the study was conducted, given that it was a stable version compatible with the key libraries) and pandas 1.5.3 and numpy 1.24.4, given that these two are the only requirements specified. Once the installation of these versions is verified, I use Jupyter Lab 4.3.3 to open the file 01_combine_participant_data.ipynb, I modify *data_path* as the authors indicate to adjust it to the folder on my computer where the data is located, and I proceed to run the code, which leads me to the following error:
 
@@ -101,7 +101,7 @@ What seems to lead to a loop with no result whatsoever.
 
 I start from scratch in case I had made any mistakes, such as the omission of a crucial step in the previous attempt. I delete the environment and create a new one, with the same requirements indicated in the python_requirements.txt file (pandas\>=1.5.3 and numpy\>=1.24.4) and arrive at the same results.
 
-**Article 3:** *Age-related differences in ventral striatal and default mode network function during reciprocated trust*, by Fareri et al. (2022).
+***Age-related differences in ventral striatal and default mode network function during reciprocated trust*****, by Fareri et al. (2022).**
 
 12/19/24
 
@@ -234,7 +234,7 @@ Since this is no longer a problem related to an aspect of the computational envi
 
 01/29/25
 
-**Article 4:** *Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*, by Payzan-LeNestour et al. (2024).
+***Stubborn by Design: Neurobiological Foundation of Maladaptive Risk-Taking at Downturn Onsets*****, by Payzan-LeNestour et al. (2024).**
 
 Due to the failure in the attempt to reproduce the previous articles, I check again on the OSF website. I type *behavioral finance* into its search engine and one of the first results that appears is Payzan-LeNestour et al. (2024). Seeing that everything necessary to reproduce it is uploaded, I download the materials and, after checking that there is no README or similar file containing the instructions, I open *run_full_script.R* with RStudio and realize that the instructions are in the form of a comment within it.
 
@@ -275,7 +275,7 @@ The first classification gives 10 papers non-reproducible (either because nothin
 
 12/16/25
 
-**Article 5:** *Bad bankers no more? Truth-telling and (dis)honesty in the finance industry*, by Huber & Huber (2020).
+***Bad bankers no more? Truth-telling and (dis)honesty in the finance industry*****, by Huber & Huber (2020).**
 
 No computational environment is shared. I resume the process of reproduction with the papers that offer data publicly available with Huber & Huber (2020). I visit [the link](https://osf.io/c9dbj/) offered in the paper and download the files. I run the *notebook.Rmd* and get some warnings, until I get an error on "Table B3 - Ordered logit regression on the proportion of honest reports for financial professionals and students.". The error only requires to load the MASS library to be solved.
 
@@ -287,7 +287,7 @@ Error in if (is.na(s)) {: the condition has length > 1
 
 The rest of the code runs without errors. I proceed to compare the results I get with the results published. I find some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the reported ones.
 
-**Article 6:** *Card or dice? An improved experimental approach to measure dishonesty*, by Hermann et al. (2025).
+***Card or dice? An improved experimental approach to measure dishonesty*****, by Hermann et al. (2025).**
 
 I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using R.
 
@@ -314,7 +314,7 @@ rint(dist_dice)
 
 *Compare the results I get in a per-unit basis (above) and the results published (below).*
 
-**Article 7:** *Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*, by Snijder et al. (2024).
+***Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*****, by Snijder et al. (2024).**
 
 I check the link provided in the paper and download the files. Those are csv and qsf files, and R scripts. Again, no computational environment is shared.
 
@@ -322,7 +322,7 @@ I open *models.R* and move the csv files to the folder "data analysis" so they c
 
 12/17/25
 
-**Article 8:** *Decision-making within the household: The role of division of labor and differences in preferences*, by Alem et al. (2023).
+***Decision-making within the household: The role of division of labor and differences in preferences*****, by Alem et al. (2023).**
 
 I tried to access the website where the data is shared several times, but I wasn't able due to -I assume- problems with the server. I'll try again tomorrow.
 
@@ -330,11 +330,11 @@ I tried to access the website where the data is shared several times, but I wasn
 
 I am able to download the materials now. Those files are for Stata, a statistical package to which I have no access -a reminder of the importance of using open source for an open science.
 
-**Article 9:** *Domain-dependent diversification: The influence of gain–loss domain on correlation choice*, by Borsboom et al. (2024).
+***Domain-dependent diversification: The influence of gain–loss domain on correlation choice*****, by Borsboom et al. (2024).**
 
-I download the data and, again, I find a .xlsx and a .docx file - no computational environment or code to process the data. I write an R script to analyze it and find virtually the same results, with some variations (44.2% in the paper vs 44.6% in my results).
+I download the data and, again, I find a .xlsx and a .docx file - no computational environment or code to process the data.
 
-**Article 10:** *Financial scarcity increases discounting of gains and losses: Experimental evidence from a household task*, by Hilbert et al. (2022).
+***Financial scarcity increases discounting of gains and losses: Experimental evidence from a household task*****, by Hilbert et al. (2022).**
 
 I download the materials for this project. Data and code are shared in .sps and .sav files, but I am unable to find information about the program used (SPSS or PSPP). I proceed to run them in PSPP, since I have no access to the proprietary SPSS.
 
@@ -344,7 +344,7 @@ I am unable to get some values (such as t). This is probably due to the limitati
 
 12/19/25
 
-**Article 11:** *Information search, coherence effects, and their interplay in legal decision making*, by Mischkowski et al. (2021).
+***Information search, coherence effects, and their interplay in legal decision making*****, by Mischkowski et al. (2021).**
 
 When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided, so I develop an R script to proceed with the analysis.
 
@@ -352,7 +352,7 @@ When downloading the materials I realize some belong to a file type unknown to m
 
 After checking different versions of my code, I achieve results that are coherent with the reported ones, with some differences (such as a b value = -0.24 reported vs -0.22 in my case).
 
-**Article 12:** *Making a promise increases the moral cost of lying: Evidence from Norway and the United States*, by Ekström et al. (2025).
+***Making a promise increases the moral cost of lying: Evidence from Norway and the United States*****, by Ekström et al. (2025).**
 
 Shared material are partly in .do, partly in .R files. I run the *TableA3_code.R* and compare it with the materials provided in the appendix. They match the reported figures, except for:
 
@@ -364,21 +364,21 @@ pi1 0.377871 0.021618 17.480 < 2.2e-16 ***
 
 Where the 0.377871 differs from the 0.382 beyond rounding errors.
 
-**Article 13:** *Not all about the money: Service quality information improves consumer decision-making*, by Blijlevens et al. (2024).
+***Not all about the money: Service quality information improves consumer decision-making*****, by Blijlevens et al. (2024).**
 
 I check the link provided in the paper, but all I find is a pdf file that contains no data.
 
-**Article 14:** *Ovulatory shift, hormonal changes, and no effects on incentivized decision-making*, by Fišar et al. (2023).
+***Ovulatory shift, hormonal changes, and no effects on incentivized decision-making*****, by Fišar et al. (2023).**
 
 Again, shared materials are for Stata, as well as files with extensions .ztq and .ztt.
 
-**Article 15:** *Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity*, by Aydogan et al. (2024).
+***Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity*****, by Aydogan et al. (2024).**
 
 This paper contains a readme.txt with the version of Stata used to analyze the data.
 
 12/23/25
 
-**Article 16:** *The arithmetic of outcome editing in financial and social domains*, by Barrafrem et al. (2021).
+***The arithmetic of outcome editing in financial and social domains*****, by Barrafrem et al. (2021).**
 
 Two .dta files are shared, but neither code nor instructions. I develop a code for R and proceed to analyze the data. After that, I find figures that match the reported ones, as well as some small discrepancies:
 
@@ -390,15 +390,15 @@ Such as the -0.0178, reported as -0.020 in Table 2.
 
 12/26/25
 
-**Article 17:** *The effects of task difficulty and presentation format on eye movements in risky choice*, by Zhang et al. (2024).
+***The effects of task difficulty and presentation format on eye movements in risky choice*****, by Zhang et al. (2024).**
 
 Authors have share data and scripts for Stata, but no computational environment or info of what version of Stata was used.
 
-**Article 18:** *The impact of language on decision-making: Auction winners are less cursed in a foreign language*, by Fu et al. (2025).
+***The impact of language on decision-making: Auction winners are less cursed in a foreign language*****, by Fu et al. (2025).**
 
 Materials are shared for Stata. A README.txt file is included with the version of Stata (16+) required.
 
-**Article 19:** *Volatility shocks and investment behavior*, by Huber et al. (2021).
+***Volatility shocks and investment behavior*****, by Huber et al. (2021).**
 
 I access the link provided in the paper, but I find no files there to proceed with a reproduction.
 
