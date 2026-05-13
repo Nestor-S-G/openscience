@@ -170,6 +170,10 @@ for (proj in projects) {
       
     } else if (proj$type == "rmd_with_patches") {
       
+      # Extract values to local variables before passing the expression
+      rmd_input  <- proj$rmd_file
+      pdf_output <- proj$output_pdf
+      
       run_script_project(
         log_file = proj$log_file,
         expr = {
@@ -204,17 +208,17 @@ for (proj in projects) {
           }, envir = asNamespace("ggplot2"))
           lockBinding("ggsave", asNamespace("ggplot2"))
           
+          # Use of local variables
           rmarkdown::render(
-            input         = proj$rmd_file,
+            input         = rmd_input,
             output_format = "pdf_document",
-            output_file   = proj$output_pdf,
+            output_file   = pdf_output,
             clean         = FALSE,
             envir         = globalenv(),
             quiet         = FALSE
           )
         }
       )
-      
     } else if (proj$type == "custom") {
       
       run_script_project(
