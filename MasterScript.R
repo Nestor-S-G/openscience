@@ -1,30 +1,38 @@
 # =============================================================================
-# MASTER SCRIPT
+# MASTER SCRIPT - Computational Reproducibility
 # R version: 4.6.0
 # =============================================================================
 
-gc()
 rm(list = ls())
 
 renv::restore(prompt = FALSE)
 
 library(rmarkdown)
 library(xfun)
+library(here)
 
 # =============================================================================
-# Main function
+# Core function
 # =============================================================================
 
-run_script_project <- function(expr, log_file) {
+run_script_project <- function(log_file, expr) {
   
-  expr <- substitute(expr)
+  if (is.language(expr) && !is.name(expr)) {
+    captured_expr <- expr
+  } else {
+    captured_expr <- substitute(expr)
+  }
+  
   message("\nSTART: ", log_file)
+  success <- TRUE
   
-  try(
+  tryCatch({
+    
     xfun::Rscript_call(
       function(expr, log_file) {
         
-        options(error = quote(quit(status = 1)))
+        options(error = quote(quit(status = 1, save = "no")))
+        options(warn = 1)
         
         library(here)
         setwd(here::here())
@@ -44,113 +52,180 @@ run_script_project <- function(expr, log_file) {
         eval(expr, envir = new.env(parent = globalenv()))
         
       },
-      args = list(expr = expr, log_file = log_file)
-    ),
-    silent = FALSE
-  )
+      args = list(expr = captured_expr, log_file = log_file)
+    )
+    
+  }, error = function(e) {
+    success <<- FALSE
+    message("ERROR running ", log_file, ": ", conditionMessage(e))
+  })
   
-  message("END: ", log_file, "\n")
+  if (success) {
+    message("END: ", log_file, " [SUCCESS]\n")
+  } else {
+    message("END: ", log_file, " [FAILED]\n")
+  }
+  
+  invisible(success)
 }
 
 # =============================================================================
-# PAPERS TO RUN
+# DECLARATIVE PROJECT CONFIGURATION
 # =============================================================================
 
-# Payzan-LeNestour et al. (2025)
-run_script_project(
-  log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
-  expr = {
-    assignInNamespace("getActiveDocumentContext",
-                      function(...) list(path = file.path(here::here(), "run_full_script.R")),
-                      ns = "rstudioapi")
-    
-    local({
-      orig <- get("effectsize", envir = asNamespace("effectsize"))
-      assignInNamespace("effectsize", function(x, ...) {
-        tryCatch(orig(x, ...), error = function(e) {
-          message("effectsize error (skipped): ", conditionMessage(e))
-          invisible(NULL)
-        })
-      }, ns = "effectsize")
+projects <- list(
+  
+  payzan_2025 = list(
+    name = "Payzan-LeNestour et al. (2025)",
+    log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
+    type = "custom",
+    setup = quote({
+      assignInNamespace("getActiveDocumentContext",
+                        function(...) list(path = file.path(here::here(), "run_full_script.R")),
+                        ns = "rstudioapi")
+      
+      local({
+        orig <- get("effectsize", envir = asNamespace("effectsize"))
+        assignInNamespace("effectsize", function(x, ...) {
+          tryCatch(orig(x, ...),
+                   error = function(e) {
+                     message("effectsize error (skipped): ", conditionMessage(e))
+                     invisible(NULL)
+                   })
+        }, ns = "effectsize")
+      })
+      
+      source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R", local = TRUE)
     })
-    
-    source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R", local = TRUE)
-  }
-)
-
-# Payzan-LeNestour and Woodford (2022)
-run_script_project(
-  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
-  expr = {
-    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
-  }
-)
-
-# Huber and Huber (2020)
-run_script_project(
-  log_file = "huberBadBankersNo2020/Huber2020_log.txt",
-  expr = {
-    library(here)
-    setwd(here::here())
-    
-    # Parche stargazer
-    sg_path <- find.package("stargazer")
-    tmp_tar <- tempfile(fileext = ".tar.gz")
-    download.file("https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz",
-                  destfile = tmp_tar, quiet = TRUE)
-    tmp_dir <- tempdir()
-    untar(tmp_tar, exdir = tmp_dir)
-    code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
-    l1 <- grep("if (is.na(s))", code, fixed = TRUE)
-    code[l1] <- gsub("if (is.na(s))", "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
-    l2 <- grep('if (s=="")', code, fixed = TRUE)
-    code[l2] <- gsub('if (s=="")', 'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
-    writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
-    install.packages(file.path(tmp_dir, "stargazer"), repos = NULL, type = "source", quiet = TRUE, lib = dirname(sg_path))
-    cat("stargazer parcheado para R 4.x\n")
-    
-    assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
-    
-    unlockBinding("ggsave", asNamespace("ggplot2"))
-    original_ggsave <- ggplot2::ggsave
-    assign("ggsave", function(filename, ...) {
-      dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
-      original_ggsave(filename, ...)
-    }, envir = asNamespace("ggplot2"))
-    lockBinding("ggsave", asNamespace("ggplot2"))
-    
-    rmarkdown::render(
-      input         = "huberBadBankersNo2020/notebook.Rmd",
-      output_format = "pdf_document",
-      output_file   = "Huber2020_reproduced.pdf",
-      clean         = FALSE,
-      envir         = globalenv(),
-      quiet         = FALSE
+  ),
+  
+  payzan_2022 = list(
+    name = "Payzan-LeNestour and Woodford (2022)",
+    log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
+    type = "simple",
+    script = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R"
+  ),
+  
+  huber_2020 = list(
+    name = "Huber and Huber (2020)",
+    log_file = "huberBadBankersNo2020/Huber2020_log.txt",
+    type = "rmd_with_patches",
+    rmd_file = "huberBadBankersNo2020/notebook.Rmd",
+    output_pdf = "Huber2020_reproduced.pdf"
+  ),
+  
+  snijder_2024 = list(
+    name = "Snijder et al. (2024)",
+    log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
+    type = "multiple_scripts",
+    scripts = c(
+      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R",
+      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R",
+      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R",
+      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R",
+      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R"
     )
-  }
+  ),
+  
+  ekstrom_2025 = list(
+    name = "Ekström et al. (2025)",
+    log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
+    type = "simple",
+    script = "ekstromMakingPromiseIncreases2025/MakingAPromise.R"
+  )
 )
 
-# Snijder et al. (2024)
-run_script_project(
-  log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
-  expr = {
-    library(here)
-    setwd(here::here())
+# =============================================================================
+# EXECUTION ENGINE
+# =============================================================================
+
+message("=== Starting reproduction of ", length(projects), " projects ===\n")
+
+for (proj in projects) {
+  
+  cat("\n=== Running:", proj$name, "===\n")
+  
+  tryCatch({
     
-    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
-    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R", local = TRUE)
-    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R", local = TRUE)
-    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R", local = TRUE)
-    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R", local = TRUE)
-  }
-)
+    if (proj$type == "simple") {
+      
+      # Fixed: use local variable to avoid capture issues
+      script_path <- proj$script
+      run_script_project(
+        log_file = proj$log_file,
+        expr = { source(script_path, local = TRUE) }
+      )
+      
+    } else if (proj$type == "multiple_scripts") {
+      
+      scripts_list <- proj$scripts
+      run_script_project(
+        log_file = proj$log_file,
+        expr = {
+          library(here)
+          setwd(here::here())
+          for (s in scripts_list) source(s, local = TRUE)
+        }
+      )
+      
+    } else if (proj$type == "rmd_with_patches") {
+      
+      run_script_project(
+        log_file = proj$log_file,
+        expr = {
+          library(here)
+          setwd(here::here())
+          
+          # Stargazer Patch
+          sg_path <- find.package("stargazer")
+          tmp_tar <- tempfile(fileext = ".tar.gz")
+          download.file("https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz",
+                        destfile = tmp_tar, quiet = TRUE)
+          tmp_dir <- tempdir()
+          untar(tmp_tar, exdir = tmp_dir)
+          code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+          l1 <- grep("if (is.na(s))", code, fixed = TRUE)
+          code[l1] <- gsub("if (is.na(s))", "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
+          l2 <- grep('if (s=="")', code, fixed = TRUE)
+          code[l2] <- gsub('if (s=="")', 'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
+          writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+          install.packages(file.path(tmp_dir, "stargazer"), 
+                           repos = NULL, type = "source", quiet = TRUE, 
+                           lib = dirname(sg_path))
+          cat("stargazer patched for R 4.x\n")
+          
+          assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
+          
+          unlockBinding("ggsave", asNamespace("ggplot2"))
+          original_ggsave <- ggplot2::ggsave
+          assign("ggsave", function(filename, ...) {
+            dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+            original_ggsave(filename, ...)
+          }, envir = asNamespace("ggplot2"))
+          lockBinding("ggsave", asNamespace("ggplot2"))
+          
+          rmarkdown::render(
+            input         = proj$rmd_file,
+            output_format = "pdf_document",
+            output_file   = proj$output_pdf,
+            clean         = FALSE,
+            envir         = globalenv(),
+            quiet         = FALSE
+          )
+        }
+      )
+      
+    } else if (proj$type == "custom") {
+      
+      run_script_project(
+        log_file = proj$log_file,
+        expr = proj$setup
+      )
+    }
+    
+  }, error = function(e) {
+    message("UNEXPECTED ERROR in main loop for ", proj$name, ": ", conditionMessage(e))
+  })
+}
 
-# Ekström et al. (2025)
-run_script_project(
-  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
-  expr = {
-    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
-  }
-)
-
-message("\n=== END SCRIPT ===\n")
+message("\n=== MasterScript COMPLETED - All projects processed ===\n")
