@@ -1,5 +1,5 @@
 # =============================================================================
-# MASTER SCRIPT - Computational Reproducibility
+# MASTER SCRIPT - Computational Reproducibility (Declarative Version)
 # R version: 4.6.0
 # =============================================================================
 
@@ -12,61 +12,43 @@ library(xfun)
 library(here)
 
 # =============================================================================
-# Core function
+# Reliable runner with directory creation fix
 # =============================================================================
 
 run_script_project <- function(log_file, expr) {
   
-  if (is.language(expr) && !is.name(expr)) {
-    captured_expr <- expr
-  } else {
-    captured_expr <- substitute(expr)
-  }
-  
   message("\nSTART: ", log_file)
-  success <- TRUE
   
-  tryCatch({
+  # Ensure log directory exists
+  dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
+  
+  result <- tryCatch({
     
-    xfun::Rscript_call(
-      function(expr, log_file) {
-        
-        options(error = quote(quit(status = 1, save = "no")))
-        options(warn = 1)
-        
-        library(here)
-        setwd(here::here())
-        
-        dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
-        
-        con <- file(log_file, open = "wt")
-        sink(con)
-        sink(con, type = "message")
-        
-        on.exit({
-          sink(type = "message")
-          sink()
-          close(con)
-        }, add = TRUE)
-        
-        eval(expr, envir = new.env(parent = globalenv()))
-        
-      },
-      args = list(expr = captured_expr, log_file = log_file)
-    )
+    con <- file(log_file, open = "wt")
+    sink(con)
+    sink(con, type = "message")
+    
+    on.exit({
+      sink(type = "message")
+      sink()
+      close(con)
+    }, add = TRUE)
+    
+    # Execute in clean environment
+    eval(expr, envir = new.env(parent = globalenv()))
+    
+    TRUE  # success
     
   }, error = function(e) {
-    success <<- FALSE
-    message("ERROR running ", log_file, ": ", conditionMessage(e))
+    message("ERROR: ", conditionMessage(e))
+    FALSE
   })
   
-  if (success) {
+  if (result) {
     message("END: ", log_file, " [SUCCESS]\n")
   } else {
     message("END: ", log_file, " [FAILED]\n")
   }
-  
-  invisible(success)
 }
 
 # =============================================================================
@@ -78,8 +60,7 @@ projects <- list(
   payzan_2025 = list(
     name = "Payzan-LeNestour et al. (2025)",
     log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
-    type = "custom",
-    setup = quote({
+    expr = quote({
       assignInNamespace("getActiveDocumentContext",
                         function(...) list(path = file.path(here::here(), "run_full_script.R")),
                         ns = "rstudioapi")
@@ -87,11 +68,10 @@ projects <- list(
       local({
         orig <- get("effectsize", envir = asNamespace("effectsize"))
         assignInNamespace("effectsize", function(x, ...) {
-          tryCatch(orig(x, ...),
-                   error = function(e) {
-                     message("effectsize error (skipped): ", conditionMessage(e))
-                     invisible(NULL)
-                   })
+          tryCatch(orig(x, ...), error = function(e) {
+            message("effectsize error (skipped): ", conditionMessage(e))
+            invisible(NULL)
+          })
         }, ns = "effectsize")
       })
       
@@ -102,134 +82,90 @@ projects <- list(
   payzan_2022 = list(
     name = "Payzan-LeNestour and Woodford (2022)",
     log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
-    type = "simple",
-    script = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R"
+    expr = quote({
+      source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
+    })
   ),
   
   huber_2020 = list(
     name = "Huber and Huber (2020)",
     log_file = "huberBadBankersNo2020/Huber2020_log.txt",
-    type = "rmd_with_patches",
-    rmd_file = "huberBadBankersNo2020/notebook.Rmd",
-    output_pdf = "Huber2020_reproduced.pdf"
+    expr = quote({
+      library(here)
+      setwd(here::here())
+      
+      # Stargazer patch
+      sg_path <- find.package("stargazer")
+      tmp_tar <- tempfile(fileext = ".tar.gz")
+      download.file("https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz", destfile = tmp_tar, quiet = TRUE)
+      tmp_dir <- tempdir()
+      untar(tmp_tar, exdir = tmp_dir)
+      code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+      l1 <- grep("if (is.na(s))", code, fixed = TRUE)
+      code[l1] <- gsub("if (is.na(s))", "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
+      l2 <- grep('if (s=="")', code, fixed = TRUE)
+      code[l2] <- gsub('if (s=="")', 'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
+      writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+      install.packages(file.path(tmp_dir, "stargazer"), repos = NULL, type = "source", quiet = TRUE, lib = dirname(sg_path))
+      cat("stargazer patched for R 4.x\n")
+      
+      assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
+      
+      unlockBinding("ggsave", asNamespace("ggplot2"))
+      original_ggsave <- ggplot2::ggsave
+      assign("ggsave", function(filename, ...) {
+        dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+        original_ggsave(filename, ...)
+      }, envir = asNamespace("ggplot2"))
+      lockBinding("ggsave", asNamespace("ggplot2"))
+      
+      rmarkdown::render(
+        input = "huberBadBankersNo2020/notebook.Rmd",
+        output_format = "pdf_document",
+        output_file = "Huber2020_reproduced.pdf",
+        clean = FALSE,
+        envir = globalenv(),
+        quiet = FALSE
+      )
+    })
   ),
   
   snijder_2024 = list(
     name = "Snijder et al. (2024)",
     log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
-    type = "multiple_scripts",
-    scripts = c(
-      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R",
-      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R",
-      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R",
-      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R",
-      "snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R"
-    )
+    expr = quote({
+      library(here)
+      setwd(here::here())
+      source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
+      source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R", local = TRUE)
+      source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R", local = TRUE)
+      source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R", local = TRUE)
+      source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R", local = TRUE)
+    })
   ),
   
   ekstrom_2025 = list(
     name = "Ekström et al. (2025)",
     log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
-    type = "simple",
-    script = "ekstromMakingPromiseIncreases2025/MakingAPromise.R"
+    expr = quote({
+      source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
+    })
   )
 )
 
 # =============================================================================
-# EXECUTION ENGINE
+# EXECUTION
 # =============================================================================
 
 message("=== Starting reproduction of ", length(projects), " projects ===\n")
 
 for (proj in projects) {
-  
   cat("\n=== Running:", proj$name, "===\n")
   
-  tryCatch({
-    
-    if (proj$type == "simple") {
-      
-      # Fixed: use local variable to avoid capture issues
-      script_path <- proj$script
-      run_script_project(
-        log_file = proj$log_file,
-        expr = { source(script_path, local = TRUE) }
-      )
-      
-    } else if (proj$type == "multiple_scripts") {
-      
-      scripts_list <- proj$scripts
-      run_script_project(
-        log_file = proj$log_file,
-        expr = {
-          library(here)
-          setwd(here::here())
-          for (s in scripts_list) source(s, local = TRUE)
-        }
-      )
-      
-    } else if (proj$type == "rmd_with_patches") {
-      
-      # Extract values to local variables before passing the expression
-      rmd_input  <- proj$rmd_file
-      pdf_output <- proj$output_pdf
-      
-      run_script_project(
-        log_file = proj$log_file,
-        expr = {
-          library(here)
-          setwd(here::here())
-          
-          # Stargazer Patch
-          sg_path <- find.package("stargazer")
-          tmp_tar <- tempfile(fileext = ".tar.gz")
-          download.file("https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz",
-                        destfile = tmp_tar, quiet = TRUE)
-          tmp_dir <- tempdir()
-          untar(tmp_tar, exdir = tmp_dir)
-          code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
-          l1 <- grep("if (is.na(s))", code, fixed = TRUE)
-          code[l1] <- gsub("if (is.na(s))", "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
-          l2 <- grep('if (s=="")', code, fixed = TRUE)
-          code[l2] <- gsub('if (s=="")', 'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
-          writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
-          install.packages(file.path(tmp_dir, "stargazer"), 
-                           repos = NULL, type = "source", quiet = TRUE, 
-                           lib = dirname(sg_path))
-          cat("stargazer patched for R 4.x\n")
-          
-          assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
-          
-          unlockBinding("ggsave", asNamespace("ggplot2"))
-          original_ggsave <- ggplot2::ggsave
-          assign("ggsave", function(filename, ...) {
-            dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
-            original_ggsave(filename, ...)
-          }, envir = asNamespace("ggplot2"))
-          lockBinding("ggsave", asNamespace("ggplot2"))
-          
-          # Use of local variables
-          rmarkdown::render(
-            input         = rmd_input,
-            output_format = "pdf_document",
-            output_file   = pdf_output,
-            clean         = FALSE,
-            envir         = globalenv(),
-            quiet         = FALSE
-          )
-        }
-      )
-    } else if (proj$type == "custom") {
-      
-      run_script_project(
-        log_file = proj$log_file,
-        expr = proj$setup
-      )
-    }
-    
-  }, error = function(e) {
-    message("UNEXPECTED ERROR in main loop for ", proj$name, ": ", conditionMessage(e))
-  })
+  run_script_project(
+    log_file = proj$log_file,
+    expr = proj$expr
+  )
 }
 
 message("\n=== MasterScript COMPLETED - All projects processed ===\n")
