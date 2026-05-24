@@ -442,35 +442,3 @@ Materials are shared for Stata. A README.txt file is included with the version o
 I access the link provided in the paper, but I find no files there to proceed with a reproduction.
 
 Realizing no useful results are found in the last entries of the field journal, the authors decided to stop here the process of reproduction.
-
-| Study | Reproducibility Status |
-|------------------------------------|------------------------------------|
-| Alem et al. (2023) | Non-evaluable |
-| Aydogan et al. (2024) | Non-evaluable |
-| Barrafrem et al. (2021) | Partially reproducible with modifications |
-| Blijlevens et al. (2024) | Non-reproducible |
-| Borsboom et al. (2024) | Partially reproducible with modifications |
-| De Bresser and Knoef (2025) | Non-reproducible |
-| Ekström et al. (2025) | Partially reproducible |
-| Fareri et al. (2022) | Non-reproducible |
-| Fišar et al. (2023) | Non-evaluable |
-| Fred van Raaij et al. (2020) | Non-reproducible |
-| Fu et al. (2025) | Non-evaluable |
-| Hausfeld et al. (2020) | Non-reproducible |
-| Hermann et al. (2025) | Partially reproducible with modifications |
-| Hilbert et al. (2022) | Partially reproducible |
-| Huber and Huber (2020) | Partially reproducible with modifications |
-| Huber et al. (2021) | Non-reproducible |
-| Löfgren and Nordblom (2020) | Non-reproducible |
-| Merguei et al. (2022) | Non-reproducible |
-| Mischkowski et al. (2021) | Partially reproducible with modifications |
-| Negrini et al. (2022) | Non-reproducible |
-| Pauls and Laudi (2025) | Non-reproducible |
-| Payzan-LeNestour and Doran (2024) | Non-reproducible |
-| Payzan-LeNestour and Woodford (2022) | Non-reproducible |
-| Payzan-LeNestour et al. (2024) | Partially reproducible with modifications |
-| Snijder et al. (2024) | Reproducible |
-| Steinel et al. (2022) | Non-reproducible |
-| Tang (2021) | Non-reproducible |
-| Wang et al. (2025) | Non-reproducible |
-| Zhang et al. (2024) | Non-evaluable |
