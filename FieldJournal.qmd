@@ -245,7 +245,7 @@ Error in windows(width = 8, height = 8) : no se pudo encontrar la función
 "windows"
 ```
 
-I rewrite the present code, as well as the code in the *payoff rule.R* file, to substitute said function with ggplot(). I execute again, and after this, the *script* runs to the end without any additional problems, and I obtain tables and graphs to compare with those of the published article.
+I rewrite the present code, as well as the code in the *payoff rule.R* file, to substitute said function with ggplot(). I run it again, and after this, the *script* runs to the end without any additional problems, and I obtain tables and graphs to compare with those of the published article.
 
 01/30/25
 
@@ -260,6 +260,41 @@ All graphs correspond faithfully to those published with the exception of *Figur
 02/06/25
 
 I try rewriting the original code, substituting the problematic windows() function with dev.new() instead of ggplot(). When running the code, I obtain identical results to the previous occasion: the same discrepancies in *Figure 10 A* and *Table 3*, and I also do not obtain the graphs that I failed to obtain using ggplot().
+
+18/04/26
+
+Since the first reproduction attempt, the original study and its materials ar no longer available, but a updated version, *Stubborn by Design: When past rewards keep agents betting on known losses*.
+
+I start substituting the windows() function for dev.new(). Then I get an error:
+
+``` r
+Error en t.test.formula(betting_rate_bc ~ uncertainty, data = data_6, : 
+  cannot use 'paired' in formula method
+```
+
+So I modify:
+
+``` r
+t_test_6 <- t.test(betting_rate_bc ~ uncertainty, data = data_6,
+                   alternative = 'less', paired = TRUE)
+```
+
+With:
+
+``` r
+t_test_6 <- t.test(
+  x = data_6$betting_rate_bc[data_6$uncertainty == "High"],
+  y = data_6$betting_rate_bc[data_6$uncertainty == "Low"],
+  paired = TRUE,
+  alternative = 'less'
+)
+```
+
+After that, there is an error in a path that seems to be hardcoded:
+
+``` r
+'C:/Users/yyszq/Dropbox/Elise Sign Tracking/Data and coding/Reproducibility/Supplementary Codes/payoff rule.R'
+```
 
 11/01/25
 
@@ -342,9 +377,13 @@ I run the *pilot* and get virtually the same results, with small differences suc
 
 I am unable to get some values (such as t). This is probably due to the limitations of PSPP compared to SPSS - assuming the original authors used the latter.
 
-12/19/25
+05/24/26
+
+With access to the propietary SPSS, an attempt for computational reproducibility is made for the Pilot study again. Results are the same for the F-value, \~ 133.93 found vs. 133.34 published. In this case, the mistmatches cannot be attributed to the used of proprietary instead of free software.
 
 ***Information search, coherence effects, and their interplay in legal decision making*****, by Mischkowski et al. (2021).**
+
+12/19/25
 
 When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided, so I develop an R script to proceed with the analysis.
 
