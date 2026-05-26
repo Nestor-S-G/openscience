@@ -7,7 +7,7 @@ editor: visual
 
 **Abstract**
 
-There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in getting the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. Of the 29 studies, 1 (3.4%) was fully computationally reproducible, while 15 (51.7%) were non-reproducible.
+There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in obtaining the same results out of the same data and code of the original studies have been found – that's what is called “Computational reproducibility”. Given its social relevance, this study focused on the cases of computational reproducibility in neuroeconomics and behavioral finance. Of the 29 studies analyzed, 1 (3.4%) was fully computationally reproducible, while 15 (51.7%) were non-reproducible.
 
 Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
 
@@ -31,17 +31,15 @@ The FAIR principles can be framed within a larger movement: Open Science, which 
 
 **Scientific Rigor, Behavioral Finance, and Neuroeconomics**
 
-In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), a kind of collateral damage can occur when knowledge that does not have the rigor expected of the scientific method has a direct impact on people's lives. Economics is an example of this and is not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel & Schwartz, 2022) regarding the superiority of investing in stocks over fixed income securities in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of behavioral economist Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024).
+In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), lack of scientific rigor can have direct real-world consequences when such knowledge influences policy or individual decisions. Economics is an example of this and is not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel & Schwartz, 2022) regarding the superiority of investing in stocks over fixed income securities in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of behavioral economist Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024).
 
-If the reproducibility crisis is a problem in any discipline, in this case it would be aggravated by the social relevance of its practical applications: the Government Pension Fund of Norway manages around \$2.1 trillion (Norges Bank Investment Management, n.d.); 15.3% of Spaniards have part of their savings in a pension plan (Funds Society, 2024); Germany announced a reform to invest part of the money that guarantees its citizens' future pensions in the stock market (Conde-Batalla, 2024); among others. If the managers of these huge amounts of money, on which the well-being and quality of life of future retirees will partially depend, extract their knowledge is from studies that do not meet the standards of the scientific method, we could be facing a serious problem.
+The Government Pension Fund of Norway manages around \$2.1 trillion (Norges Bank Investment Management, n.d.); 15.3% of Spaniards have part of their savings in a pension plan (Funds Society, 2024); Germany announced a reform to invest part of the money that guarantees its citizens' future pensions in the stock market (Conde-Batalla, 2024). If the managers of these huge amounts of money extract their knowledge from studies that do not meet the standards of the scientific method, the financial security of millions of future retirees could be compromised.
 
-Although research on economic inequality in society has little interest in asset management, the same is not true for the various disciplines that somehow integrate psychology and/or neuroscience with economics (such as neuroeconomics, behavioral economics, behavioral finance, or neuromarketing), whose emphasis on decision-making processes and the biases associated with them are directly related to investment practice: someone analyzing an asset that has been on a long upward streak must be careful that the recency bias does not lead them to think it is a good investment just because it has been rising lately (or the opposite, if the streak has been downward) regardless of what a cold and rigorous analysis of that asset says; if the person in charge of analyzing whether it is a good time or not to buy shares of Harley-Davidson or Ferrari is a motor enthusiast, he must be cautious that the confirmation bias does not make them see an opportunity that does not really exist due to their personal preferences. And so forth.
-
-In addition to having this direct relationship, these disciplines have become popular partly due to the publication of popular science books, such as Kahneman (2011), and partly because some of their researchers have won the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel (popularly and erroneously known as the *Nobel in Economics*): Daniel Kahneman (2002), Robert J. Shiller (2013), and Richard H. Thaler (2017). Consequently, non-professional investors can also be expected to be familiar with them and use this knowledge with the aim of increasing their wealth.
+Not every branch of economics is directly relevant to asset management. However, disciplines that integrate psychology and/or neuroscience with economics often address decision-making processes and cognitive biases —such as recency and confirmation bias— that are directly relevant to investment practice. In addition, these disciplines have become popular partly due to the publication of popular science books, such as Kahneman (2011), and partly because some of their researchers have won the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel (popularly and erroneously known as the *Nobel in Economics*): Daniel Kahneman (2002), Robert J. Shiller (2013), and Richard H. Thaler (2017). Consequently, non-professional investors can also be expected to be familiar with them and use this knowledge with the aim of increasing their wealth.
 
 **Objectives**
 
-The objective of this research is to explore the computational reproducibility in the fields of neuroeconomics, behavioral sciences and related fields by trying to reproduce particular case studies.
+The objective of this research is to explore computational reproducibility through a set of case studies drawn from neuroeconomics, behavioral finance, and related fields.
 
 ### Methods and Materials
 
@@ -77,9 +75,23 @@ Once the articles are selected, an attempt was made to reproduce them from scrat
 
 **Field Journal**
 
-The present study was documented in the format of a field journal (Sampieri et al., 2010). This form of record is suitable for documenting the steps taken in the attempt at reproduction. Problems found throughout the process were coded, as well as the way of trying to solve them through trial and error, which were noted with their results, positive or negative.
+The reproduction process was documented through a field journal (Sampieri et al., 2010). This form of record is suitable for documenting the steps taken in the process. Problems found throughout the process were coded, as well as the way of trying to solve them through trial and error, which were noted with their results, positive or negative.
 
 The recurring themes and patterns that emerged in a first reading of the journal were coded in a spreadsheet. A systematic qualitative analysis was then applied to them.
+
+**Possible outcomes**
+
+-Reproducible: A study met the definition given at the beginning of this article. No modifications beyond adjusting the paths for reading files or other minor technical issues were required.
+
+-Reproducible with modifications: Results were reproduced, but with modifications beyond minor technical issues, such as rewriting part of the algorithm that must process the data.
+
+-Partially reproducible: Part of the study was reproducible, either because the results in the other part diverged from the originals, or because they couldn't be obtained for any reason.
+
+-Partially reproducible with modifications: Similar to *Partially reproducible*, but where code modifications were necessary to achieve the results.
+
+-Non-reproducible: Different results from the originals, or no results at all were obtained.
+
+-Non-evaluable: Materials are shared, but their reproducibility cannot be assessed for any reason, such as being shared in proprietary software not everyone has access to.
 
 ## **Results**
 
@@ -113,20 +125,6 @@ Results:
 | Reproducible with modifications           | 0                          |
 | Non-evaluable                             | 5                          |
 
-Defined as:
-
--Reproducible: A study that met the definition given at the beginning of this article: reaching consistent results (identical or with errors due exclusively to rounding) starting from the material provided by the original authors and their instructions, with no modifications other than adjusting the paths for reading the files if necessary or other minor technical issues.
-
--Reproducible with modifications: Consistent results have been reached, but with modifications that go beyond minor technical issues, such as the instructions given or the path adjustment or rewriting part of the algorithm that must process the data.
-
--Partially reproducible: Only part of the study is reproducible, either because the results in the other part diverge from the originals, or because they cannot be obtained for any reason.
-
--Partially reproducible with modifications: Similar to *Partially reproducible*, but where code modifications were necessary to achieve the results.
-
--Non-reproducible: Different results from the originals are reached, or no results are obtained.
-
--Non-evaluable: Materials are shared, but their reproducibility could not be assessed for any reason, such as being shared in proprietary software not everyone has access to.
-
 Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to adapt to the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2026), however, this only required substituting one function with its equivalent in Linux.
 
 In the case of Fareri et al. (2022), the indicated version of the mriqc package could not be found, but a later one. Although the problem with this study was of another nature, this may have affected the results in some way. These examples serve to recall the importance of sharing the computational environment already mentioned.
@@ -147,23 +145,23 @@ Among the problems found are the lack of knowledge of the complete computational
 
 The following conclusions are drawn from the entire process, which can serve as a guide for future 'reproducers':
 
-- Verifying the integrity of the available files at the beginning of the process can save time later. Had the BIDS structure of the folders and files provided to reproduce the study by Fareri et al. (2022) been checked first, it could have been concluded in minutes that it could not be reproduced. One of the errors associated with the article by Payzan-LeNestour and Doran (2024) might have been due to the .xls files being damaged, according to the possibilities offered by ChatGPT. Although this was not the case, it would have been good to check it first to rule it out. If the files were damaged, the original authors could be contacted in case they wanted to remedy it and share functional files online.
+- Verifying the integrity of the available files at the beginning of the process can save time later. For instance, had the BIDS structure of the folders and files provided to reproduce the study by Fareri et al. (2022) been checked first, it could have been concluded in minutes that it could not be reproduced..
 
-- In case of not having the necessary information to install a software computational environment like that of the original study, it can be approximated by searching for the latest stable versions available at the time of the article's publication, taking into account that this could be the cause of the error. Should the article not be reproducible and whatever the result, this fact must be recorded.
+- In case of not having the necessary information to install a computational environment like the one used in the original study, it can be approximated by searching for the latest stable versions available at the time of the article's publication, taking into account that this could be the cause of the error.
 
-- Any error when running the code must be meticulously documented, as well as the solutions that are applied, whether they are useful or not. For this, the simplest and most congruent with the principles of open science is to use a code version control system (Sandve et al., 2013). Those unfamiliar with computer programming may find typical file names unintelligible, so it would be desirable to make these as clear as possible.
+- Any error running the code must be meticulously documented, as well as the solutions that are applied, whether they are useful or not. The simplest and most congruent with Open Science is to use a code version control system (Sandve et al., 2013). Those unfamiliar with computer programming may find typical file names unintelligible, so it would be desirable to make these as clear as possible.
 
-With respect to authors who want to make their studies computationally reproducible, most of the inconveniences encountered could be resolved with the use of reproducible computational environments like Guix (Vallet et al., 2022), so that would be a path to explore. That article mentions the limitations of containers like Docker or Singularity, especially due to the difficulty of maintaining them in the long term. This must be taken into account if one chooses to share the environment in that way.
+With respect to authors who want to make their studies computationally reproducible, most of the inconveniences encountered could be resolved with the use of reproducible computational environments like Guix (Vallet et al., 2022), so that would be a path to explore. That article mentions the limitations of containers like Docker or Singularity, especially due to the difficulty of maintaining them in the long term.
 
 Interactive notebooks or computational documents (such as JupyterLab, Quarto, or R Markdown) make it easier for other researchers to reproduce our studies by integrating code, text, and graphics into a single document.
 
 Regarding the way to share necessary files, ideally, they should be stored in a public repository with some type of persistent identifier, such as those cited above, and for the code itself to include the URL where they are hosted as the file path. This would reduce the manual steps that the study reproducer has to carry out (a potential source of errors), standardizing the process. Having said that, given that internet connection can be unstable in certain parts of the world, this could be a setback. One solution could be the use of relative file paths instead of absolute ones (Perry, 2022) in the code. Said code would check for the existence of the file in a subfolder included in the materials to be downloaded and, if it does not exist, would proceed to download it from the URL. A textbox that asks for the path to be entered without modifying the code could also be an alternative to consider.
 
-The use of open-source software is also important for the development of open science - when authors share materials that require proprietary software, such as Alem et al. (2023) or Hilbert et al. (2022), an invisible barrier for reproducibility is raised, especially for scientists working in countries where the price is prohibitive.
+The use of open-source software is also important for the development of Open Science - when materials that require proprietary software are shared (Alem et al., 2023; Aydogan et al., 2024; Barrafrem et al., 2021; Ekström et al., 2025;Fišar et al., 2023;Fu et al.,2025; Hilbert et al., 2022; Zhang et al., 2024), an invisible barrier for reproducibility is raised, especially for scientists working in countries where the price is prohibitive.
 
 It is also important to accompany the files with the corresponding legends, since without these the interpretation of the data becomes an extremely difficult, if not impossible, task for someone outside the original study.
 
-Finally, Pauls and Laudi (2025) didn't share the materials of their study due to privacy agreements. This is a sensible issue. There are some ways to share the data while respecting the anonymity of the subjects (anonymization, avatarization) that should be considered before ruling out the possibility of sharing data.
+Pauls and Laudi (2025) didn't share the materials of their study due to privacy agreements. This is a sensible issue. There are some ways to share the data while respecting the anonymity of the subjects (anonymization, avatarization) that should be considered before ruling out the possibility of sharing data.
 
 **Generalization to Other Disciplines**
 
@@ -173,7 +171,7 @@ Consequently, the results of the present study could be generalized to other soc
 
 **Limitations and Conclusion**
 
-Among the limitations of the present study is its low representativeness, accentuated by the fact that some articles share authors (Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2026), Huber and Huber (2020), and Huber et al. (2021)), although not all yielded the same result, which helps mitigate the potential bias. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results grows substantially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, for example) or adhere to a narrower time window. Once more studies are available, the aggregated experience of the authors could lay the groundwork for proposing a standardized instrument with which to carry out computational reproductions.
+Among the limitations of the present study is its low representativeness, accentuated by the fact that some articles share authors (Payzan-LeNestour and Doran (2024), Payzan-LeNestour and Woodford (2022), Payzan-LeNestour et al. (2026), Huber and Huber (2020), and Huber et al. (2021)), although not all yielded the same result, which helps mitigate the potential bias. If Open Science advances and the number of publications that share everything necessary to reproduce the code and arrive at their same results increases substantially, studies with greater representativeness and inferences with sufficient statistical power could be carried out in the future. Also with strict inclusion and exclusion criteria: one that aims to delve deeper into a specific discipline (behavioral economics, for example) or adhere to a narrower time window.
 
 The findings are consistent with concerns about computational reproducibility in neuroeconomics and behavioral finance: several of the problems pointed out in the literature were found, and the result was that most of the selected studies could not be reproduced.
 
