@@ -324,30 +324,7 @@ The rest of the code runs without errors. I proceed to compare the results I get
 
 ***Card or dice? An improved experimental approach to measure dishonesty*****, by Hermann et al. (2025).**
 
-I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared. So I try to deduce a way to analyze the data using R.
-
-When I analyze the data using the script *CardOrDice.R*, I find results that are coherent with the published ones as well as some small differences probably due to rounding or using different software to analyze the data.
-
-``` r
-rint(dist_dice)
-# A tibble: 24 × 4
-   place_fac      dice     n   prop
-   <fct>         <dbl> <int>  <dbl>
- 1 Camb_farmers      1    30 0.107 
- 2 Camb_farmers      2    25 0.0893
- 3 Camb_farmers      3    55 0.196 
- 4 Camb_farmers      4    55 0.196 
- 5 Camb_farmers      5    93 0.332 
- 6 Camb_farmers      6    22 0.0786
- 7 Camb_students     1    32 0.148 
- 8 Camb_students     2    26 0.120 
- 9 Camb_students     3    33 0.153 
-10 Camb_students     4    43 0.199 
-```
-
-![](img/Article6published.png)
-
-*Compare the results I get in a per-unit basis (above) and the results published (below).*
+I access [the link](https://osf.io/zhnx2) provided in the paper. There I find a related project link where the data is shared. I download the .xlsx file. No computational environment, code or instructions are shared.
 
 ***Decision-makers self-servingly navigate the equality-efficiency trade-off of free partner choice in social dilemmas among unequals*****, by Snijder et al. (2024).**
 
@@ -385,11 +362,9 @@ With access to the propietary SPSS, an attempt for computational reproducibility
 
 12/19/25
 
-When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided, so I develop an R script to proceed with the analysis.
+When downloading the materials I realize some belong to a file type unknown to me: .boxs. However, they seem unnecessary to analyze the data in *Interplay_IS_CE_Data.xls* file. Again, no code or computational environment is provided.
 
 12/22/25
-
-After checking different versions of my code, I achieve results that are coherent with the reported ones, with some differences (such as a b value = -0.24 reported vs -0.22 in my case).
 
 ***Making a promise increases the moral cost of lying: Evidence from Norway and the United States*****, by Ekström et al. (2025).**
 
@@ -419,13 +394,7 @@ This paper contains a readme.txt with the version of Stata used to analyze the d
 
 ***The arithmetic of outcome editing in financial and social domains*****, by Barrafrem et al. (2021).**
 
-Two .dta files are shared, but neither code nor instructions. I develop a code for R and proceed to analyze the data. After that, I find figures that match the reported ones, as well as some small discrepancies:
-
-``` r
-5 fixed  numeracy                -0.0178    0.00708     -2.52  -0.0317    -0.00394
-```
-
-Such as the -0.0178, reported as -0.020 in Table 2.
+Two .dta files are shared, but neither code nor instructions to proceed.
 
 12/26/25
 
