@@ -1,0 +1,184 @@
+{
+    "money_low": "$1",
+    "money_low_decimal": 1,
+    "money_high": "$2",
+    "money_high_decimal": 2,
+    "pay": "69 cents",
+    "pay_decimal": 0.69,
+    "threshold": 20,
+    "multiplier": 4,
+    "low_color": "yellow",
+    "low_probability": 20,
+    "high_color": "blue",
+    "high_probability": 80,
+    "trials": 4,
+    "treatment": "test",
+    "rounds": 7,
+    "repetitions": 2,
+    "sensitization": {
+        "s1": {
+            "reward": "money_low",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        },
+        "s2": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        },
+        "s3": {
+            "reward": "money_low",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 50
+        },
+        "s4": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 50
+        }
+    },
+    "test_blocks": {
+        "c1": {
+            "reward": "money_high",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 50
+        },
+        "c2": {
+            "reward": "money_low",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 50
+        },
+        "c3": {
+            "reward": "money_high",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 100
+        },
+        "c4": {
+            "reward": "money_high",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 100
+        }
+    },
+    "practice": {
+        "t1": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        },
+        "t2": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 50
+        },
+        "t3": {
+            "reward": "money_low",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 50
+        },
+        "t4": {
+            "reward": "money_low",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        },
+        "t5": {
+            "reward": "money_low",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 100
+        },
+        "t6": {
+            "reward": "money_high",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 50
+        },
+        "t7": {
+            "reward": "money_low",
+            "color": "low_color",
+            "probability": "low_probability",
+            "aaron_show": 100
+        }
+    },
+    "demo": {
+        "d1": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        },
+        "d2": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 1
+        },
+        "d3": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 50
+        },
+        "d4": {
+            "reward": "money_high",
+            "color": "high_color",
+            "probability": "high_probability",
+            "aaron_show": 100
+        }
+
+    },
+    "duration": {
+        "practice": {
+            "reminder": 4,
+            "screen_1": 4,
+            "screen_2": 4,
+            "screen_3": 4,
+            "aaron_mood_info": 4,
+            "choice": 4,
+            "aaron_bad_mood": 4,
+            "pass": 4,
+            "missed": 4,
+            "spin": 2,
+            "result": 4
+        },
+        "actual": {
+            "slow_rounds": 4,
+            "slow": {
+                "reminder": 4,
+                "screen_1": 4,
+                "screen_2": 4,
+                "screen_3": 4,
+                "aaron_mood_info": 4,
+                "choice": 4,
+                "aaron_bad_mood": 4,
+                "pass": 4,
+                "missed": 4,
+                "spin": 1,
+                "result": 4
+            }, 
+            "reminder": 2,
+            "screen_1": 2,
+            "screen_2": 2,
+            "screen_3": 2,
+            "aaron_mood_info": 4,
+            "choice": 2,
+            "aaron_bad_mood": 2,
+            "pass": 2,
+            "missed": 2,
+            "spin": 1,
+            "result": 2
+        }
+    }
+
+}

@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.positai
 
 # Output files:
 *.spv

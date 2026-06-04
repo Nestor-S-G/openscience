@@ -1,0 +1,6 @@
+{
+    "title": "Rules of the Game",
+    "para1": "You’re going to play {{trials}} rounds overall for a bit less than 40 minutes. In the end I will compute all your net accumulated outcomes minus a given threshold. If the difference is positive, you will earn {{multiplier}} times that amount. If it’s negative, you have to pay me your debt, up to $50.",
+    "para2": "For example, if the threshold has been set to $90 and your net accumulated outcomes at the end of the game are $93, I compute the difference, $3, and your earnings from the game are $3x{{multiplier}}=${{amount_won}}. If your net accumulated outcomes at the end of the game are $80, then you have to pay me $10.",
+    "para3": "I won’t tell you the value of the threshold till the end (because it is important in the context of this experiment that you do your best at every trial, and knowing the value of the threshold beforehand migh affect this). However, you can be assured that it has been fixed before the game starts, and you will be able to check this yourself: The experimenter will write the value in a sealed envelope before the game starts and will reveal it once the game is over (see FAQs for details)."
+}

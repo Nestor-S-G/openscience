@@ -1,0 +1,33 @@
+.odds-guess-button {
+    padding-top: 1em;
+    border: black solid 1px;
+}
+
+.odds-guess-button:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+#odds-guess-one-message {
+    color: darkgreen;
+}
+
+.odds-guess-one-space {
+    height: 200px;
+}
+
+.odds-guess-one-title {
+    border: 1px black solid;
+    padding: 5px;
+}
+
+.odds-guess-one-white-zone {
+    background-color: gray;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 0.5em;
+    padding-bottom: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}

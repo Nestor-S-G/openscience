@@ -1,31 +1,117 @@
-#Master script
+# =============================================================================
+# MASTER SCRIPT
+# R version: 4.6.0
+# =============================================================================
+
+gc()
+rm(list = ls())
+
+renv::restore(prompt = FALSE)
+
 library(rmarkdown)
-library(here)
+library(xfun)
 
-root <- here()
-#Script Article 1
-try(source("Article1_Outlier/Outlier.R"), silent = FALSE)
+source("R/run_script_project.R")
 
-#Script Article 4
-setwd(root)
-source("Article4_Stubborn/run_full_script.R")
+# =============================================================================
+# PAPERS TO RUN
+# =============================================================================
 
-# #Script Article 5
-setwd(root)
-try(rmarkdown::render("Article5_BadBankers/notebook.Rmd"))
+# Payzan-LeNestour et al. (2026)
+run_script_project(
+  log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
+  expr = {
+    assignInNamespace("getActiveDocumentContext",
+                      function(...) list(path = file.path(here::here(), "run_full_script.R")),
+                      ns = "rstudioapi")
+    
+    local({
+      orig <- get("effectsize", envir = asNamespace("effectsize"))
+      assignInNamespace("effectsize", function(x, ...) {
+        tryCatch(orig(x, ...), error = function(e) {
+          message("effectsize error (skipped): ", conditionMessage(e))
+          invisible(NULL)
+        })
+      }, ns = "effectsize")
+    })
+    
+    source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R", local = TRUE)
+  }
+)
 
-# #Script Article 7
-setwd(root)
-source("Article7_DecisionMakers/scripts/data_analysis/models.R")
-setwd(root)
-source("Article7_DecisionMakers/scripts/data_analysis/partner choice.R")
-setwd(root)
-source("Article7_DecisionMakers/scripts/data_analysis/plots.R")
-setwd(root)
-source("Article7_DecisionMakers/scripts/data_analysis/political orientation.R")
-setwd(root)
-source("Article7_DecisionMakers/scripts/process_data/process data.R")
+# Payzan-LeNestour and Woodford (2022)
+run_script_project(
+  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
+  expr = {
+    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
+  }
+)
 
-# #Script Article 12 (R part)
-setwd(root)
-source("Article12_MakingAPromise/MakingAPromise.R")
+# Huber and Huber (2020)
+run_script_project(
+  log_file = "huberBadBankersNo2020/Huber2020_log.txt",
+  expr = {
+    library(here)
+    setwd(here::here())
+    
+    # Parche stargazer
+    sg_path <- find.package("stargazer")
+    tmp_tar <- tempfile(fileext = ".tar.gz")
+    download.file("https://cran.r-project.org/src/contrib/stargazer_5.2.3.tar.gz",
+                  destfile = tmp_tar, quiet = TRUE)
+    tmp_dir <- tempdir()
+    untar(tmp_tar, exdir = tmp_dir)
+    code <- readLines(file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+    l1 <- grep("if (is.na(s))", code, fixed = TRUE)
+    code[l1] <- gsub("if (is.na(s))", "if (length(s) == 0 || all(is.na(s)))", code[l1], fixed = TRUE)
+    l2 <- grep('if (s=="")', code, fixed = TRUE)
+    code[l2] <- gsub('if (s=="")', 'if (length(s) == 0 || all(s == ""))', code[l2], fixed = TRUE)
+    writeLines(code, file.path(tmp_dir, "stargazer", "R", "stargazer-internal.R"))
+    install.packages(file.path(tmp_dir, "stargazer"), repos = NULL, type = "source", quiet = TRUE, lib = dirname(sg_path))
+    cat("stargazer parcheado para R 4.x\n")
+    
+    assignInNamespace("tbl_df", tibble::as_tibble, ns = "dplyr")
+    
+    unlockBinding("ggsave", asNamespace("ggplot2"))
+    original_ggsave <- ggplot2::ggsave
+    assign("ggsave", function(filename, ...) {
+      dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
+      original_ggsave(filename, ...)
+    }, envir = asNamespace("ggplot2"))
+    lockBinding("ggsave", asNamespace("ggplot2"))
+    
+    rmarkdown::render(
+      input         = "huberBadBankersNo2020/notebook.Rmd",
+      output_format = "pdf_document",
+      output_file   = "Huber2020_reproduced.pdf",
+      clean         = FALSE,
+      envir         = globalenv(),
+      quiet         = FALSE
+    )
+  }
+)
+
+# Snijder et al. (2024)
+run_script_project(
+  log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
+  expr = {
+    library(here)
+    setwd(here::here())
+    
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R", local = TRUE)
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R", local = TRUE)
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R", local = TRUE)
+    source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R", local = TRUE)
+  }
+)
+
+# Ekström et al. (2025)
+run_script_project(
+  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
+  expr = {
+    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
+  }
+)
+
+message("\n=== END SCRIPT ===\n")

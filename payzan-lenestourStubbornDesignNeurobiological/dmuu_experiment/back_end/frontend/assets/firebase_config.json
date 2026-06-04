@@ -1,0 +1,188 @@
+{
+    "config" : {
+        "params": {
+            "color": {
+                "low_probability": "#FFF66D",
+                "low_name": "yellow",
+                "high_probability":"#002EFF",
+                "high_name": "blue"
+            },
+            "treatment": "test",
+            "reward": {
+                "low": 1,
+                "high": 2
+            },
+            "simulation": {
+                "examples": 3,
+                "pause": 4
+            },
+            "multiplier": 4,
+            "bet_amount": 0.7,
+            "repetitions": 1,
+            "trials": 1,
+            "probability": {
+                "low": 0.2,
+                "high": 0.8,
+                "aaron_spin": 0.5
+            },
+            "threshold": 130,
+            "missed_trials": 4,
+            "stop_after": {
+                "screen_1": -1,
+                "screen_2": -1,
+                "screen_3": -1
+            },
+            "sound": true,
+            "slow_trials": 4,
+            "duration": {
+                "break_block": 0,
+                "break_sequence": 0,
+                "practice": {
+                    "reminder": 2,
+                    "screen_1": 2,
+                    "screen_2": 2,
+                    "screen_3": 2,
+                    "aaron_mood_info": 2,
+                    "game": {
+                        "choice": 2,
+                        "spin": 2,
+                        "aaron_bad_mood": 2,
+                        "pass": 2,
+                        "result": 2,
+                        "missed_trial": 2
+                    }
+                },
+                "experiment": {
+                    "reminder": 5,
+                    "slow": {
+                        "screen_1": 4,
+                        "screen_2": 4,
+                        "screen_3": 4,
+                        "aaron_mood_info": 4,
+                        "game": {
+                            "choice": 4,
+                            "spin": 4,
+                            "aaron_bad_mood": 4,
+                            "pass": 4,
+                            "result": 4,
+                            "missed_trial": 4
+                        }
+                    },
+                    "normal": {
+                        "screen_1": 2,
+                        "screen_2": 2,
+                        "screen_3": 2,
+                        "aaron_mood_info": 4,
+                        "game": {
+                            "choice": 2,
+                            "spin": 1,
+                            "aaron_bad_mood": 2,
+                            "pass": 2,
+                            "result": 2,
+                            "missed_trial": 2
+                        }
+                    }
+                }
+            }
+        },
+        "block_config":
+        {
+            "sensitization": {
+                "s1": {
+                    "reward": "low",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": false
+                },
+                "s2": {
+                    "reward": "high",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": false
+                },
+                "s3": {
+                    "reward": "low",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": true
+                },
+                "s4": {
+                    "reward": "high",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": true
+                }
+            },
+            "test_blocks": {
+                "c1": {
+                    "reward": "high",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": true
+                },
+                "c2": {
+                    "reward": "low",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": true
+                },
+                "c3": {
+                    "reward": "high",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": false
+                },
+                "c4": {
+                    "reward": "high",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": false
+                }
+            },
+            "practice": {
+                "t1": {
+                    "reward": "high",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": false
+                },
+                "t2": {
+                    "reward": "high",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": true
+                },
+                "t3": {
+                    "reward": "low",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": true
+                },
+                "t4": {
+                    "reward": "low",
+                    "color": "high_probability",
+                    "probability": "high",
+                    "aaron_cheeky": false
+                },
+                "t5": {
+                    "reward": "low",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": false
+                },
+                "t6": {
+                    "reward": "high",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": true
+                },
+                "t7": {
+                    "reward": "low",
+                    "color": "low_probability",
+                    "probability": "low",
+                    "aaron_cheeky": false
+                }
+            }
+        }
+    }
+}
