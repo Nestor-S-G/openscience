@@ -30,5 +30,21 @@ INSERT FILE = 'pilot_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Pilot.xlsx'.
 
+/* Experiment 1: */
 
-/* TODO: Add syntax to run the rest of the studies. */
+/* File paths: */
+FILE HANDLE e1_data   /NAME = 'scarcity_dir/Experiment 1 - Discounting gains - Raw Data.sav'.
+FILE HANDLE e1_syntax /NAME = 'scarcity_dir/Experiment 1 - Discounting gains - Syntax.sps'.
+
+
+/* Main: */
+
+* Read data set.
+GET FILE = 'e1_data'.
+DATASET NAME DataSet1. /* Dataset name used in the syntax file. */
+
+* Run syntax.
+INSERT FILE = 'e1_syntax'.
+
+* Export results.
+OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp1.xlsx'.
