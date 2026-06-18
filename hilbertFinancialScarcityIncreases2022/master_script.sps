@@ -6,9 +6,9 @@
 
 * TODO: Change <project_path> to local, e.g.:
 * FILE HANDLE project_dir /NAME = 'C:/Users/Daniel Morillo/Documents/Workspace/openscience'.
-FILE HANDLE project_dir /NAME = '<project_path>'.
+FILE HANDLE project_dir /NAME = '.'.
 
-FILE HANDLE scarcity_dir /NAME = 'project_dir/Article10_FinancialScarcity'.
+FILE HANDLE scarcity_dir /NAME = '.'.
 
 
 /* PILOT STUDY: */
@@ -48,7 +48,6 @@ INSERT FILE = 'e1_syntax'.
 
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp1.xlsx'.
-
 
 /* Experiment 2: */
 
