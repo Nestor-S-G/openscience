@@ -1,5 +1,0 @@
-{
-    "title": "Also...",
-    "para1": "Just so you know, the game is organized in sessions. Some have a {{high_color}} background:  the probability that the spinning stops with the shapes being the same is {{high_probability}}%.",
-    "para2": "Others have a {{low_color}} background: the probability is {{low_probability}}%."
-}
