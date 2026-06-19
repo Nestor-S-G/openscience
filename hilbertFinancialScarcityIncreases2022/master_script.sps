@@ -6,7 +6,7 @@
 
 * TODO: Change <project_path> to local, e.g.:
 * FILE HANDLE project_dir /NAME = 'C:/Users/Daniel Morillo/Documents/Workspace/openscience'.
-FILE HANDLE project_dir /NAME = '.'.
+FILE HANDLE project_dir /NAME = '<project_path>'.
 
 FILE HANDLE scarcity_dir /NAME = 'project_dir/hilbertFinancialScarcityIncreases2022'.
 
