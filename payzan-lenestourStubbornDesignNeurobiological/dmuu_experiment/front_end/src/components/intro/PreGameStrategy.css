@@ -1,0 +1,17 @@
+.pregame-stack-base {
+    display: grid;
+}
+
+.pregame-overlay {
+    grid-area: 1 / 1;
+}
+
+.pregame-line {
+    background-color: rgb(187, 187, 187);
+    height: 2px;
+    margin-top: 5px;
+}
+
+.pregame-blank {
+    background-color: white;
+}

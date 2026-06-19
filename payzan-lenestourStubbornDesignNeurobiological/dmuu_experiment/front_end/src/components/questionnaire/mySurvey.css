@@ -1,0 +1,23 @@
+.sv_main table.sv_q_matrix span {
+    font-size: 16px;
+}
+
+.sv_main .sv_container .sv_body .sv_p_root table.sv_q_matrix td, .sv_main .sv_container .sv_body .sv_p_root table.sv_q_matrix th {
+    padding: 1em 1em;
+}
+
+.sv_main .sv_container .sv_body .sv_p_root table.sv_q_matrix td:first-child {
+    text-align: center;
+}
+
+.sv_complete_btn {
+    font-size: 20px;
+}
+
+.sv_main input[type="button"], .sv_main button {
+    font-size: 1.5em;
+}
+
+.sv_main .sv_container .sv_body .sv_p_root .sv_q_title {
+    font-size: 1.5em;
+}

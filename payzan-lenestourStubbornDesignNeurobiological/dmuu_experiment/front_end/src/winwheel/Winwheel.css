@@ -1,0 +1,12 @@
+.the_wheel {
+    width: 582px;
+    height: 438px;
+    background-image: url('wheel_back.png');
+    background-position: center;
+    background-repeat: none;
+}
+
+.the_canvas {
+    padding-left: 74px;
+    padding-top: 2px;
+}
