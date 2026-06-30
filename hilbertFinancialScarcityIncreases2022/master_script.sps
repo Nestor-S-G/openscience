@@ -30,6 +30,12 @@ INSERT FILE = 'pilot_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Pilot.xlsx'.
 
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
+
 /* Experiment 1: */
 
 /* File paths: */
@@ -48,6 +54,12 @@ INSERT FILE = 'e1_syntax'.
 
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp1.xlsx'.
+
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
 
 /* Experiment 2: */
 
@@ -68,6 +80,12 @@ INSERT FILE = 'e2_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp2.xlsx'.
 
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
+
 /* Experiment 3: */
 
 /* File paths: */
@@ -87,6 +105,11 @@ INSERT FILE = 'e3_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp3.xlsx'.
 
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
 
 /* Experiment 4: */
 
@@ -107,6 +130,11 @@ INSERT FILE = 'e4_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp4.xlsx'.
 
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
 
 /* Experiment 5: */
 
@@ -127,6 +155,11 @@ INSERT FILE = 'e5_syntax'.
 * Export results.
 OUTPUT EXPORT /XLSX DOCUMENTFILE='scarcity_dir\Exp5.xlsx'.
 
+*Close dataset
+DATASET CLOSE DataSet1.
+
+*Reset output viewer
+OUTPUT CLOSE *.
 
 /* Additional Study: */
 
