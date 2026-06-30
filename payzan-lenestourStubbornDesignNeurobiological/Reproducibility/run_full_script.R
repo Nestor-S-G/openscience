@@ -1,11 +1,34 @@
-#### Set up the environment--------
-# Get the path of the current R script, if you don't have Rstudio, then manually input the path of this script
-script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+#### Set up the environment - ABSOLUTE PATHS VERSION --------
 
-# Set the working directory to the "Data" folder
-setwd(file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Data"))
-suppl_code_path=file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Supplementary Codes")
+# Base path passed from MasterScript
+if (!exists("script_path") || is.null(script_path)) {
+  script_path <- "payzan-lenestourStubbornDesignNeurobiological/Reproducibility"
+}
 
+# Convert to absolute path
+base_path <- normalizePath(script_path, mustWork = FALSE)
+
+cat("Base path:", base_path, "\n")
+cat("Current wd before change:", getwd(), "\n")
+
+# Try to set working directory with absolute path
+data_path <- file.path(base_path, "Data")
+
+if (dir.exists(data_path)) {
+  setwd(data_path)
+  cat("SUCCESS: Working directory set to:", getwd(), "\n")
+} else {
+  cat("ERROR: Data folder not found at:", data_path, "\n")
+  # Fallback
+  setwd(base_path)
+  cat("Fallback: Using base path instead\n")
+}
+
+# Supplementary codes path
+suppl_code_path <- file.path(base_path, "Supplementary Codes")
+
+cat("Supplementary codes path:", suppl_code_path, "\n")
+cat("Files in Data folder:", length(list.files(data_path)), "\n")
 #Please install the below R Packagaes before running the code
 suppressMessages({
   library(tidyverse)
@@ -269,6 +292,7 @@ sum(major_by_n_test$major >2)#Other
 #Uncertainty Effect:
 {
   #Paired one-tailed t-test, participant level
+  # Betting rate in low/high uncertainty
   data_6 <- data %>%
     mutate(uncertainty = factor(aaron_mood, levels = c("Low", "High"),
                                 labels = c("Low", "High"))) %>%
@@ -277,23 +301,33 @@ sum(major_by_n_test$major >2)#Other
     summarize(betting_rate = mean(choice)) %>%
     ungroup
   
+  # Check skew and normality assumption
+  skew_6_bf <- round(skewness(sqrt(data_6$betting_rate)), 3)
+  shap_6_bf <- shapiro.test(data_6$betting_rate)
+  
+  
   # Box-Cox transform
   out <- boxcox(data_6$betting_rate + 1, lambda = seq(-25, 25, by = 0.25))
   bc_6_lambda <- out$lambda[which.max(out$objective)]
-  bc_6_lambda <- -13.5
+  bc_6_lambda=-13.5
   data_6$betting_rate_bc <- boxcoxTransform(data_6$betting_rate + 1,
                                             lambda = bc_6_lambda)
   
-  # === PAIRED T-TEST FIXED ===
-  bc_high <- data_6$betting_rate_bc[data_6$uncertainty == "High"]
-  bc_low  <- data_6$betting_rate_bc[data_6$uncertainty == "Low"]
+  skew_6_af <- round(skewness(sqrt(data_6$betting_rate_bc)), 3)
+  shap_6_af <- shapiro.test(data_6$betting_rate_bc)
   
-  t_test_6 <- t.test(bc_high, bc_low, 
-                     alternative = 'less', paired = TRUE)
+  
+  # Run test
+  t_test_6 <- t.test(
+    x = data_6$betting_rate_bc[data_6$uncertainty == "High"],
+    y = data_6$betting_rate_bc[data_6$uncertainty == "Low"],
+    paired = TRUE,
+    alternative = 'less'
+  )
+  
   print(t_test_6)
-  
   print("effect size is:")
-  print(cohensD(bc_high, bc_low, method = "paired"))
+  print(cohensD(data_6$betting_rate_bc[data_6$uncertainty == 'High'], data_6$betting_rate_bc[data_6$uncertainty == 'Low'], method="paired"))
   # Non-parametric
   wilcox_6 <- wilcox.test(x = data_6$betting_rate[data_6$uncertainty == "High"],
                           y = data_6$betting_rate[data_6$uncertainty == "Low"],
@@ -1075,9 +1109,6 @@ A
 
 #### Appendix ####
 #Incentive effects of alternative payment rules.----
-suppl_code_path
-file.path(suppl_code_path, "payoff rule.R")
-normalizePath(file.path(suppl_code_path, "payoff rule.R"))
 source(file.path(suppl_code_path, "payoff rule.R"))
 #The probability of getting a positive outcome under the "pay one" rule
 mean(payoff_1_optimal>0)#optimal
