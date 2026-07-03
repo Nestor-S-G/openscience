@@ -18,7 +18,7 @@ OUTPUT CLOSE *.
 
 
 /* Experiment 1: */
-DATASET CLOSE ALL. /* Limpia por completo los datos en memoria antes de continuar */
+DATASET CLOSE ALL.
 
 FILE HANDLE e1_data   /NAME = 'scarcity_dir/Experiment 1 - Discounting gains - Raw Data.sav'.
 FILE HANDLE e1_syntax /NAME = 'scarcity_dir/Experiment 1 - Discounting gains - Syntax.sps'.
@@ -31,7 +31,7 @@ OUTPUT CLOSE *.
 
 
 /* Experiment 2: */
-DATASET CLOSE ALL. /* Limpia la memoria del Experimento 1 */
+DATASET CLOSE ALL.
 
 FILE HANDLE e2_data   /NAME = 'scarcity_dir/Experiment 2 - Discounting gains and losses - Raw Data.sav'.
 FILE HANDLE e2_syntax /NAME = 'scarcity_dir/Experiment 2 - Discounting gains and losses - Syntax.sps'.
