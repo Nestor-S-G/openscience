@@ -1,38 +1,44 @@
-library(xfun)
-
 run_script_project <- function(expr, log_file) {
   
   expr <- substitute(expr)
-  message("\nSTART: ", log_file)
+  message("\n=== START: ", log_file, " ===")
   
-  try(
-    xfun::Rscript_call(
-      function(expr, log_file) {
-        
-        options(error = quote(quit(status = 1)))
-        
-        library(here)
-        setwd(here::here())
-        
-        dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
-        
-        con <- file(log_file, open = "wt")
-        sink(con)
-        sink(con, type = "message")
-        
-        on.exit({
-          sink(type = "message")
-          sink()
-          close(con)
-        }, add = TRUE)
-        
-        eval(expr, envir = new.env(parent = globalenv()))
-        
-      },
-      args = list(expr = expr, log_file = log_file)
-    ),
-    silent = FALSE
-  )
+  # Create log directory
+  dir.create(dirname(log_file), recursive = TRUE, showWarnings = FALSE)
   
-  message("END: ", log_file, "\n")
+  con <- file(log_file, open = "wt")
+  sink(con)
+  sink(con, type = "message")
+  
+  on.exit({
+    sink(type = "message")
+    sink()
+    close(con)
+  }, add = TRUE)
+  
+  tryCatch({
+    message("DEBUG: Starting execution in main process")
+    message("DEBUG: Working directory = ", here::here())
+    
+    # Execute the paper's code
+    eval(expr, envir = new.env(parent = globalenv()))
+    
+    message("=== SUCCESS: ", log_file, " ===")
+    
+  }, error = function(e) {
+    message("=== ERROR in ", log_file, " ===")
+    message("Error message: ", conditionMessage(e))
+    print(e)
+    message("Call stack:")
+    print(sys.calls())
+    message("=== END OF ERROR LOG ===")
+  }, warning = function(w) {
+    message("WARNING: ", conditionMessage(w))
+    invokeRestart("muffleWarning")
+  })
+  
+  message("=== END: ", log_file, " ===\n")
+  
+  # Always return invisible so MasterScript continues
+  invisible(NULL)
 }
