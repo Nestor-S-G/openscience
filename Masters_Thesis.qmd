@@ -7,7 +7,15 @@ editor: visual
 
 **Abstract**
 
-There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in obtaining the same results out of the same data and code of the original studies have been found – which is known as “Computational reproducibility”. Given its social relevance, we aim to assess the current situation in neuroeconomics and related fields' papers published in English or Spanish after 2005 in Open Science Framework, Journal of Economic Behavior and Organization, Journal of Economic Psychology and Frontiers in Behavioral Economics. Of the 29 studies analyzed, 1 (3.4%) was fully computationally reproducible, while 15 (51.7%) were non-reproducible. Those areas seem to be affected by the reproducibility crisis.
+**Background:** There is a crisis of reproducibility in multiple branches of science. Among other problems, difficulties in obtaining the same results out of the same data and code of the original studies have been found – which is known as “Computational reproducibility”.
+
+**Objectives:** Given its social relevance, we aim to assess the current situation in neuroeconomics' papers and related fields, identifying the main handicaps that prevent successful reproduction.
+
+**Eligibility criteria and Sources of Evidence:** Being published in English or Spanish after 2005 on Open Science Framework, Journal of Economic Behavior and Organization, Journal of Economic Psychology and Frontiers in Behavioral Economics.
+
+**Results:** Of the 29 studies analyzed, 1 (3.4%) was fully computationally reproducible, while 15 (51.7%) were non-reproducible.
+
+**Conclusions:** Those areas seem to be affected by the reproducibility crisis.
 
 Keywords: behavioral economics, behavioral finance, computational reproducibility, decision making, neuroeconomics, open science.
 
@@ -63,6 +71,10 @@ Software and Operating System Specifications
 
 The different versions of the files used were controlled at <https://github.com/Nestor-S-G/openscience>.
 
+**Search Strategy**
+
+To identify relevant literature, a systematic search protocol was executed using specific web filters and advanced queries within the selected electronic sources. As a representative benchmark of the search architecture, the process applied within the *Journal of Economic Behavior and Organization* is detailed as follows: the exact phrase "behavioral finance" was entered into the primary search field. The search scope was then restricted using the platform's native filters to include only *Open access & Open archive* documents published within the years 2020–2025. To maintain consistency and manage technical feasibility across the review, a limiting threshold was established: if the platform returned more than 50 results, only the first 50 papers were retrieved and subjected to subsequent analysis. This exact operational sequence was replicated iteratively across all designated journals using the additional search terms "behavioral economics", "neuroeconomics", and "decision-making".
+
 **Eligibility criteria**
 
 Incidental sampling was used with the following criteria:
@@ -77,11 +89,9 @@ Due to the fact that a little-researched topic is being addressed, it is not con
 
 The screening was conducted by one reviewer and subsequently cross-checked by the second reviewer. Any disagreements regarding article inclusion or exclusion were resolved through consensus and discussion.
 
-**Reproduction**
+**Reproduction and possible outcomes**
 
-Once the articles were selected, an attempt was made to reproduce them from scratch following the given instructions using a bottom-up process.
-
-**Possible outcomes**
+Once the articles were selected, an attempt was made to reproduce them from scratch following the given instructions using a bottom-up process. Possible outcomes are the following:
 
 -Reproducible: A study met the definition given at the beginning of this article. No modifications beyond adjusting the paths for reading files or other minor technical issues were required.
 
@@ -119,27 +129,21 @@ No critical appraisal was performed due to the exploratory nature of this scopin
 
 A total of 49 papers were selected: 20 of them offered the required files to attempt a reproduction only upon request, so they were discarded, 10 didn't share them so they were deemed as no reproducible. The remaining 19 explicitly share the materials, although 2 of them linked to empty folders with no data whatsoever.
 
-```         
-[ Identification ]   Papers identified through web search filters
-                     (n = 49)
-                               │
-                               ▼
-[ Screening ]        Full-text papers assessed for eligibility
-                     (n = 49)
-                               │
-                               ├─► Papers excluded (n = 20)
-                               │   Reason: Materials available only "upon request".
-                               │
-                               ▼
-[ Inclusion ]        Total papers included in the scoping review
-                     (n = 29)
-                               │
-                               ├─► Categorized directly as "Non-reproducible" (n = 10)
-                               │   Reason: Did not share any code or materials.
-                               │
-                               ▼
-                     Papers subjected to execution and technical testing
-                     (n = 19)
+```{mermaid}
+flowchart TD
+  A[Identification] --> B("`Papers identified through web search filters
+  (n = 49).`")
+  B --> C{Screening}
+  C --> D("`Excluded
+  (n = 20)
+  Reason: materials available only 'upon request'.`")
+  C --> E("`Included
+  (n = 29)`")
+  E --> F("`Categorized directly as 'Non-reproducible'.
+  (n = 10)
+  Reason: did not share any code or materials`")
+  E --> G("`Papers subjected to execution and technical testing.
+  (n = 19).`")
 ```
 
 **Field Journal Analysis**
