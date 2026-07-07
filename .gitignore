@@ -8,3 +8,7 @@
 *.spv
 *.xlsx
 *.pdf
+*.txt
+
+#Exceptions:
+!LICENSE.txt
