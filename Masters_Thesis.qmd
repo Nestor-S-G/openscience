@@ -196,7 +196,7 @@ The following conclusions are drawn from the entire process, which can serve as 
 
 - Verifying the integrity of the available files at the beginning of the process can save time later. For instance, had the BIDS structure of the folders and files provided to reproduce the study by Fareri et al. (2022) been checked first, it could have been concluded in minutes that it could not be reproduced.
 
-- In case of not having the necessary information to install a computational environment like the one used in the original study, it can be approximated by searching for the latest stable versions available at the time of the article's publication, taking into account that this could be the cause of the error.
+- In case of not having the necessary information to install a computational environment like the one used in the original study, it can be approximated by searching for the latest stable versions available at the time of the article's publication, taking into account that this could be the cause of possible errors.
 
 - Any error running the code must be meticulously documented, as well as the solutions that are applied, whether they are useful or not. The simplest and most congruent with Open Science is to use a code version control system (Sandve et al., 2013). Those unfamiliar with computer programming may find typical file names unintelligible, so it would be desirable to make these as clear as possible.
 
