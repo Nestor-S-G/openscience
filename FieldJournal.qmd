@@ -1,5 +1,5 @@
 ---
-title: "Field Journal of the paper 'Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields'"
+title: "Field Journal of the paper 'Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review'"
 author: "Néstor Suárez González, Daniel Vicente Morillo Cuadrado"
 format: pdf
 editor: visual
@@ -350,13 +350,15 @@ I download the data and, again, I find a .xlsx and a .docx file - no computation
 
 I download the materials for this project. Data and code are shared in .sps and .sav files, but I am unable to find information about the program used (SPSS or PSPP). I proceed to run them in PSPP, since I have no access to the proprietary SPSS.
 
-I run the *pilot* and get virtually the same results, with small differences such as F-value of 133.34 reported vs. 133.93. Similar results are found in most experiments but *Experiment 5*, where discrepancies of sample (292 reported vs 288, of which 277 valid) are found, which leads to discrepancies in the mean, SD, and n values.
+I run the *pilot* and get virtually the same results, with small differences such as F-value of 133.34 reported vs. 133.93.
+
+Similar results are found in most experiments but *Experiment 5*, where discrepancies of sample (292 reported vs 288, of which 277 valid) are found, which leads to discrepancies in the mean, SD, and n values.
 
 I am unable to get some values (such as t). This is probably due to the limitations of PSPP compared to SPSS - assuming the original authors used the latter.
 
 05/24/26
 
-With access to the propietary SPSS, an attempt for computational reproducibility is made for the Pilot study again. Results are the same for the F-value, \~ 133.93 found vs. 133.34 published. In this case, the mistmatches cannot be attributed to the used of proprietary instead of free software.
+With access to the propietary SPSS, an attempt for computational reproducibility is made for the Pilot study again. Results are the same for the F-value, \~ 133.93 found vs. 133.34 published, but with SPSS new results are found. In this case, the mistmatches cannot be attributed to the used of proprietary instead of free software.
 
 ***Information search, coherence effects, and their interplay in legal decision making*****, by Mischkowski et al. (2021).**
 
