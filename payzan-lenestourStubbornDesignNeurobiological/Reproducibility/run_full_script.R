@@ -1,34 +1,11 @@
-#### Set up the environment - ABSOLUTE PATHS VERSION --------
+#### Set up the environment--------
+# Get the path of the current R script, if you don't have Rstudio, then manually input the path of this script
+script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
-# Base path passed from MasterScript
-if (!exists("script_path") || is.null(script_path)) {
-  script_path <- "payzan-lenestourStubbornDesignNeurobiological/Reproducibility"
-}
+# Set the working directory to the "Data" folder
+setwd(file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Data"))
+suppl_code_path=file.path(script_path, "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/Supplementary Codes")
 
-# Convert to absolute path
-base_path <- normalizePath(script_path, mustWork = FALSE)
-
-cat("Base path:", base_path, "\n")
-cat("Current wd before change:", getwd(), "\n")
-
-# Try to set working directory with absolute path
-data_path <- file.path(base_path, "Data")
-
-if (dir.exists(data_path)) {
-  setwd(data_path)
-  cat("SUCCESS: Working directory set to:", getwd(), "\n")
-} else {
-  cat("ERROR: Data folder not found at:", data_path, "\n")
-  # Fallback
-  setwd(base_path)
-  cat("Fallback: Using base path instead\n")
-}
-
-# Supplementary codes path
-suppl_code_path <- file.path(base_path, "Supplementary Codes")
-
-cat("Supplementary codes path:", suppl_code_path, "\n")
-cat("Files in Data folder:", length(list.files(data_path)), "\n")
 #Please install the below R Packagaes before running the code
 suppressMessages({
   library(tidyverse)
@@ -1109,6 +1086,9 @@ A
 
 #### Appendix ####
 #Incentive effects of alternative payment rules.----
+suppl_code_path
+file.path(suppl_code_path, "payoff rule.R")
+normalizePath(file.path(suppl_code_path, "payoff rule.R"))
 source(file.path(suppl_code_path, "payoff rule.R"))
 #The probability of getting a positive outcome under the "pay one" rule
 mean(payoff_1_optimal>0)#optimal
