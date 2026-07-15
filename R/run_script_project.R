@@ -1,15 +1,16 @@
 library(xfun)
 
-run_script_project <- function(script_path, log_file) {
+run_script_project <- function(expr, log_file) {
   
+  expr <- substitute(expr)
   message("\n=== START: ", log_file, " ===")
   
   tryCatch(
     {
       xfun::Rscript_call(
-        function(script_path, log_file) {
+        function(expr, log_file) {
           
-          # Removed options(error = ...) to allow on.exit() to run on failure
+          options(error = quote(quit(status = 1)))
           
           library(here)
           setwd(here::here())
@@ -28,16 +29,17 @@ run_script_project <- function(script_path, log_file) {
             close(con)
           }, add = TRUE)
           
-          source(script_path, local = new.env(parent = globalenv()))
+          eval(expr, envir = new.env(parent = globalenv()))
           
         },
-        args = list(script_path = script_path, log_file = log_file)
+        args = list(expr = expr, log_file = log_file)
       )
       message("=== SUCCESS: ", log_file, " ===")
     },
     error = function(e) {
       message("=== ERROR in ", log_file, " ===")
       message(conditionMessage(e))
+      # Try to log the error even if Rscript_call failed
       cat("ERROR:", conditionMessage(e), "\n", file = log_file, append = TRUE)
     }
   )
