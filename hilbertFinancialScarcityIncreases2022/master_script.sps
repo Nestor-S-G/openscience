@@ -18,6 +18,7 @@ OUTPUT CLOSE *.
 
 
 /* Experiment 1: */
+
 DATASET CLOSE ALL.
 
 FILE HANDLE e1_data   /NAME = 'scarcity_dir/Experiment 1 - Discounting gains - Raw Data.sav'.
