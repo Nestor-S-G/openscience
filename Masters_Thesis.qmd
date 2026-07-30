@@ -91,7 +91,7 @@ The screening was conducted by one reviewer and subsequently cross-checked by th
 
 **Reproduction and possible outcomes**
 
-Once the articles were selected, an attempt was made to reproduce them from scratch following the given instructions using a bottom-up process. Possible outcomes are the following:
+Once the articles were selected, an attempt was made to reproduce them from scratch following the given instructions, if any, using a bottom-up process. The process was documented in the field journal and then compared with the following possible outcomes in order to classify it:
 
 -Reproducible: A study met the definition given at the beginning of this article. No modifications beyond adjusting the paths for reading files or other minor technical issues were required.
 
