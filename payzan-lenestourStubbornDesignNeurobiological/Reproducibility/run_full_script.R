@@ -134,42 +134,42 @@ sum(major_by_n_test$major >2)#Other
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_blue_c_sub <- betting_stats_blue_c['betting_rate',
                                                    c('mean', 'median', 'sd',
                                                      'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_blue_c_sub) <- 'Control'
-  
+
   betting_stats_blue_t <- data %>%
     filter(block_type == "S" & treatment == 'test') %>%
     group_by(id) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_blue_t_sub <- betting_stats_blue_t['betting_rate',
                                                    c('mean', 'median', 'sd',
                                                      'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_blue_t_sub) <- 'Test'
-  
+
   betting_stats_blue <- data %>%
     filter(block_type == "S") %>%
     group_by(id) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_blue_sub <- betting_stats_blue['betting_rate',
                                                c('mean', 'median', 'sd',
                                                  'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_blue_sub) <- 'Total'
-  
+
   # Betting rate in yellow
   betting_stats_yellow_c <- data %>%
     filter(block_type == "C" & treatment == 'control') %>%
@@ -177,70 +177,70 @@ sum(major_by_n_test$major >2)#Other
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_yellow_c_sub <- betting_stats_yellow_c['betting_rate',
                                                        c('mean', 'median', 'sd',
                                                          'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_yellow_c_sub) <- 'Control'
-  
+
   betting_stats_yellow_t <- data %>%
     filter(block_type == "C" & treatment == 'test') %>%
     group_by(id) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_yellow_t_sub <- betting_stats_yellow_t['betting_rate',
                                                        c('mean', 'median', 'sd',
                                                          'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_yellow_t_sub) <- 'Test'
-  
+
   betting_stats_yellow <- data %>%
     filter(block_type == "C") %>%
     group_by(id) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup %>%
     psych::describe()
-  
+
   betting_stats_yellow_sub <- betting_stats_yellow['betting_rate',
                                                    c('mean', 'median', 'sd',
                                                      'min', 'max', 'skew')] %>%
     round(3) %>%
     t
   colnames(betting_stats_yellow_sub) <- 'Total'
-  
+
   table_1 <- betting_stats_blue_c_sub %>%
     cbind(betting_stats_blue_t_sub, betting_stats_blue_sub, betting_stats_yellow_c_sub,
           betting_stats_yellow_t_sub, betting_stats_yellow_sub) %>%
     as.data.frame()
-  
+
   cols_treat <- colnames(table_1)
-  
+
   table_1 <- cols_treat %>%
     rbind(table_1)
-  
+
   colnames(table_1) <- c('', 'Blue', '', '', 'Yellow', '')
   rownames(table_1) <- c('', 'Mean', 'Median', 'SD', 'Min', 'Max', 'Skew')
-  
+
   cat("TABLE I\n PARTICIPANT BETTING RATES BY SESSION COLOR AND TREATMENT. \n")
   print(table_1)
 }
 #### Figure 3 ####
 {
   #### Distribution plot ####
-  
+
   data_dists <- data %>%
     group_by(id, treatment, block_type) %>%
     summarize(betting_rate = mean(choice, na.rm=TRUE)) %>%
     ungroup %>%
     mutate(block_type = factor(block_type, levels = c('S', 'C'),
                                labels = c('S', 'C')))
-  
-  windows(width=8, height=8)
+
+  dev.new(width=8, height=8)
   ggplot(data_dists, aes(x = treatment, y = betting_rate, fill = block_type)) +
     geom_boxplot() +
     scale_x_discrete(name = '',
@@ -261,9 +261,9 @@ sum(major_by_n_test$major >2)#Other
     facet_wrap('block_type', nrow = 1, scales = 'free_y') +
     theme(strip.text.x = element_blank(),
           panel.spacing = unit(15, "pt"))
-  
+
   #ggsave('./plots/betting_rate_distribution.png', width = 7, height = 5)
-  
+
 }
 #### Figure 4 and Tests results ####
 #Uncertainty Effect:
@@ -277,23 +277,23 @@ sum(major_by_n_test$major >2)#Other
     group_by(id, uncertainty) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup
-  
+
   # Check skew and normality assumption
   skew_6_bf <- round(skewness(sqrt(data_6$betting_rate)), 3)
   shap_6_bf <- shapiro.test(data_6$betting_rate)
-  
-  
+
+
   # Box-Cox transform
   out <- boxcox(data_6$betting_rate + 1, lambda = seq(-25, 25, by = 0.25))
   bc_6_lambda <- out$lambda[which.max(out$objective)]
   bc_6_lambda=-13.5
   data_6$betting_rate_bc <- boxcoxTransform(data_6$betting_rate + 1,
                                             lambda = bc_6_lambda)
-  
+
   skew_6_af <- round(skewness(sqrt(data_6$betting_rate_bc)), 3)
   shap_6_af <- shapiro.test(data_6$betting_rate_bc)
-  
-  
+
+
   # Run test
   t_test_6 <- t.test(betting_rate_bc ~ uncertainty, data = data_6,
                      alternative = 'less', paired = TRUE)
@@ -308,20 +308,20 @@ sum(major_by_n_test$major >2)#Other
   print(wilcox_6)
   print("effect size is:")
   print(effectsize(wilcox_6))
-  
-  
+
+
   data_plot_u <- data %>%
     filter(block_type == "C") %>%
     group_by(aaron_mood, id) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup
-  
+
   out <- boxcox(data_plot_u$betting_rate + 1, lambda = seq(-25, 25, by = 0.25))
   bc_plot6_lambda <- out$lambda[which.max(out$objective)]
-  
+
   data_plot_u$betting_rate_bc <- boxcoxTransform(data_plot_u$betting_rate + 1,
                                                  lambda = bc_plot6_lambda)
-  
+
   # Plot test 6
   data_plot_u <- data_plot_u %>%
     group_by(aaron_mood) %>%
@@ -330,13 +330,13 @@ sum(major_by_n_test$major >2)#Other
     ungroup %>%
     mutate(aaron_mood = factor(aaron_mood, levels = c('Low', 'High'),
                                labels = c('Low', 'High')))
-  
+
   # Test for uncertainty
   p_unc <- t_test_6$p.value
   p_unc <- if_else(p_unc < .001, '***',
                    if_else(p_unc < .01, '**',
                            if_else(p_unc < .05, '*', 'n.s.')))
-  windows(width=8, height=10)
+  dev.new(width=8, height=10)
   ggplot(data_plot_u, aes(x = aaron_mood, y = betting_rate)) +
     geom_bar(stat='identity', position = position_dodge(.9), fill = '#ffd700',
              width = 0.6) +
@@ -361,7 +361,7 @@ sum(major_by_n_test$major >2)#Other
                 textsize = 10)+
     theme(axis.title.y = element_text(margin = margin(r = 20)))+
     theme(plot.margin = margin(t = 45))
-  
+
   #ggsave('./plots/betting_rate_by_unc.png', width = 4, height = 7)
 }
 
@@ -373,13 +373,13 @@ sum(major_by_n_test$major >2)#Other
     group_by(id, treatment) %>%
     summarize(betting_rate = mean(choice)) %>%
     ungroup
-  
+
   out <- boxcox(data_7_2$betting_rate + 1, lambda = seq(-25, 25, by = 0.25))
   bc_72_lambda <- out$lambda[which.max(out$objective)]
-  
+
   data_7_2$betting_rate_bc <- boxcoxTransform(data_7_2$betting_rate + 1,
                                               lambda = bc_72_lambda)
-  
+
   t_test_7_2 <- t.test(data_7_2$betting_rate_bc[data_7_2$treatment == 'test'], data_7_2$betting_rate_bc[data_7_2$treatment == 'control'],alternative = "g")
   print(t_test_7_2)
   print("effect size is:")
@@ -393,7 +393,7 @@ sum(major_by_n_test$major >2)#Other
   print(wilcox_7_2)
   print("effect size is:")
   print(effectsize(wilcox_7_2))
-  
+
   # Plot test 7 (2)
   data_plot_t <- data_7_2 %>%
     group_by(treatment) %>%
@@ -402,12 +402,12 @@ sum(major_by_n_test$major >2)#Other
     ungroup %>%
     mutate(treatment = factor(treatment, levels = c('control', 'test'),
                               labels = c('Control', 'Test')))
-  
+
   p_treat <- t_test_7_2$p.value
   p_treat <- if_else(p_treat < .001, '***',
                      if_else(p_treat < .01, '**',
                              if_else(p_treat < .05, '*', 'n.s.')))
-  windows(width=8, height=10)
+  dev.new(width=8, height=10)
   ggplot(data_plot_t, aes(x = treatment, y = betting_rate)) +
     geom_bar(stat='identity', position = position_dodge(.9), fill = '#ffd700',
              width = 0.6) +
@@ -437,7 +437,7 @@ sum(major_by_n_test$major >2)#Other
 #Table 2 A and Table D. I
 {
   # Logistic model to predict betting in any trial
-  
+
   data_3 <- data %>%
     mutate(reward_value = factor(reward_value, levels = c("Low", "High"),
                                  labels = c("Low", "High")),
@@ -453,21 +453,21 @@ sum(major_by_n_test$major >2)#Other
            reaction_time = scale(reaction_time),
            sequence_number = scale(sequence_number),
            reward_exposure = scale(exposure_time))
-  
+
   log_mod_3 <- bglmer(choice ~ reward_value + uncertainty +
                         treatment * color + previous_choice + reward_exposure +
                         age + gender + major + sequence_number + reaction_time +
                         (1 | id), fixef.prior = t, data = data_3,
                       family = binomial(link = "logit"))
-  
+
   summary(log_mod_3)
-  
+
   # Nakagawa R^2
   r2_nakagawa(log_mod_3)$R2_conditional
-  
+
   # Number of obs
   summary(log_mod_3)$devcomp$dims[1]
-  
+
   # Multicollinearity
   data_3_vif <- data_3[,c('reward_value', 'uncertainty', 'treatment',
                           'color', 'age', 'gender', 'major', 'reaction_time',
@@ -480,38 +480,38 @@ sum(major_by_n_test$major >2)#Other
            major = as.numeric(major),
            color = as.numeric(color))
   vif_mod_3_out <- usdm::vif(data_3_vif)
-  
+
   # Stepwise model building
   log_mod_3_1 <- bglmer(choice ~ reward_value + uncertainty +
                           treatment * color + age + gender + major + (1 | id),
                         fixef.prior = t, data = data_3,
                         family = binomial(link = "logit"))
-  
+
   log_mod_3_2 <- bglmer(choice ~ reward_value + uncertainty +
                           treatment * color + age + gender + major +
                           sequence_number + (1 | id),
                         fixef.prior = t, data = data_3,
                         family = binomial(link = "logit"))
-  
+
   log_mod_3_3 <- bglmer(choice ~ reward_value + uncertainty +
                           treatment * color + age + gender + major +
                           sequence_number + reaction_time + (1 | id),
                         fixef.prior = t, data = data_3,
                         family = binomial(link = "logit"))
-  
+
   log_mod_3_4 <- bglmer(choice ~ reward_value + uncertainty +
                           treatment * color + age + gender + major +
                           sequence_number + reaction_time + previous_choice +
                           (1 | id), fixef.prior = t, data = data_3,
                         family = binomial(link = "logit"))
-  
+
   log_mod_3_5 <- bglmer(choice ~ reward_value + uncertainty +
                           treatment * color + age + gender + major +
                           sequence_number + reaction_time + previous_choice +
                           reward_exposure + (1 | id),
                         fixef.prior = t, data = data_3,
                         family = binomial(link = "logit"))
-  
+
   s_3_pcr <- c('R^2',
                round(r2_nakagawa(log_mod_3_1)$R2_conditional, 3),
                round(r2_nakagawa(log_mod_3_2)$R2_conditional, 3),
@@ -524,15 +524,15 @@ sum(major_by_n_test$major >2)#Other
                summary(log_mod_3_3)$devcomp$dims[1],
                summary(log_mod_3_4)$devcomp$dims[1],
                summary(log_mod_3_5)$devcomp$dims[1])
-  
+
   s_3_pcr
-  
+
   s_3_pcn
-  
+
 }
 #Table 2 B and Table D. II
 {
-  
+
   data_5 <- data %>%
     filter(block_type == "C" & craver_2 == 1) %>%
     mutate(reward_value = factor(reward_value, levels = c("Low", "High"),
@@ -547,21 +547,21 @@ sum(major_by_n_test$major >2)#Other
            reward_exposure = scale(exposure_time),
            reaction_time = scale(reaction_time),
            sequence_number = scale(sequence_number))
-  
+
   log_mod_5 <- bglmer(choice ~ reward_value + uncertainty * treatment +
                         age + gender + major + sequence_number +
                         previous_choice + reward_exposure + reaction_time +
                         (1 | id), data = data_5, fixef.prior = t,
                       family = binomial(link = "logit"))
-  
+
   summary(log_mod_5)
-  
+
   # Nakagawa R^2
   r2_nakagawa(log_mod_5)$R2_conditional
-  
+
   # Number of obs
   summary(log_mod_5)$devcomp$dims[1]
-  
+
   # Multicollinearity
   data_5_vif <- data_5[,c('reward_value', 'uncertainty', 'treatment',
                           'age', 'gender', 'major',
@@ -573,30 +573,30 @@ sum(major_by_n_test$major >2)#Other
            gender = as.numeric(gender),
            major = as.numeric(major))
   vif_mod_5_out <- usdm::vif(data_5_vif)
-  
+
   # Stepwise model building
   log_mod_5_1 <- bglmer(choice ~ reward_value + uncertainty * treatment +
                           age + gender + major + sequence_number + (1 | id),
                         data = data_5, fixef.prior = t,
                         family = binomial(link = "logit"))
-  
+
   log_mod_5_2 <- bglmer(choice ~ reward_value + uncertainty * treatment +
                           age + gender + major + sequence_number + reaction_time +
                           (1 | id), data = data_5, fixef.prior = t,
                         family = binomial(link = "logit"))
-  
+
   log_mod_5_3 <- bglmer(choice ~ reward_value + uncertainty * treatment +
                           age + gender + major + sequence_number + reaction_time +
                           previous_choice + (1 | id),
                         data = data_5, fixef.prior = t,
                         family = binomial(link = "logit"))
-  
+
   log_mod_5_4 <- bglmer(choice ~ reward_value + uncertainty * treatment +
                           age + gender + major + sequence_number + reaction_time +
                           previous_choice + reward_exposure + (1 | id),
                         data = data_5, fixef.prior = t,
                         family = binomial(link = "logit"))
-  
+
   s_5_pcr <- c('R^2',
                round(r2_nakagawa(log_mod_5_1)$R2_conditional, 3),
                round(r2_nakagawa(log_mod_5_2)$R2_conditional, 3),
@@ -607,7 +607,7 @@ sum(major_by_n_test$major >2)#Other
                summary(log_mod_5_2)$devcomp$dims[1],
                summary(log_mod_5_3)$devcomp$dims[1],
                summary(log_mod_5_4)$devcomp$dims[1])
-  
+
   s_5_pcr
   s_5_pcn
 }
@@ -633,21 +633,21 @@ load("Model comparison with the lab data_beta40to60_exploration and loss toleran
 #Figure 6. Model fit comparisons for participant behavior
 {
   #Panel A:
-  windows(width=8, height=8)
+  dev.new(width=8, height=8)
   par(mar = c(5, 5.5, 4, 2) + 0.7,cex.lab = 2, mgp = c(3.5, 1.5, 0))
   index=which(Bet_yellow_fit>0.01)
   C=quantile(c(OOS_rational[index], OOS_CbD[index]),0.95)
   plot(OOS_rational[index], OOS_CbD[index],xlim=c(0,C), ylim=c(0,C), xlab = "negative LL of the base model",ylab="negative LL of the Pavlovian variant",pch=20,type="p",las=1,col="blue")
   abline(a=0,b=1,col="black")
-  
+
   #Panel B:
-  windows(width=8, height=8)
+  dev.new(width=8, height=8)
   par(mar = c(5, 5.5, 4, 2) + 0.7,cex.lab = 2, mgp = c(3.5, 1.5, 0))
   index=which(Bet_yellow_fit>0.01)
   C=max(OOS_rational[index], OOS_RL[index])
   plot(OOS_rational[index], OOS_RL[index],xlim=c(0,C), ylim=c(0,C), xlab = "negative LL of the base model",ylab="negative LL of the RL model",pch=20,type="p",las=1,col="blue")
   abline(a=0,b=1,col="black")
-  
+
   #Panel C and Panel D:
   {index=which(Bet_yellow_fit>0.01)
     Prior=rep(1/3,3)
@@ -658,15 +658,15 @@ load("Model comparison with the lab data_beta40to60_exploration and loss toleran
       return(Posterior)
     }
     LL=rbind(OOS_RL[index],OOS_rational[index],OOS_CbD_no_uncertain[index])
-    
+
     Posterior=apply(LL,2,LL_to_Posterior)
     #mean(Posterior[3,]>0.5)
-    
+
     Importance_population=apply(Posterior,1, mean)
     sem <- apply(Posterior,1, sd) / dim(Posterior)[2]
-    
-    
-    
+
+
+
     #Individual importance
     data <- data.frame(
       Probability = c(Posterior[1,], Posterior[2,], Posterior[3,]),
@@ -674,23 +674,23 @@ load("Model comparison with the lab data_beta40to60_exploration and loss toleran
       stringsAsFactors = FALSE
     )
     data$Model <- factor(data$Model, levels = c("RL", "Base", "Pavlovian"))
-    
+
     {
-      windows(width=12, height=9)
+      dev.new(width=12, height=9)
       im=ggplot(data, aes(x = Model, y = Probability, fill = Model)) +
         geom_violin(
-          aes(fill = Model, 
+          aes(fill = Model,
               fill = after_scale(colorspace::lighten(fill, .5))),  # Lighten the fill color for better visualization
-          size = 1.2, 
+          size = 1.2,
           bw = 0.1,  # Bandwidth control (smoothing parameter)
           scale = "count"  # Scale based on count (normalizes area under the curve to count)
         ) +
         scale_y_continuous(limits = c(0, 1)) +  # Limit y-axis to 0-1 for probability density
-        labs(title = "", 
-             x = "", 
+        labs(title = "",
+             x = "",
              y = "Posterior probability of each Model") +
         scale_fill_manual(values = c("grey", "blue", "green")) +  # Custom colors for each model
-        geom_hline(yintercept = 0.5, linetype = "dashed", color = "black", size = 1) + 
+        geom_hline(yintercept = 0.5, linetype = "dashed", color = "black", size = 1) +
         theme_minimal() +
         theme(
           axis.text = element_text(size = 25),
@@ -702,27 +702,27 @@ load("Model comparison with the lab data_beta40to60_exploration and loss toleran
     }
     #Average importance
     {
-      
+
       # Create a data frame
       data <- data.frame(
         Group = c("RL", "Base", "Pavlovian"),
         Count = Importance_population,
         SEM = sem
       )
-      
+
       # Set the factor levels explicitly to control the order
       data$Group <- factor(data$Group, levels = c("RL", "Base", "Pavlovian"))
-      
+
       # Add a small constant to the Count to avoid bars with height 0
       data$Count <- pmax(data$Count, 0.01)  # Ensure no bars are at zero height
-      
+
       # Manually define the colors and labels for the legend
       data$FillLabel <- ifelse(data$Group == "RL", "Base", "Pavlovian")
       # Create the bar plot with error bars
-      
-      
-      windows(width=8, height=8)
-      im=ggplot(data, aes(x=Group, y=Count, fill=Group)) + 
+
+
+      dev.new(width=8, height=8)
+      im=ggplot(data, aes(x=Group, y=Count, fill=Group)) +
         geom_bar(stat = "identity", width=0.4) +
         geom_errorbar(aes(ymin = Count - SEM, ymax = Count + SEM), width = 0.2) +
         labs(title="", y="Importance of a model", x = "") +
@@ -759,7 +759,7 @@ effectsize(wilcox_result)
 {
   DA_average=rep(0,N_ID)
   #Bet_yellow_fit includes the yellow betting rate of everyone
-  
+
   for(ID in 1:N_ID){
     Index_yellow=which(Sequence_bank[ID,,4]==0.2)
     DA_agent=NULL
@@ -785,14 +785,14 @@ effectsize(wilcox_result)
     }
     DA_average[ID]=mean(DA_agent)
   }
-  
-  
+
+
   model <- lm(Bet_yellow_fit ~ DA_average)
   print(summary(model))
-  
-  
+
+
   C=max(DA_average,Bet_yellow_fit)
-  windows(width=8, height=8)
+  dev.new(width=8, height=8)
   par(mar = c(5, 5.5, 4, 2) + 0.7,cex.lab = 2, mgp = c(3.5, 1.5, 0))
   plot(DA_average,Bet_yellow_fit, xlim=c(0,C),ylim=c(0,C),xlab = "Average DA Metric",ylab="Betting Rate in Yellow Sessions",pch=20,type="p",las=1,col="blue")
   abline(model, col = "red", lwd = 2)
@@ -812,7 +812,7 @@ effectsize(wilcox_result)
     IQR_Upper = medians + IQRs / 2
   )
   library(ggplot2)
-  windows(width=8, height=8)
+  dev.new(width=8, height=8)
   ggplot(plot_data, aes(x = Condition, y = Median, fill = Condition)) +
     geom_bar(stat = "identity", width = 0.4) +
     geom_errorbar(aes(ymin = IQR_Lower, ymax = IQR_Upper), width = 0.2) +
@@ -846,7 +846,7 @@ a=A$a_post
 b=A$b_post
 phi_values <- seq(0, 1, length.out = 100)
 posterior_density <- dbeta(phi_values, a, b)
-windows(width=8, height=8)
+dev.new(width=8, height=8)
 par(mar = c(5, 5.5, 4, 2) + 0.7,cex.lab = 2, mgp = c(3.5, 1.5, 0))
 plot(phi_values, posterior_density, type = "l", lwd = 2, col = "blue",
      xlab = expression(Phi[W]), ylab = "Probability density",
@@ -854,12 +854,12 @@ plot(phi_values, posterior_density, type = "l", lwd = 2, col = "blue",
 
 abline(v = 0.5, col = "red", lty = 2, lwd = 2)  # Thicker red dashed line for better visibility
 abline(h = 1, col = "grey", lty = 2, lwd = )  # Thin green dashed line for prior
-legend("topleft", legend = c("Prior", "Posterior", expression(Phi[W] == 0.5)), 
+legend("topleft", legend = c("Prior", "Posterior", expression(Phi[W] == 0.5)),
        col = c("grey", "blue", "red"),  # Colors corresponding to the lines
        lty = c(2, 4, 2),  # Line types corresponding to each label
        lwd = c(2, 2, 2),  # Line widths for each label
        cex=1.5,
-       bty = "n") 
+       bty = "n")
 
 A
 }
@@ -873,36 +873,36 @@ A
     Posterior=c/sum(c)
     return(Posterior)
   }
-  
+
   index=which(Bet_yellow_fit>0.01)
   #index=which(OOS_CbD_no_uncertain[index]<OOS_rational[index])
   LL=rbind(OOS_CbD_no_uncertain[index], OOS_CbD[index])
-  
+
   Posterior=apply(LL,2,LL_to_Posterior)
-  
+
   Importance_population=apply(Posterior,1, mean)
   sem <- apply(Posterior,1, sd) / dim(Posterior)[2]
-  
+
   #Importance group
   {
-    
+
     # Create a data frame
     data <- data.frame(
       Group = c("Original Pavlovian", "Sign-tracking Variant"),
       Count = Importance_population,
       SEM = sem
     )
-    
+
     # Set the factor levels explicitly to control the order
     data$Group <- factor(data$Group, levels = c("Original Pavlovian", "Sign-tracking Variant"))
-    
+
     # Add a small constant to the Count to avoid bars with height 0
     data$Count <- pmax(data$Count, 0.01)  # Ensure no bars are at zero height
-    
-    
+
+
     # Create the bar plot with error bars
-    windows(width=12, height=8)
-    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) + 
+    dev.new(width=12, height=8)
+    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) +
       geom_bar(stat = "identity", width=0.4) +
       geom_errorbar(aes(ymin = Count - SEM, ymax = Count + SEM), width = 0.2) +
       labs(title="", y="Importance of a model", x = "") +
@@ -922,10 +922,10 @@ A
 
 #Figure 9A. Frustration theory
 {
-  
+
   load("Data Bank.RData")
-  
-  
+
+
   control=1:99
   test=100:198
   control_blue_index=(Sequence_bank[control,,4]==0.8)
@@ -936,20 +936,20 @@ A
   high_uncerainty_blue_index=(Sequence_bank[,,5]==0.5 & Sequence_bank[,,4]==0.8)
   low_uncerainty_yellow_index=(Sequence_bank[,,5]==1 & Sequence_bank[,,4]==0.2)
   low_uncerainty_blue_index=(Sequence_bank[,,5]==1 & Sequence_bank[,,4]==0.8)
-  
-  
+
+
   Choice_lab=Sequence_bank[,,7]
   Outcome_lab=Sequence_bank[,,8]
   #Uncertainty effect
-  mean(Choice_lab[low_uncerainty_yellow_index]) 
-  mean(Choice_lab[high_uncerainty_yellow_index]) 
-  
-  
+  mean(Choice_lab[low_uncerainty_yellow_index])
+  mean(Choice_lab[high_uncerainty_yellow_index])
+
+
   frustration_index_yellow=matrix(FALSE,dim(Sequence_bank)[1],dim(Sequence_bank)[2])
   index_after_yellow_bet=matrix(FALSE,dim(Sequence_bank)[1],dim(Sequence_bank)[2])
   frustration_index_blue=matrix(FALSE,dim(Sequence_bank)[1],dim(Sequence_bank)[2])
-  
-  
+
+
   for(i in 1:dim(Sequence_bank)[1]){
     for( j in 1:dim(Sequence_bank)[2]){
       if(Sequence_bank[i,j,4]==0.2
@@ -977,7 +977,7 @@ A
       }
     }
   }
-  
+
   cat("The average betting rate after betting and being rejected in yellow sessions is ", mean(Choice_lab[frustration_index_yellow]), "\n")
   cat("The average betting rate after betting and seeing outcomes in yellow sessions is ", mean(Choice_lab[index_after_yellow_bet]), "\n")
   Rate_low_uncertain=rep(0,198)
@@ -990,31 +990,31 @@ A
     Rate_low_uncertain[i]=mean(x)
     Rate_high_uncertain[i]=mean(y)
   }
-  
-  
+
+
   {
     A <- dfba_wilcoxon(Rate_high_uncertain, Rate_low_uncertain)
     kurtosis(Rate_high_uncertain-Rate_low_uncertain)
-    
+
     a=A$a_post
     b=A$b_post
     phi_values <- seq(0, 1, length.out = 100)
     posterior_density <- dbeta(phi_values, a, b)
-    windows(width=8, height=8)
+    dev.new(width=8, height=8)
     par(mar = c(5, 5.5, 4, 2) + 0.7,cex.lab = 2, mgp = c(3.5, 1.5, 0))
     plot(phi_values, posterior_density, type = "l", lwd = 2, col = "blue",
          xlab = expression(Phi[W]), ylab = "Probability density",
     )
-    
+
     abline(v = 0.5, col = "red", lty = 2, lwd = 2)  # Thicker red dashed line for better visibility
     abline(h = 1, col = "grey", lty = 2, lwd = )  # Thin green dashed line for prior
-    legend("topleft", legend = c("Prior", "Posterior", expression(Phi[W] == 0.5)), 
+    legend("topleft", legend = c("Prior", "Posterior", expression(Phi[W] == 0.5)),
            col = c("grey", "blue", "red"),  # Colors corresponding to the lines
            lty = c(2, 4, 2),  # Line types corresponding to each label
            lwd = c(2, 2, 2),  # Line widths for each label
            cex=1.5,
-           bty = "n") 
-    
+           bty = "n")
+
     print(A)
   }
 }
@@ -1033,7 +1033,7 @@ A
     Posterior=c/sum(c)
     return(Posterior)
   }
-  
+
   index=which(Bet_yellow_fit>0.01)
   LL=rbind(OOS_CbD_suspense_no_uncertain[index], OOS_CbD[index])
   Posterior=apply(LL,2,LL_to_Posterior)
@@ -1045,17 +1045,17 @@ A
       Count = Importance_population,
       SEM = sem
     )
-    
+
     # Set the factor levels explicitly to control the order
     data$Group <- factor(data$Group, levels = c("Pavlovian + suspense", "Sign-tracking"))
-    
+
     # Add a small constant to the Count to avoid bars with height 0
     data$Count <- pmax(data$Count, 0.01)  # Ensure no bars are at zero height
-    
-    
+
+
     # Create the bar plot with error bars
-    windows(width=8, height=8)
-    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) + 
+    dev.new(width=8, height=8)
+    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) +
       geom_bar(stat = "identity", width=0.4) +
       geom_errorbar(aes(ymin = Count - SEM, ymax = Count + SEM), width = 0.2) +
       labs(title="", y="Model Importance", x = "") +
@@ -1076,7 +1076,7 @@ A
   wilcox_result <- wilcox.test(OOS_CbD_suspense_no_uncertain[index], OOS_CbD[index], alternative = 'g', paired = TRUE)
   print(wilcox_result)
   effectsize(wilcox_result)
-  
+
 }
 
 #### Appendix ####
@@ -1132,7 +1132,7 @@ mean(OOS_rational[index]<OOS_RL[index])
 #Option 2: direclty load the results stored by us, which is adopted here
 load("Model recovery with a mixed uncertainty effect_low_trembling_40to60_same parameter as previous recovery.RData")
 
-#enhanced Pavlovian model demonstrates superior fit compared to the original model 
+#enhanced Pavlovian model demonstrates superior fit compared to the original model
 {
   index=which(Bet_yellow_fit>0.01)
   #wilcox.test(OOS_CbD_no_uncertain[index], OOS_CbD[index], alternative = 'g', paired = TRUE)
@@ -1152,7 +1152,7 @@ load("Model recovery with a mixed uncertainty effect_low_trembling_40to60_same p
   index_no_uncertainty=c(51:99,151:198) #The percentage of participants with no CbD effect
   recovery_uncertainty=index_uncertainty[Bet_yellow_fit[index_uncertainty]>0.01]
   recovery_no_uncertainty=index_no_uncertainty[Bet_yellow_fit[index_no_uncertainty]>0.01]
-  
+
   cat("Our criterion identified the number of maladaptive bettors with uncertainty effect is", sum(Param_CbD_two[index,4]>=Param_CbD_two[index,5]*1.5),
       "\n The true number of maladaptive bettors programmed with the effect is", length(recovery_uncertainty))
 }
@@ -1230,27 +1230,27 @@ sem <- apply(Posterior,1, sd) / dim(Posterior)[2]
 
 #Average importance
 {
-  
+
   # Create a data frame
   data <- data.frame(
     Group = c("RL", "Base", "Pavlovian"),
     Count = Importance_population,
     SEM = sem
   )
-  
+
   # Set the factor levels explicitly to control the order
   data$Group <- factor(data$Group, levels = c("RL", "Base", "Pavlovian"))
-  
+
   # Add a small constant to the Count to avoid bars with height 0
   data$Count <- pmax(data$Count, 0.01)  # Ensure no bars are at zero height
-  
+
   # Manually define the colors and labels for the legend
   data$FillLabel <- ifelse(data$Group == "RL", "Base", "Pavlovian")
   # Create the bar plot with error bars
-  
-  
-  windows(width=8, height=8)
-  im=ggplot(data, aes(x=Group, y=Count, fill=Group)) + 
+
+
+  dev.new(width=8, height=8)
+  im=ggplot(data, aes(x=Group, y=Count, fill=Group)) +
     geom_bar(stat = "identity", width=0.4) +
     geom_errorbar(aes(ymin = Count - SEM, ymax = Count + SEM), width = 0.2) +
     labs(title="", y="Importance of a model", x = "") +
@@ -1284,36 +1284,36 @@ load("Model comparison with the lab data_high trembling_10to60.RData")
     return(Posterior)
   }
   LL=rbind(OOS_RL[index],OOS_rational[index],OOS_CbD_no_uncertain[index])
-  
+
   Posterior=apply(LL,2,LL_to_Posterior)
   #mean(Posterior[3,]>0.5)
-  
+
   Importance_population=apply(Posterior,1, mean)
   sem <- apply(Posterior,1, sd) / dim(Posterior)[2]
-  
+
   #Average importance
   {
-    
+
     # Create a data frame
     data <- data.frame(
       Group = c("RL", "Base", "Pavlovian"),
       Count = Importance_population,
       SEM = sem
     )
-    
+
     # Set the factor levels explicitly to control the order
     data$Group <- factor(data$Group, levels = c("RL", "Base", "Pavlovian"))
-    
+
     # Add a small constant to the Count to avoid bars with height 0
     data$Count <- pmax(data$Count, 0.01)  # Ensure no bars are at zero height
-    
+
     # Manually define the colors and labels for the legend
     data$FillLabel <- ifelse(data$Group == "RL", "Base", "Pavlovian")
     # Create the bar plot with error bars
-    
-    
-    windows(width=8, height=8)
-    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) + 
+
+
+    dev.new(width=8, height=8)
+    im=ggplot(data, aes(x=Group, y=Count, fill=Group)) +
       geom_bar(stat = "identity", width=0.4) +
       geom_errorbar(aes(ymin = Count - SEM, ymax = Count + SEM), width = 0.2) +
       labs(title="", y="Importance of a model", x = "") +
