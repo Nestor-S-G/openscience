@@ -26,10 +26,9 @@ Error in data.frame(treatment = levels(ATDs1s2$Variable), mean =
 tapply(ATDs1s2$value, : arguments imply differing number of rows: 0, 2
 ```
 
-Which is corrected by adding to line 651:
+Which is corrected by adding to line 652:
 
 ``` r
-ATDs1s2<-cbind(ATDs1s2,Variable)
 ATDs1s2$Variable <- factor(ATDs1s2$Variable)
 ```
 
