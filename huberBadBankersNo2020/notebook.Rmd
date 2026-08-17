@@ -1,0 +1,2545 @@
+---
+title: Data and Analyes for 'Bad bankers no more? Truth-telling and (dis)honesty in
+  the finance industry'
+author: "Christoph Huber, Juergen Huber"
+output:
+  html_notebook:
+    df_print: tibble
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 8
+    theme: lumen
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+ 
+
+# Intro
+
+This file contains R-code to replicate all analyses, tables, and figures in '_Bad bankers no more? Truth-telling and (dis)honesty in the finance industry_'.
+
+The experiments were run between November 2018 and January 2020 with oTree by Chen et al. (2016).
+All analyses were conducted in R.
+
+Required R-packages:
+
+```{r message=FALSE, warning=FALSE}
+library(plyr)
+library(tidyverse)
+library(readxl)
+library(wesanderson)
+library(ggthemes)
+library(kableExtra)
+library(stargazer)
+library(lfe)
+library(viridis)
+library(car)
+library(Rmisc)
+```
+
+First, we import, tidy, reshape, and merge the raw data files from the experiment (see below).  
+__To skip this step__, load the following `.RData`-files and go to section _Analysis_:
+
+```{r}
+load("_norms_before.RData")
+load("_norms_stud.RData")
+load("_norms_studprof.RData")
+load("_tt_before.RData")
+load("_tt_pf.RData")
+load("_tt_stud.RData")
+load("_tt.RData")
+load("_norms.RData")
+load("_reshaped.RData")
+load("_reshaped_norms.RData")
+load("_merge.RData")
+```
+
+
+# Data preparation 
+
+## Import and tidy data
+
+The following commands import the raw experiment output from folder `_raw` as an `.xlsx`-file into R, converts it into a tibble, and tidies and organises all relevant variables.  
+
+### Import and tidy data from STUD
+
+```{R}
+csv <- read_xlsx("_raw/data_students1/all_apps_wide_2018-12-14.xlsx") 
+csv1 <- read.csv("_raw/data_students2fin/all_apps_wide_2020-01-17.csv")
+csv2 <- read.csv("_raw/data_students2neu/all_apps_wide_2020-01-17.csv")
+csv3 <- read.csv("_raw/data_students2abs/all_apps_wide_2020-01-17.csv")
+
+data <- tbl_df(csv)
+data <- data %>% rbind.fill(csv1, csv2, csv3)
+
+tt_stud <- data %>%
+  filter((session.code == "6vi3dw2b"|session.code == "9auk5aea"|session.code=="7q355nra"|session.code == "s1pa9lws"|session.code == "9d565pyp"|session.code == "o75chhp9"), participant._index_in_pages>=11)
+
+tt_stud <- tt_stud %>%
+  rename(session = session.code,
+         context = tt.1.player.context,
+         treatment = tt.1.player.treatment,
+         subject = participant.code,
+         choice1 = tt.1.player.choice_1,
+         choice2 = tt.1.player.choice_2,
+         choice3 = tt.1.player.choice_3,
+         choice4 = tt.1.player.choice_4,
+         choice5 = tt.1.player.choice_5,
+         belief1 = tt.1.player.belief_1,
+         belief2 = tt.1.player.belief_2,
+         belief3 = tt.1.player.belief_3,
+         belief4 = tt.1.player.belief_4,
+         belief5 = tt.1.player.belief_5,
+         order = tt.1.player.order,
+         severity = tt.1.player.severity,
+         reputation = tt.1.player.reputation,         
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,         
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment,
+         payoff = participant.payoff) %>%
+  mutate(tt = 1,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,
+         lies = choice1 + choice2 + choice3 + choice4 + choice5,
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+         ) %>%  
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt."),
+         -starts_with("tt_norms."),
+         -starts_with("bt."),
+         -starts_with("wordscra.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+norms_stud <- data %>%
+  filter((session.code == "f7hlbgua"|session.code == "r8k3mqov"|session.code=="23zy7355")
+         & participant._index_in_pages==27)
+
+norms_stud <- norms_stud %>%
+  rename(session = session.code,
+         context = tt_norms.1.player.context,
+         subject = participant.code,
+         norms_true1 = tt_norms.1.player.norm_true,
+         norms_true2 = tt_norms.2.player.norm_true,
+         norms_true3 = tt_norms.3.player.norm_true,
+         norms_true4 = tt_norms.4.player.norm_true,
+         norms_true5 = tt_norms.5.player.norm_true,
+         norms_false1 = tt_norms.1.player.norm_false,
+         norms_false2 = tt_norms.2.player.norm_false,
+         norms_false3 = tt_norms.3.player.norm_false,
+         norms_false4 = tt_norms.4.player.norm_false,
+         norms_false5 = tt_norms.5.player.norm_false,
+         belief1 = tt_norms.5.player.belief_1,
+         belief2 = tt_norms.5.player.belief_2,
+         belief3 = tt_norms.5.player.belief_3,
+         belief4 = tt_norms.5.player.belief_4,
+         belief5 = tt_norms.5.player.belief_5,
+         order = tt_norms.1.player.order,
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,         
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment) %>%
+  mutate(tt = 0,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,       
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+         ) %>%
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt_norms."),
+         -starts_with("tt."),
+         -starts_with("bt."),
+         -starts_with("wordscra.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+norms_stud <- norms_stud %>%
+  mutate(norms_false1 = (norms_false1-3.5) / 2.5,
+         norms_false2 = (norms_false2-3.5) / 2.5,
+         norms_false3 = (norms_false3-3.5) / 2.5,
+         norms_false4 = (norms_false4-3.5) / 2.5,
+         norms_false5 = (norms_false5-3.5) / 2.5,
+         norms_true1 = (norms_true1-3.5) / 2.5,
+         norms_true2 = (norms_true2-3.5) / 2.5,
+         norms_true3 = (norms_true3-3.5) / 2.5,
+         norms_true4 = (norms_true4-3.5) / 2.5,
+         norms_true5 = (norms_true5-3.5) / 2.5,
+         norms_false = (norms_false1 + norms_false2 + norms_false3 + norms_false4)/4,
+         norms_true = (norms_true1 + norms_true2 + norms_true3 + norms_true4)/4)
+
+save(tt_stud, file="_tt_stud.RData")
+save(norms_stud, file="_norms_stud.RData")
+```
+
+
+### Import and tidy data from PROF (before.world)
+
+```{R}
+csv <- read.csv("_raw/data_before/all_apps_wide_2019-02-27.csv")
+data <- tbl_df(csv)
+
+tt_before <- data %>%
+  filter((session.code == "sl4o33w2") 
+         & participant._index_in_pages==12)
+
+tt_before <- tt_before %>%
+  rename(session = session.code,
+         context = tt.1.player.context,
+         subject = participant.code,
+         choice1 = tt.1.player.choice_1,
+         choice2 = tt.1.player.choice_2,
+         choice3 = tt.1.player.choice_3,
+         choice4 = tt.1.player.choice_4,
+         choice5 = tt.1.player.choice_5,
+         belief1 = tt.1.player.belief_1,
+         belief2 = tt.1.player.belief_2,
+         belief3 = tt.1.player.belief_3,
+         belief4 = tt.1.player.belief_4,
+         belief5 = tt.1.player.belief_5,
+         order = tt.1.player.order,
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment,
+         finnews = postexp.1.player.finnews,
+         payoff = participant.payoff) %>%
+  mutate(tt = 1,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,
+         lies = choice1 + choice2 + choice3 + choice4 + choice5,
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+  ) %>%  
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt."),
+         -starts_with("tt_norms."),
+         -starts_with("bt."),
+         -starts_with("wordscra."),
+         -starts_with("redirect.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+norms_before <- data %>%
+  filter((session.code == "jzmo442c")
+         & participant._index_in_pages==28)
+
+norms_before <- norms_before %>%
+  rename(session = session.code,
+         context = tt_norms.1.player.context,
+         subject = participant.code,
+         norms_true1 = tt_norms.1.player.norm_true,
+         norms_true2 = tt_norms.2.player.norm_true,
+         norms_true3 = tt_norms.3.player.norm_true,
+         norms_true4 = tt_norms.4.player.norm_true,
+         norms_true5 = tt_norms.5.player.norm_true,
+         norms_false1 = tt_norms.1.player.norm_false,
+         norms_false2 = tt_norms.2.player.norm_false,
+         norms_false3 = tt_norms.3.player.norm_false,
+         norms_false4 = tt_norms.4.player.norm_false,
+         norms_false5 = tt_norms.5.player.norm_false,
+         belief1 = tt_norms.5.player.belief_1,
+         belief2 = tt_norms.5.player.belief_2,
+         belief3 = tt_norms.5.player.belief_3,
+         belief4 = tt_norms.5.player.belief_4,
+         belief5 = tt_norms.5.player.belief_5,
+         order = tt_norms.1.player.order,
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,         
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment,
+         finnews = postexp.1.player.finnews) %>%
+  mutate(tt = 0,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,       
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+  ) %>%
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt_norms."),
+         -starts_with("tt."),
+         -starts_with("bt."),
+         -starts_with("wordscra."),
+         -starts_with("redirect.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+norms_before <- norms_before %>%
+  mutate(norms_false1 = (norms_false1-3.5) / 2.5,
+         norms_false2 = (norms_false2-3.5) / 2.5,
+         norms_false3 = (norms_false3-3.5) / 2.5,
+         norms_false4 = (norms_false4-3.5) / 2.5,
+         norms_false5 = (norms_false5-3.5) / 2.5,
+         norms_true1 = (norms_true1-3.5) / 2.5,
+         norms_true2 = (norms_true2-3.5) / 2.5,
+         norms_true3 = (norms_true3-3.5) / 2.5,
+         norms_true4 = (norms_true4-3.5) / 2.5,
+         norms_true5 = (norms_true5-3.5) / 2.5,
+         norms_false = (norms_false1 + norms_false2 + norms_false3 + norms_false4)/4,
+         norms_true = (norms_true1 + norms_true2 + norms_true3 + norms_true4)/4)
+
+save(tt_before, file="_tt_before.RData")
+save(norms_before, file="_norms_before.RData")
+```
+
+
+### Import and tidy data from STUDPROF.
+
+```{R}
+csv <- read_xlsx("_raw/data_studprof/all_apps_wide_2019-04-15.xlsx") 
+
+data <- tbl_df(csv)
+
+norms_studprof <- data %>%
+  filter((session.code == "7v1jo4vk")
+         & participant._index_in_pages==27)
+
+norms_studprof <- norms_studprof %>%
+  rename(session = session.code,
+         context = tt_norms.1.player.context,
+         subject = participant.code,
+         norms_true1 = tt_norms.1.player.norm_true,
+         norms_true2 = tt_norms.2.player.norm_true,
+         norms_true3 = tt_norms.3.player.norm_true,
+         norms_true4 = tt_norms.4.player.norm_true,
+         norms_true5 = tt_norms.5.player.norm_true,
+         norms_false1 = tt_norms.1.player.norm_false,
+         norms_false2 = tt_norms.2.player.norm_false,
+         norms_false3 = tt_norms.3.player.norm_false,
+         norms_false4 = tt_norms.4.player.norm_false,
+         norms_false5 = tt_norms.5.player.norm_false,
+         belief1 = tt_norms.5.player.belief_1,
+         belief2 = tt_norms.5.player.belief_2,
+         belief3 = tt_norms.5.player.belief_3,
+         belief4 = tt_norms.5.player.belief_4,
+         belief5 = tt_norms.5.player.belief_5,
+         order = tt_norms.1.player.order,
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,         
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment) %>%
+  mutate(tt = 0,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,       
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+         ) %>%
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt_norms."),
+         -starts_with("tt."),
+         -starts_with("bt."),
+         -starts_with("wordscra.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+norms_studprof <- norms_studprof %>%
+  mutate(norms_false1 = (norms_false1-3.5) / 2.5,
+         norms_false2 = (norms_false2-3.5) / 2.5,
+         norms_false3 = (norms_false3-3.5) / 2.5,
+         norms_false4 = (norms_false4-3.5) / 2.5,
+         norms_false5 = (norms_false5-3.5) / 2.5,
+         norms_true1 = (norms_true1-3.5) / 2.5,
+         norms_true2 = (norms_true2-3.5) / 2.5,
+         norms_true3 = (norms_true3-3.5) / 2.5,
+         norms_true4 = (norms_true4-3.5) / 2.5,
+         norms_true5 = (norms_true5-3.5) / 2.5,
+         norms_false = (norms_false1 + norms_false2 + norms_false3 + norms_false4)/4,
+         norms_true = (norms_true1 + norms_true2 + norms_true3 + norms_true4)/4)
+
+save(norms_studprof, file="_norms_studprof.RData")
+```
+
+
+### Import and tidy data from PROLIFIC
+
+```{R}
+csv <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-08.csv")
+csv1 <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-14.csv")
+csv2 <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-17.csv")
+
+data <- rbind(csv, csv1, csv2) %>% tbl_df()
+
+exp <- read.csv("_raw/data_prolific/prolific_export_5e1478086e8aaba68ddcfa31.csv") %>% 
+  rename(participant.label = participant_id,
+         age.prolific = age)
+
+data <- left_join(data, exp,
+                  by=c("participant.label"))
+
+tt_pf <- data %>%
+  filter((session.code == "cfs9uxep"|session.code == "t3qqecpo"|session.code == "b7rrvg7s") 
+         & participant._index_in_pages==12)
+
+tt_pf <- tt_pf %>%
+  rename(session = session.code,
+         context = tt.1.player.context,
+         treatment = tt.1.player.treatment,
+         subject = participant.code,
+         choice1 = tt.1.player.choice_1,
+         choice2 = tt.1.player.choice_2,
+         choice3 = tt.1.player.choice_3,
+         choice4 = tt.1.player.choice_4,
+         choice5 = tt.1.player.choice_5,
+         belief1 = tt.1.player.belief_1,
+         belief2 = tt.1.player.belief_2,
+         belief3 = tt.1.player.belief_3,
+         belief4 = tt.1.player.belief_4,
+         belief5 = tt.1.player.belief_5,
+         order = tt.1.player.order,
+         severity = tt.1.player.severity,
+         reputation = tt.1.player.reputation,
+         pref1_1 = postexp.1.player.pref1_1,
+         pref1_2 = postexp.1.player.pref1_2,
+         pref1_3 = postexp.1.player.pref1_3,
+         pref1_4 = postexp.1.player.pref1_4,
+         pref2_1 = postexp.1.player.pref2_1,
+         pref2_2 = postexp.1.player.pref2_2,
+         pref2_3 = postexp.1.player.pref2_3,
+         risk = postexp.1.player.risk_aversion1,
+         age = postexp.1.player.age,
+         female = postexp.1.player.female,
+         education = postexp.1.player.education,
+         job = postexp.1.player.jobfunction,
+         investment = postexp.1.player.investment,
+         whichinvestment = postexp.1.player.whichinvestment,
+         finnews = postexp.1.player.finnews,
+         payoff = participant.payoff) %>%
+  mutate(tt = 1,
+         word1 = paste0(wordscra.1.player.word1_1,
+                        wordscra.1.player.word1_2,
+                        wordscra.1.player.word1_3,
+                        wordscra.1.player.word1_4,
+                        wordscra.1.player.word1_5),
+         word2 = paste0(wordscra.1.player.word2_1,
+                        wordscra.1.player.word2_2,
+                        wordscra.1.player.word2_3),
+         word3 = paste0(wordscra.1.player.word3_1,
+                        wordscra.1.player.word3_2,
+                        wordscra.1.player.word3_3,
+                        wordscra.1.player.word3_4,
+                        wordscra.1.player.word3_5,
+                        wordscra.1.player.word3_6),
+         word4 = paste0(wordscra.1.player.word4_1,
+                        wordscra.1.player.word4_2,
+                        wordscra.1.player.word4_3,
+                        wordscra.1.player.word4_4,
+                        wordscra.1.player.word4_5),
+         word5 = paste0(wordscra.1.player.word5_1,
+                        wordscra.1.player.word5_2,
+                        wordscra.1.player.word5_3,
+                        wordscra.1.player.word5_4,
+                        wordscra.1.player.word5_5),
+         word6 = paste0(wordscra.1.player.word6_1,
+                        wordscra.1.player.word6_2,
+                        wordscra.1.player.word6_3,
+                        wordscra.1.player.word6_4),
+         word1f = ifelse(word1 == tools::toTitleCase(tolower("stock")), 1, 0),
+         word3f = ifelse(word3 == tools::toTitleCase(tolower("broker")), 1, 0),
+         word4f = ifelse(word4 == tools::toTitleCase(tolower("money")), 1, 0),
+         word6f = ifelse(word6 == tools::toTitleCase(tolower("bond")), 1, 0),
+         wordsf = word1f + word3f + word4f + word6f,
+         lies = choice1 + choice2 + choice3 + choice4 + choice5,
+         beliefs = belief1/100 + belief2/100 + belief3/100 + belief4/100 + belief5/100
+  ) %>%  
+  select(-starts_with("participant."),
+         -starts_with("session."),
+         -starts_with("postexp"),
+         -starts_with("tt."),
+         -starts_with("tt_norms."),
+         -starts_with("bt."),
+         -starts_with("wordscra."),
+         -starts_with("redirect.")) %>%
+  arrange(session, context, subject) %>%
+  group_by(context)
+
+save(tt_pf, file="_tt_pf.RData")
+```
+
+
+## Reshape and merge
+
+### Reshape data
+
+```{r warning=FALSE}
+tt_stud_reshaped <- tt_stud %>%
+  gather(cost, choice, choice1:choice5, belief1:belief5)
+tt_stud_reshaped <- tt_stud_reshaped %>%
+  extract(cost, c("question", "cost"), "(choice|belief)(.)")%>% 
+  mutate(
+    treatment = ifelse(context == "financial", "sh_sev_fin",
+                       ifelse(context == "neutral", "su_ha_neu",
+                              "su_ha_abs")))
+
+tt_before_reshaped <- tt_before %>%
+  gather(cost, choice, choice1:choice5, belief1:belief5)
+tt_before_reshaped <- tt_before_reshaped %>%
+  extract(cost, c("question", "cost"), "(choice|belief)(.)")%>% 
+  mutate(
+    treatment = ifelse(context == "financial", "sh_sev_fin",
+                       ifelse(context == "neutral", "su_ha_neu",
+                              "su_ha_abs")))
+
+tt_pf_reshaped <- tt_pf %>%
+  gather(cost, choice, choice1:choice5, belief1:belief5)
+tt_pf_reshaped <- tt_pf_reshaped %>%
+  extract(cost, c("question", "cost"), "(choice|belief)(.)") %>% 
+  mutate(
+    treatment = ifelse(is.na(treatment),
+                       ifelse(context == "financial", "sh_sev_fin",
+                              ifelse(context == "neutral", "su_ha_neu",
+                                     ifelse(context == "abstract", "su_ha_abs", context))),
+                       as.character(treatment))
+    )
+
+```
+
+### Merge STUD and PROF data
+
+```{r message=FALSE, warning=FALSE}
+tt_before$prof <- rep(1, nrow(tt_before))
+norms_before$prof <- rep(1, nrow(norms_before))
+tt_stud$prof <- rep(0, nrow(tt_stud))
+norms_stud$prof <- rep(0, nrow(norms_stud))
+norms_studprof$prof <- rep(2, nrow(norms_studprof))
+tt_pf$prof <- rep(3, nrow(tt_pf))
+
+tt_before$prof1 <- rep(1, nrow(tt_before))
+norms_before$prof1 <- rep(1, nrow(norms_before))
+tt_stud$prof1 <- rep(0, nrow(tt_stud))
+norms_stud$prof1 <- rep(0, nrow(norms_stud))
+norms_studprof$prof1 <- rep(0, nrow(norms_studprof))
+tt_pf$prof1 <- rep(1, nrow(tt_pf))
+
+tt_stud <- tt_stud %>% 
+  mutate(
+    treatment = ifelse(is.na(treatment),
+                       ifelse(context == "financial", "sh_sev_fin",
+                              ifelse(context == "neutral", "su_ha_neu",
+                                     ifelse(context == "abstract", "su_ha_abs",
+context))),
+                       as.character(treatment))
+    )
+tt_stud$treatment <- factor(tt_stud$treatment)
+
+
+tt <- rbind(tt_before, tt_stud, tt_pf)
+norms <- rbind(norms_before, norms_stud, norms_studprof)
+
+tt <- tt %>% 
+  mutate(
+    treatment = ifelse(is.na(treatment),
+                       ifelse(context == "financial", "sh_sev_fin",
+                              ifelse(context == "neutral", "su_ha_neu",
+                                     ifelse(context == "abstract", "su_ha_abs", context))),
+                       as.character(treatment))
+    )
+tt$treatment <- factor(tt$treatment)
+
+norms <- norms %>% 
+  mutate(
+    treatment = ifelse(context == "financial", "sh_sev_fin",
+                       ifelse(context == "neutral", "su_ha_neu",
+                              ifelse(context == "abstract", "su_ha_abs", context))),
+    treatment)
+norms$treatment <- factor(norms$treatment)
+
+
+tt <- tt %>% 
+  mutate(
+    job1 = ifelse(job == 0, "Portfolio Manager",
+                           ifelse(job == 1, "Research Analyst",
+                                  ifelse(job == 2, "Consultant",
+                                         ifelse(job == 3, "Financial Advisor",
+                                                ifelse(job == 4, "Chief-Level Executive",
+                                                       ifelse(job == 5, "Trader",
+                                                              ifelse(job == 6, "Fund Manager",
+                                                                     ifelse(job == 7, "Investment Managent",
+                                                                            "Other"))))))))   
+  )
+
+norms <- norms %>% 
+  mutate(
+    job1 = ifelse(job == 0, "Portfolio Manager",
+                           ifelse(job == 1, "Research Analyst",
+                                  ifelse(job == 2, "Consultant",
+                                         ifelse(job == 3, "Financial Advisor",
+                                                ifelse(job == 4, "Chief-Level Executive",
+                                                       ifelse(job == 5, "Trader",
+                                                              ifelse(job == 6, "Fund Manager",
+                                                                     ifelse(job == 7, "Investment Managent",
+                                                                            "Other"))))))))   
+  )
+
+
+save(tt, file = "_tt.RData")
+save(norms, file = "_norms.RData")
+```
+
+
+### Reshape pooled tt and norms
+
+TT
+```{R}
+reshaped <- tt %>%
+  gather(cost, choice, choice1:choice5, belief1:belief5)
+reshaped <- reshaped %>%
+  extract(cost, c("question", "cost"), "(choice|belief)(.)")
+reshaped <- reshaped %>%
+  spread(question, choice)
+
+reshaped$belief <- reshaped$belief/100
+reshaped$cost <- as.numeric(reshaped$cost) * (-1) + 5
+
+save(reshaped, file = "_reshaped.RData")
+```
+
+Norms
+```{R}
+reshaped_norms <- norms %>%
+  select(-norms_false, -norms_true) %>%
+  gather(cost, choice, norms_true1:norms_false5, norms_false1:norms_false5, belief1:belief5)
+reshaped_norms <- reshaped_norms %>%
+  extract(cost, c("question", "cost"), "(norms_false|norms_true|belief)(.)")
+reshaped_norms <- reshaped_norms %>%
+  spread(question, choice) %>%
+  mutate(norms = (norms_true + norms_false)/2)
+
+reshaped_norms$belief <- reshaped_norms$belief/100
+reshaped_norms$cost <- as.numeric(reshaped_norms$cost) * (-1) + 5
+
+save(reshaped_norms, file = "_reshaped_norms.RData")
+```
+
+
+### Merge
+
+```{R}
+reshaped$treatment1 <- factor(reshaped$treatment,
+                              levels = c('sh_sev_fin',
+                                         'sh_ha_fin',
+                                         'su_ha_neu',
+                                         'su_sev_fin',
+                                         'su_ha_abs',
+                                         'su_ha_fin'))
+
+reshaped_norms$treatment1 <- factor(reshaped_norms$treatment,
+                              levels = c('sh_sev_fin',
+                                         'sh_ha_fin',
+                                         'su_ha_neu',
+                                         'su_sev_fin',
+                                         'su_ha_abs',
+                                         'su_ha_fin'))
+
+merge <- left_join(reshaped,
+                   reshaped_norms %>%
+                     group_by(prof, treatment1, cost) %>%
+                     summarise(norms_false = mean(norms_false),
+                               norms_true = mean(norms_true),
+                               norms_belief = mean(belief),
+                               prof1 = mean(prof1)) %>% 
+                     na.omit(),
+                   by=c("treatment1", "cost"),
+                   suffix = c(".tt", ".norms")) %>% 
+  filter(!is.na(prof.norms))
+
+merge <- merge %>% mutate(norm = ifelse(choice==0, norms_true, norms_false))
+
+save(merge, file = "_merge.RData")
+```
+
+
+
+# Analysis
+
+## Table 2
+
+Proportion  of  dishonest  reports  for  financial  professionals  and  students across treatments
+
+```{r}
+tt %>% 
+  group_by(prof1, treatment) %>% 
+  summarise(Pct = 1 - mean(lies, na.rm=TRUE)/5,
+            sd = sd(lies/5, na.rm=TRUE),
+            n = n()) %>%
+  pivot_wider(names_from = prof1,
+              values_from = c(Pct, sd, n)) %>%
+  select(treatment,
+         Pct_1, sd_1, n_1,
+         Pct_0, sd_0, n_0)
+
+```
+
+
+Fisher's exact tests for differences between treatments and subject pools in Table 2
+
+```{r}
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs") %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(tt %>%
+    filter(treatment == "su_ha_abs") %>% 
+    mutate(truths = 5 - lies) %>%
+    group_by(prof1, truths) %>%
+    summarise(n = n()) %>% 
+    pivot_wider(names_from = prof1, values_from = n) %>% 
+    select(`0`, `1`) %>% 
+    mutate(`0` = ifelse(is.na(`0`), 0, `0`)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_neu") %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "sh_sev_fin") %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs" | treatment == "su_ha_neu", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_neu" | treatment == "sh_sev_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_neu" | treatment == "sh_ha_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_neu" | treatment == "su_ha_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_neu" | treatment == "su_sev_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs" | treatment == "sh_sev_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs" | treatment == "sh_ha_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs" | treatment == "su_ha_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter(treatment == "su_ha_abs" | treatment == "su_sev_fin", 
+                     prof1 == 1) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(treatment) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+
+fisher.test(t(tt %>%
+                filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+fisher.test(t(tt %>%
+                filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1)) %>% 
+                mutate(truths = 5 - lies) %>%
+                group_by(prof1) %>%
+                summarise(lies = sum(lies), truths = sum(truths)) %>%
+                drop_na() %>%
+                ungroup() %>%
+                select(lies, truths)))
+
+```
+
+
+Wilcoxon rank sum tests for differences between treatments and subject pools in Table 2
+
+```{r}
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_abs" | treatment == "su_ha_neu", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_abs" | treatment == "sh_sev_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_neu" | treatment == "sh_sev_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_abs" | treatment == "su_ha_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_neu" | treatment == "su_sev_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_neu" | treatment == "sh_ha_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ treatment,
+            data = tt %>% 
+              filter(treatment == "su_ha_neu" | treatment == "su_ha_fin", 
+                     prof1 == 1)
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter(treatment == "su_ha_abs")
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter(treatment == "su_ha_neu")
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter(treatment == "sh_sev_fin")
+            )
+
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_abs" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "su_ha_neu" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "sh_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "su_ha_fin" & prof1 == 1))
+            )
+
+wilcox.test(lies ~ prof1,
+            data = tt %>% 
+              filter((treatment == "sh_sev_fin" & prof1 == 0) | 
+                        (treatment == "su_sev_fin" & prof1 == 1))
+            )
+
+
+```
+
+
+Treatment differences in STUD
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. neutral
+wilcox.test(lies ~ treatment, data = tt %>% filter(prof1 == 0, treatment != "sh_sev_fin"))
+
+# Wilcoxon rank sum test: abstract vs. financial
+wilcox.test(lies ~ treatment, data = tt %>% filter(prof1 == 0, treatment != "su_ha_neu"))
+
+# Wilcoxon rank sum test: neutral vs. financial
+wilcox.test(lies ~ treatment, data = tt %>% filter(prof1 == 0, treatment != "su_ha_abs"))
+
+# Kruskal-Wallis test
+kruskal.test(lies ~ as.factor(treatment), data = tt %>% filter(prof1 == 0))
+
+# Fisher's exact test
+test <- tt %>%
+  filter(prof1 == 0) %>% 
+  mutate(truths = 5 - lies) %>% 
+  group_by(treatment) %>% 
+  summarise(lies = sum(lies), truths = sum(truths)) %>% 
+  drop_na() %>% 
+  ungroup() %>% 
+  select(lies, truths)
+fisher.test(test)
+fisher.test(t(test))
+
+```
+
+
+Treatment differences in STUD
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. neutral
+wilcox.test(lies ~ context, data = tt_stud %>% filter(context != "financial"))
+
+# Wilcoxon rank sum test: abstract vs. financial
+wilcox.test(lies ~ context, data = tt_stud %>% filter(context != "neutral"))
+
+# Wilcoxon rank sum test: neutral vs. financial
+wilcox.test(lies ~ context, data = tt_stud %>% filter(context != "abstract"))
+
+# Kruskal-Wallis test
+kruskal.test(lies ~ as.factor(treatment), data = tt_stud)
+```
+
+
+Treatment differences in PROF
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. neutral
+wilcox.test(lies ~ treatment, data = tt %>% 
+              filter(prof1==1,
+                     treatment == "su_ha_abs" | treatment == "su_ha_neu"))
+
+# Wilcoxon rank sum test: abstract vs. financial
+wilcox.test(lies ~ treatment, data = tt %>% 
+              filter(prof1==1,
+                     treatment == "su_ha_abs" | treatment == "sh_sev_fin"))
+
+# Wilcoxon rank sum test: neutral vs. financial
+wilcox.test(lies ~ treatment, data = tt %>% 
+              filter(prof1==1,
+                     treatment == "sh_sev_fin" | treatment == "su_ha_neu"))
+```
+
+
+## Table B1
+
+Proportion of dishonest reports per subject pool across treatments
+
+```{r}
+tt %>% 
+  group_by(prof, treatment) %>% 
+  summarise(Pct = 1 - mean(lies, na.rm=TRUE)/5,
+            sd = sd(lies/5, na.rm=TRUE),
+            n = n()) %>%
+  pivot_wider(names_from = prof,
+              values_from = c(Pct, sd, n)) %>%
+  select(treatment,
+         Pct_1, sd_1, n_1,
+         Pct_3, sd_3, n_3,
+         Pct_0, sd_0, n_0)
+
+```
+
+
+Wilcoxon rank sum tests for differences between subject pools in Table B1
+
+```{r}
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "sh_sev_fin", prof > 0))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_abs", prof > 0))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_neu", prof > 0))
+
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "sh_sev_fin", prof != 3))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_abs", prof != 3))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_neu", prof != 3))
+
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "sh_sev_fin", prof != 1))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_abs", prof != 1))
+wilcox.test(lies ~ prof,
+            data = tt %>% filter(treatment == "su_ha_neu", prof != 1))
+
+```
+
+
+## Table B9
+
+Subject demographics
+
+```{r}
+demographics_prof0_mean <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 0,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF0")
+
+demographics_prof0_sd <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 0,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF0")
+
+demographics_prof1_mean <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 1) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF1")
+
+demographics_prof1_sd <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 1) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF1")
+
+demographics_prof3_mean <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 3,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF3")
+
+demographics_prof3_sd <- tt %>% 
+  ungroup() %>% 
+  filter(prof == 3,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF3")
+
+demographics_prof0norms_mean <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 0,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF0norms")
+
+demographics_prof0norms_sd <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 0,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF0norms")
+
+demographics_prof1norms_mean <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 1,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF1norms")
+
+demographics_prof1norms_sd <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 1,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF1norms")
+
+demographics_prof2norms_mean <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 2,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = mean(risk),
+            age = mean(age), 
+            female = mean(female), 
+            invest = mean(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "Mean PROF2norms")
+
+demographics_prof2norms_sd <- norms %>% 
+  ungroup() %>% 
+  filter(prof == 2,
+         age <= 100) %>% 
+  summarise(n = n(), 
+            risk = sd(risk),
+            age = sd(age), 
+            female = sd(female), 
+            invest = sd(investment)) %>% 
+  pivot_longer(-n, names_to = "Variable", values_to = "SD PROF2norms")
+
+demographics_prof <- demographics_prof1_mean %>% 
+  left_join(demographics_prof1_sd) %>% 
+  left_join(demographics_prof3_mean, by = c("Variable")) %>% 
+  left_join(demographics_prof3_sd, by = c("Variable")) %>%
+  left_join(demographics_prof1norms_mean, by = c("Variable")) %>% 
+  left_join(demographics_prof1norms_sd, by = c("Variable")) %>%
+  select(-starts_with("n"))
+
+demographics_stud <- demographics_prof0_mean %>% 
+  left_join(demographics_prof0_sd) %>% 
+  left_join(demographics_prof0norms_mean, by = c("Variable")) %>% 
+  left_join(demographics_prof0norms_sd, by = c("Variable")) %>%
+  left_join(demographics_prof2norms_mean, by = c("Variable")) %>% 
+  left_join(demographics_prof2norms_sd, by = c("Variable")) %>%
+  select(-starts_with("n"))
+
+demographics_prof %>%
+  kable(format = "latex", 
+        booktabs = T, 
+        caption = "Demographics", 
+        digits = 3) %>% 
+  kable_styling(latex_options = c("hold_position"),
+                full_width = T)
+
+demographics_stud %>%
+  kable(format = "latex", 
+        booktabs = T, 
+        caption = "Demographics", 
+        digits = 3) %>% 
+  kable_styling(latex_options = c("hold_position"),
+                full_width = T)
+
+```
+
+```{r}
+tt_before %>% 
+  ungroup() %>% 
+  group_by(prof, education) %>% 
+  summarise(Prop = round(n()/115, 3))
+
+tt_pf %>% 
+  ungroup() %>% 
+  group_by(prof, education) %>% 
+  summarise(Prop = round(n()/300, 3))
+
+norms_before %>% 
+  ungroup() %>% 
+  group_by(prof, education) %>% 
+  summarise(Prop = round(n()/45, 3))
+
+tt_stud %>% 
+  ungroup() %>% 
+  group_by(education) %>% 
+  summarise(Prop = round(n()/166, 3))
+
+norms_stud %>% 
+  ungroup() %>% 
+  group_by(education) %>% 
+  summarise(Prop = round(n()/70, 3))
+
+tt %>%
+  filter(prof==1) %>% 
+  ungroup() %>% 
+  group_by(job1) %>% 
+  summarise(Prop = round(n()/115, 3))
+
+tt %>%
+  filter(prof==3) %>% 
+  ungroup() %>% 
+  group_by(job1) %>% 
+  summarise(Prop = round(n()/300, 3))
+
+norms %>%
+  filter(prof==1) %>% 
+  ungroup() %>% 
+  group_by(job1) %>% 
+  summarise(Prop = round(n()/115, 3))
+
+
+```
+
+
+
+## Figure 1
+
+Percentage of dishonest reports as a function of the economic costs of honesty for financial professionals and students.
+
+```{R}
+tt_stud_reshaped$treatment1 <- factor(tt_stud_reshaped$treatment, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+options(repr.plot.width  = 8,
+        repr.plot.height = 6)
+ggplot(tt_stud_reshaped %>%
+         filter(question=="choice") %>%
+         mutate(cost = (as.numeric(cost) * (-1) + 5),
+                choice = 100-choice*100) %>%         
+         group_by(cost, treatment1) %>%
+         summarise(choice=mean(choice)),
+       aes(x=cost, y=choice, group=treatment1,
+           shape=treatment1, color=treatment1)) + 
+  geom_line(aes(color=treatment1, linetype=treatment1), size=2) + 
+  geom_point(lwd = 2.7) + 
+  labs(x="Economic cost of honesty",
+       y="Percentage of honest reports") + 
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom",
+        legend.key.width = unit(3, "line"),
+        legend.title = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_linetype_manual(guide = 'legend', name="Treatment", 
+                        values = c("solid",
+                                   "dashed",
+                                   "dotdash"),
+                        labels = c(expression(FIN),
+                                   expression(NEU),
+                                   expression(ABS))) + 
+  scale_color_manual(guide = 'legend', name="Treatment", 
+                     values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) + 
+  scale_shape_discrete(guide="legend", name="Treatment",
+                       labels = c(expression(FIN),
+                                  expression(NEU),
+                                  expression(ABS))) +     
+  ylim(0, 100) + 
+  labs(title = "STUD")
+ggsave("../git_data/graphs/PercLies_STUD.pdf", width=20, height=15, units="cm")
+```
+
+```{r}
+tt_before_reshaped$treatment1 <- factor(tt_before_reshaped$treatment, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+tt_pf_reshaped$treatment1 <- factor(tt_pf_reshaped$treatment, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+options(repr.plot.width  = 8,
+        repr.plot.height = 6)
+ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
+         filter(question=="choice",
+                treatment=="su_ha_neu"|treatment=="su_ha_abs"|treatment=="sh_sev_fin") %>%
+         mutate(cost = ((as.numeric(cost) * (-1) + 5)*2),
+                choice = 100 - choice*100) %>%         
+         group_by(cost, treatment1) %>%
+         summarise(choice=mean(choice)),
+       aes(x=cost, y=choice, group=treatment1,
+           shape=treatment1, color=treatment1)) + 
+  geom_line(aes(color=treatment1, linetype=treatment1), size=2) + 
+  geom_point(lwd = 2.7) + 
+  labs(x="Economic cost of honesty",
+       y="Percentage of honest reports") + 
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom",
+        legend.key.width = unit(3, "line"),
+        legend.title = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_linetype_manual(guide = 'legend', name="Treatment", 
+                        values = c("solid",
+                                   "dashed",
+                                   "dotdash"),
+                        labels = c(expression(FIN),
+                                   expression(NEU),
+                                   expression(ABS))) + 
+  scale_color_manual(guide = 'legend', name="Treatment", 
+                     values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU),
+                                expression(ABS))) + 
+  scale_shape_discrete(guide="legend", name="Treatment",
+                       labels = c(expression(FIN),
+                                  expression(NEU),
+                                  expression(ABS))) +   
+  ylim(0, 100) + 
+  labs(title = "PROF")
+ggsave("../git_data/graphs/PercLies_PROF3treat.pdf", width=20, height=15, units="cm")
+```
+
+
+## Figure 2
+
+```{r}
+tt_before_reshaped$treatment1 <- factor(tt_before_reshaped$treatment, levels = c('sh_sev_fin', 'sh_ha_fin', 'su_ha_neu',
+                                                                         'su_sev_fin', 'su_ha_abs', 'su_ha_fin'))
+tt_pf_reshaped$treatment1 <- factor(tt_pf_reshaped$treatment, levels = c('sh_sev_fin', 'sh_ha_fin', 'su_ha_neu',
+                                                                         'su_sev_fin', 'su_ha_abs', 'su_ha_fin'))
+options(repr.plot.width  = 8,
+        repr.plot.height = 6)
+ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
+         filter(question=="choice") %>%
+         mutate(cost = (as.numeric(cost) * (-1) + 5) * 2,
+                choice = 100 - choice*100) %>%         
+         group_by(cost, treatment1) %>%
+         summarise(choice=mean(choice)),
+       aes(x=cost, y=choice, group=treatment1,
+           shape=treatment1, color=treatment1)) + 
+  geom_line(aes(color=treatment1, linetype=treatment1), size=2) + 
+  geom_point(lwd = 2.7) + 
+  labs(x="Economic cost of honesty",
+       y="Percentage of honest reports") + 
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom",
+        legend.key.width = unit(3, "line"),
+        legend.title = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_linetype_manual(guide = 'legend', name="Treatment", 
+                        values = c("solid",
+                                   "twodash",
+                                   "dashed",
+                                   "dotted",
+                                   "dotdash",
+                                   "12345678"),
+                        labels = c(expression(FIN),
+                                   expression(FIN[HA]^MANY),
+                                   expression(NEU),
+                                   expression(FIN[SEV]^ONE),
+                                   expression(ABS),
+                                   expression(FIN[HA]^ONE))) + 
+  scale_color_manual(guide = 'legend', name="Treatment", 
+                     values=viridis(n = 6),
+                     labels = c(expression(FIN),
+                                expression(FIN[HA]^MANY),
+                                expression(NEU),
+                                expression(FIN[SEV]^ONE),
+                                expression(ABS),
+                                expression(FIN[HA]^ONE))) + 
+  scale_shape_manual(guide="legend", name="Treatment",
+                       values=c(16, 1, 17,  5, 15, 6),
+                       labels = c(expression(FIN),
+                                  expression(FIN[HA]^MANY),
+                                  expression(NEU),
+                                  expression(FIN[SEV]^ONE),
+                                  expression(ABS),
+                                  expression(FIN[HA]^ONE))) +
+  ylim(0, 100) + 
+  labs(title = "PROF")
+ggsave("../git_data/graphs/PercLies_PROF6treat.pdf", width=20, height=15, units="cm")
+```
+
+
+## Table B4
+
+Linear estimation of the probability of an honest report for financial pro-
+fessionals and students
+
+```{R message=FALSE, warning=FALSE}
+reshaped$treatment1 <- factor(reshaped$treatment, levels = c('su_ha_abs', 'su_ha_neu', 'sh_sev_fin',
+                                                             'su_ha_fin', 'sh_ha_fin', 'su_sev_fin'))
+
+reshaped$choice1 <- 1 - reshaped$choice
+
+reg1cl <- felm(choice1 ~ as.numeric(cost) + treatment1|0|0|subject, data = reshaped %>% 
+                 filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg2cl <- felm(choice1 ~ as.numeric(cost) + treatment1 + prof1|0|0|subject, data = reshaped %>% 
+                 filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg3cl <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 |0|0|subject, data = reshaped %>% 
+                 filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg4cl <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 + female + risk + age + investment +  
+                 pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 +
+                 order|0|0|subject,
+           data = reshaped %>% 
+                 filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs')) 
+
+stargazer(reg2cl, reg3cl, reg4cl, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Honest report")
+```
+
+```{r}
+# Wald tests for Table 3
+
+library(car)
+
+# NEU+PROF vs. NEU+STUD
+linearHypothesis(reg3cl, "prof1 + treatment1su_ha_neu:prof1")
+linearHypothesis(reg4cl, "prof1 + treatment1su_ha_neu:prof1")
+
+# FIN+PROF vs. FIN+STUD
+linearHypothesis(reg3cl, "prof1 + treatment1sh_sev_fin:prof1")
+linearHypothesis(reg4cl, "prof1 + treatment1sh_sev_fin:prof1")
+
+# ABS+PROF vs. NEU+PROF
+linearHypothesis(reg3cl, "treatment1su_ha_neu + treatment1su_ha_neu:prof1")
+linearHypothesis(reg4cl, "treatment1su_ha_neu + treatment1su_ha_neu:prof1")
+
+# ABS+PROF vs. FIN+PROF
+linearHypothesis(reg3cl, "treatment1sh_sev_fin + treatment1sh_sev_fin:prof1")
+linearHypothesis(reg4cl, "treatment1sh_sev_fin + treatment1sh_sev_fin:prof1")
+
+# NEU+PROF vs. FIN+PROF
+linearHypothesis(reg3cl, "treatment1su_ha_neu + treatment1su_ha_neu:prof1 = treatment1sh_sev_fin + treatment1sh_sev_fin:prof1")
+linearHypothesis(reg4cl, "treatment1su_ha_neu + treatment1su_ha_neu:prof1 = treatment1sh_sev_fin + treatment1sh_sev_fin:prof1")
+
+```
+
+
+## Table B6
+
+Linear estimation of the probability of an honest report for financial profes-
+sionals across different treatments.
+
+```{r}
+reshaped$choice1 <- 1 - reshaped$choice
+
+reg5cl <- felm(choice1 ~ as.numeric(cost) + treatment1|0|0|subject, data = reshaped %>% filter(prof==1|prof==3))
+reg7cl <- felm(choice1 ~ as.numeric(cost) + treatment1 + female + risk + age + investment +  
+                 pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 +
+                 order|0|0|subject, data = reshaped %>% filter(prof==1|prof==3))
+
+
+stargazer(reg5cl, reg7cl, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Honest report")
+```
+
+
+## Table 4
+
+Linear estimation of the proportion of honest reports for financial professionals across different treatments.
+
+```{r}
+tt$treatment1 <- factor(tt$treatment, levels = c('su_ha_abs', 'su_ha_neu', 'sh_sev_fin',
+                                                             'su_ha_fin', 'sh_ha_fin', 'su_sev_fin'))
+
+tt$truths <- 1 - tt$lies/5
+
+regsub5cl <- felm(truths ~ treatment1|0|0|subject, data = tt %>% filter(prof==1|prof==3))
+regsub7cl <- felm(truths ~ treatment1 + female + risk + age + investment +  
+                 pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 +
+                 order|0|0|subject, data = tt %>% filter(prof==1|prof==3))
+
+
+stargazer(regsub5cl, regsub7cl, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Proportion of honest reports")
+```
+
+
+
+## Table B2
+
+```{R message=FALSE, warning=FALSE}
+
+# ONLY BEFORE-POOL
+
+reg1clBEFORE <- felm(choice1 ~ as.numeric(cost) + treatment1|0|0|subject, 
+               data = reshaped %>%
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg2clBEFORE <- felm(choice1 ~ as.numeric(cost) + treatment1 + prof1|0|0|subject, 
+               data = reshaped %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg3clBEFORE <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 |0|0|subject, 
+               data = reshaped %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg4clBEFORE <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 + female + risk + age + investment +  pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order|0|0|subject,
+               data = reshaped %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs')) 
+
+stargazer(reg1clBEFORE, reg2clBEFORE, reg3clBEFORE, reg4clBEFORE, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Honest report")
+
+
+# ONLY PROLIFIC-POOL
+
+reg1clPF <- felm(choice1 ~ as.numeric(cost) + treatment1|0|0|subject, 
+               data = reshaped %>%
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg2clPF <- felm(choice1 ~ as.numeric(cost) + treatment1 + prof1|0|0|subject, 
+               data = reshaped %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg3clPF <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 |0|0|subject, 
+               data = reshaped %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg4clPF <- felm(choice1 ~ as.numeric(cost) + treatment1*prof1 + female + risk + age + investment +  pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order|0|0|subject,
+               data = reshaped %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs')) 
+
+stargazer(reg1clPF, reg2clPF, reg3clPF, reg4clPF, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Honest report")
+```
+
+```{R message=FALSE, warning=FALSE}
+
+tt$treatment1 <- factor(tt$treatment, levels = c('su_ha_abs', 
+                                                 'su_ha_neu', 
+                                                 'sh_sev_fin'))
+
+tt$truths <- 1 - tt$lies/5
+
+# ONLY BEFORE-POOL
+
+regsub1clBEFORE <- felm(truths ~ treatment1|0|0|subject, 
+               data = tt %>%
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub2clBEFORE <- felm(truths ~ treatment1 + prof1|0|0|subject, 
+               data = tt %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub3clBEFORE <- felm(truths ~ treatment1*prof1 |0|0|subject, 
+               data = tt %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub4clBEFORE <- felm(truths ~ treatment1*prof1 + female + risk + age + investment +  pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order|0|0|subject,
+               data = tt %>% 
+                 filter(prof!=3,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs')) 
+
+stargazer(regsub1clBEFORE, regsub2clBEFORE, regsub3clBEFORE, regsub4clBEFORE, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Proportion of honest reports")
+
+
+# ONLY PROLIFIC-POOL
+
+regsub1clPF <- felm(truths ~ treatment1|0|0|subject, 
+               data = tt %>%
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub2clPF <- felm(truths ~ treatment1 + prof1|0|0|subject, 
+               data = tt %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub3clPF <- felm(truths ~ treatment1*prof1 |0|0|subject, 
+               data = tt %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+regsub4clPF <- felm(truths ~ treatment1*prof1 + female + risk + age + investment +  pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order|0|0|subject,
+               data = tt %>% 
+                 filter(prof!=1,
+                        treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs')) 
+
+stargazer(regsub1clPF, regsub2clPF, regsub3clPF, regsub4clPF, digits=3, align=FALSE, type="text",
+         dep.var.caption = "Dependent variable: Proportion of honest reports")
+```
+
+
+## Table B3
+
+Ordered logit regression on the proportion of honest reports for financial professionals and students.
+
+```{r}
+
+tt$treatment1 <- factor(tt$treatment, levels = c('su_ha_abs', 
+                                                 'su_ha_neu', 
+                                                 'sh_sev_fin'))
+
+tt$truths <- factor(1 - tt$lies/5, levels = c(0.0, 0.2, 0.4, 0.6, 0.8, 1.0))
+
+reg1ologit <- polr(truths ~ treatment1, Hess = TRUE,
+                  data = tt %>% filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg1ologit.or <- exp(coef(reg1ologit))
+reg2ologit <- polr(truths ~ treatment1 + prof1,  Hess = TRUE,
+                  data = tt %>% filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg2ologit.or <- exp(coef(reg2ologit))
+reg3ologit <- polr(truths ~ treatment1*prof1,  Hess = TRUE,
+                  data = tt %>% filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg3ologit.or <- exp(coef(reg3ologit))
+reg4ologit <- polr(truths ~ treatment1*prof1 + female + risk + age + investment + order +  pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3, Hess = TRUE,
+                  data = tt %>% filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'))
+reg4ologit.or <- exp(coef(reg4ologit))
+
+stargazer(reg2ologit, reg3ologit, reg4ologit, type="text",
+          coef = list(reg2ologit.or, reg3ologit.or, reg4ologit.or),
+          dep.var.caption = "Dependent variable: Proportion of honest reports")
+
+```
+
+
+## Table B5
+
+Logistic regression on the probability of an honest report for financial professionals and students.
+
+```{r}
+
+reshaped$treatment1 <- factor(reshaped$treatment, levels = c('su_ha_abs', 
+                                                 'su_ha_neu', 
+                                                 'sh_sev_fin'))
+
+reshaped$choice1 <- 1 - reshaped$choice
+
+logit1cl <- glm(choice1 ~ as.numeric(cost) + treatment1, 
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'), family="binomial")
+logit1clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1, 
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'),
+                                  cluster="subject", family="binomial")
+logit1cl.or <- exp(coef(logit1cl))
+
+logit2cl <- glm(choice1 ~ as.numeric(cost) + treatment1 + prof1,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'), family="binomial")
+logit2clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1 + prof1,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'),
+                                  cluster="subject", family="binomial")
+logit2cl.or <- exp(coef(logit2cl))
+
+logit3cl <- glm(choice1 ~ as.numeric(cost) + treatment1*prof1,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'), family="binomial")
+logit3clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1*prof1,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'),
+                                  cluster="subject", family="binomial")
+logit3cl.or <- exp(coef(logit3cl))
+
+logit4cl <- glm(choice1 ~ as.numeric(cost) + treatment1*prof1 + female + risk + age + investment + pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'), family="binomial")
+logit4clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1*prof1 + female + risk + age + investment + pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order,
+                                  data = reshaped %>%
+                                    filter(treatment1 == 'sh_sev_fin'|treatment1 == 'su_ha_neu'|treatment1 == 'su_ha_abs'),
+                                  cluster="subject", family="binomial")
+logit4cl.or <- exp(coef(logit4cl))
+
+stargazer(logit2cl, logit3cl, logit4cl,
+          coef = list(
+            logit2cl.or,
+            logit3cl.or,
+            logit4cl.or
+          ),
+          se = list(
+            as.data.frame(summary(logit2clse))[, 2],
+            as.data.frame(summary(logit3clse))[, 2],
+            as.data.frame(summary(logit4clse))[, 2]
+          ),
+          align=TRUE, type="text",
+          title = "Logistic regression with standard errors clustered at the subject-level",
+          dep.var.caption = "Dependent variable: Prob(Dishonest report)")
+```
+
+
+## Table B7
+
+Logistic regression on the probability of an honest report for financial professionals across different treatments.
+
+```{r}
+
+reshaped$treatment1 <- factor(reshaped$treatment,
+                              levels = c('su_ha_abs',
+                                             'su_ha_neu',
+                                             'sh_sev_fin',
+                                             'sh_ha_fin',
+                                             'su_sev_fin',
+                                             'su_ha_fin'))
+
+reshaped$choice1 <- 1 - reshaped$choice
+
+logit5clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1, data = reshaped %>% filter(prof==1|prof==3),
+                                  cluster = "subject",
+                                  family = "binomial")
+
+logit7clse <- miceadds::glm.cluster(choice1 ~ as.numeric(cost) + treatment1 + female + risk + age + investment + pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order, data = reshaped %>% filter(prof==1|prof==3),
+                                  cluster = "subject",
+                                  family = "binomial")
+
+logit5cl <- glm(choice1 ~ as.numeric(cost) + treatment1, data = reshaped %>% filter(prof==1|prof==3),
+                                  family = "binomial")
+
+logit7cl <- glm(choice1 ~ as.numeric(cost) + treatment1 + female + risk + age + investment + pref1_1 + pref1_2 + pref1_3 + pref1_4 + pref2_1 + pref2_2 + pref2_3 + order, data = reshaped %>% filter(prof==1|prof==3),
+                                  family = "binomial")
+
+logit5cl.or <- exp(coef(logit5cl))
+logit7cl.or <- exp(coef(logit7cl))
+
+stargazer(logit5cl, logit7cl,
+          coef = list(
+            logit5cl.or,
+            logit7cl.or
+          ),
+          se = list(
+            as.data.frame(summary(logit5clse))[, 2],
+            as.data.frame(summary(logit7clse))[, 2]
+          ),
+          align=TRUE, type="text",
+          title = "Logistic regression with standard errors clustered at the subject-level",
+          dep.var.caption = "Dependent variable: Prob(Honest report)")
+```
+
+
+## Figure 3
+
+Perceived severity of a lie's consequences and the influence of reputational concerns on dishonest behavior.
+
+```{r}
+tt_pf$treatment1 <- factor(tt_pf$treatment,
+                              levels = rev(c('su_ha_abs',
+                                             'su_ha_neu',
+                                             'sh_sev_fin',
+                                             'sh_ha_fin',
+                                             'su_sev_fin',
+                                             'su_ha_fin')))
+
+tt_pf %>% 
+  group_by(treatment1) %>% 
+  summarise(Severity = mean(severity),
+            Severitymax = CI(severity)[1],
+            Severitymin = CI(severity)[3]) %>%
+  mutate(severitytreat = ifelse(grepl("sev", treatment1), 
+                                "severe", "harmless"),
+         financialtreat = factor(ifelse(grepl("fin", treatment1), 1, 0))) %>% 
+  ggplot(aes(x = treatment1, 
+             y = Severity, 
+             ymax = Severitymax,
+             ymin = Severitymin,
+             color = severitytreat,
+             shape = financialtreat)) + 
+  geom_errorbar(width=.2, lwd = 1) + 
+  geom_point(lwd = 2.7) + 
+  coord_flip() +   
+  theme_bw(base_size = 18) + 
+  theme(legend.position="bottom",
+        legend.title = element_blank(),
+        legend.background = element_blank(),
+        legend.margin = margin(t = 0),
+        legend.box.margin = margin(t = 0),
+        legend.box.spacing = unit(0.3, "cm"),
+        axis.title.y = element_blank(),
+        panel.grid.minor.y = element_blank()) +
+  scale_x_discrete(labels = rev(c(expression(ABS),
+                                  expression(NEU),
+                                  expression(FIN),
+                                  expression(FIN[HA]^MANY),
+                                  expression(FIN[SEV]^ONE),
+                                  expression(FIN[HA]^ONE)))) + 
+  scale_color_manual(values=viridis(n = 6)[c(1,5)]) + 
+  scale_shape_manual(values = c(15, 5),
+                     labels = c("non-financial", "financial")) + 
+  scale_y_continuous(limits = c(1, 7),
+                     breaks = seq(1, 7, 1)) +  
+  ylab("Perceived severity of consequences") + 
+  labs(title = "Perceived severity of consequences")
+ggsave("../git_latex/graphs/Severity.pdf", width=20, height=15, units="cm")
+
+tt_pf %>% 
+  group_by(treatment1) %>% 
+  summarise(Reputation = mean(reputation),
+            Reputationmax = CI(reputation)[1],
+            Reputationmin = CI(reputation)[3]) %>%
+  mutate(financialtreat = factor(ifelse(grepl("fin", treatment1), 1, 0))) %>% 
+  ggplot(aes(x = treatment1, 
+             y = Reputation, 
+             ymax = Reputationmax,
+             ymin = Reputationmin,
+             shape = financialtreat)) + 
+  geom_errorbar(width=.2, lwd = 1, color = viridis(n = 6)[3]) + 
+  geom_point(lwd = 2.7) + 
+  coord_flip() +  
+  theme_bw(base_size = 18) + 
+  theme(legend.position="bottom",
+        legend.title = element_blank(),
+        legend.background = element_blank(),
+        legend.margin = margin(t = 0),
+        legend.box.margin = margin(t = 0),
+        legend.box.spacing = unit(0.3, "cm"),
+        axis.title.y = element_blank(),
+        panel.grid.minor.y = element_blank()) +
+  scale_x_discrete(labels = rev(c(expression(ABS),
+                                  expression(NEU),
+                                  expression(FIN),
+                                  expression(FIN[HA]^MANY),
+                                  expression(FIN[SEV]^ONE),
+                                  expression(FIN[HA]^ONE)))) + 
+  scale_shape_manual(values = c(15, 5),
+                     labels = c("non-financial", "financial")) + 
+  scale_y_continuous(limits = c(1, 7),
+                     breaks = seq(1, 7, 1)) +  
+  ylab("Influence of reputational concerns") +
+  labs(title = "Reputational concerns")
+ggsave("../git_latex/graphs/ReputationalConcerns.pdf", width=20, height=15, units="cm")
+```
+
+
+## Figure B1
+
+Beliefs about the percentage of dishonest reports as a function of the
+economic costs of honesty.
+
+```{R}
+tt_stud_reshaped$treatment1 <- factor(tt_stud_reshaped$treatment, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+options(repr.plot.width  = 8,
+        repr.plot.height = 6)
+ggplot(tt_stud_reshaped %>%
+         filter(question=="belief") %>%
+         mutate(cost = as.numeric(cost) * (-1) + 5) %>%                  
+         group_by(cost, treatment1) %>%
+         summarise(belief=100 - mean(choice)),
+       aes(x=cost, y=belief, group=treatment1)) + 
+  geom_line(aes(color=treatment1, linetype=treatment1), size=2) + 
+  geom_point() + 
+  labs(x="Economic cost of honesty",
+       y="Percentage of honest reports") + 
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom",
+        legend.key.width = unit(3, "line"),
+        legend.title = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_linetype_discrete(guide = 'legend', name="Treatment",
+                          labels = c(expression(FIN),
+                                     expression(NEU), 
+                                     expression(ABS))) + 
+  scale_color_manual(guide = 'legend', name="Treatment", values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) + 
+  ylim(0, 100) + 
+  labs(title = "STUD")  
+ggsave("../git_data/graphs/BeliefsPercLies_STUD.pdf", width=20, height=15, units="cm")
+```
+
+```{R}
+tt_before_reshaped$treatment1 <- factor(tt_before_reshaped$treatment, levels = c('sh_sev_fin', 'sh_ha_fin', 'su_ha_neu',
+                                                                         'su_sev_fin', 'su_ha_abs', 'su_ha_fin'))
+tt_pf_reshaped$treatment1 <- factor(tt_pf_reshaped$treatment, levels = c('sh_sev_fin', 'sh_ha_fin', 'su_ha_neu',
+                                                                         'su_sev_fin', 'su_ha_abs', 'su_ha_fin'))
+options(repr.plot.width  = 8,
+        repr.plot.height = 6)
+ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
+         filter(question=="belief",
+                treatment=="su_ha_neu"|treatment=="su_ha_abs"|treatment=="sh_sev_fin") %>%
+         mutate(cost = as.numeric(cost) * (-1) + 5) %>%                  
+         group_by(cost, context) %>%
+         summarise(belief=100 - mean(choice)),
+       aes(x=cost, y=belief, group=context)) + 
+  geom_line(aes(color=context, linetype=context), size=2) + 
+  geom_point() + 
+  labs(x="Economic cost of honesty",
+       y="Percentage of honest reports") + 
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom",
+        legend.key.width = unit(3, "line"),
+        legend.title = element_blank(),
+        panel.grid.minor.x = element_blank()) + 
+  scale_linetype_discrete(guide = 'legend', name="Treatment",
+                          labels = c(expression(FIN),
+                                     expression(NEU),
+                                     expression(ABS))) + 
+  scale_color_manual(guide = 'legend', name="Treatment", values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) + 
+  ylim(0, 100) + 
+  labs(title = "PROF") 
+ggsave("../git_data/graphs/BeliefsPercLies_PROF.pdf", width=20, height=15, units="cm")
+```
+
+
+Correlation own lying behavior/beliefs
+
+```{r}
+cor.test(tt$lies, tt$beliefs)
+```
+
+
+## Figure 5
+
+Percentage of dishonest reports as a function of expectations by a separate
+groups of subjects
+
+```{r}
+normsbeliefs <- merge %>%
+  filter(prof1.tt == 1) %>% 
+  group_by(prof.norms, treatment1, cost) %>%
+  summarise(norm = mean(norm, na.rm=TRUE), 
+            normf = mean(norms_false, na.rm=TRUE), 
+            normt = mean(norms_true, na.rm=TRUE), 
+            choice = mean(choice, na.rm=TRUE), 
+            belief = mean(norms_belief, na.rm=TRUE), n())
+```
+
+```{r message=FALSE, warning=FALSE}
+normsbeliefs$treatment1 <- factor(normsbeliefs$treatment1, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+
+ggplot(normsbeliefs %>% filter(prof.norms==1), aes(x = 1 - belief, y = 1 - choice)) +
+  geom_smooth(method = lm, color="grey40") +  
+  geom_point(aes(color = treatment1, shape = treatment1), size = 4.2) +
+  labs(x="Expected percentage of honest reports \n in the norm-elicitation experiment",
+       y="Percentage of honest reports \n in the main experiment") +   
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom") +   
+  scale_color_manual(guide = "legend", name="", 
+                     values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) + 
+  scale_shape_manual(guide = "legend", name="",
+                     values = c(19, 17, 15),
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) +   
+  scale_y_continuous(limits = c(0, 1), breaks=seq(0, 1, 0.25)) + 
+  xlim(0, 1) + 
+  labs(title = bquote("PROF")) 
+ggsave("../git_data/graphs/BeliefsPercLiesExpIExpII_PROF.pdf", width=20, height=15, units="cm")
+```
+
+```{r}
+1 - normsbeliefs %>% filter(prof.norms==1) %>% .$belief %>% max(na.rm=TRUE)
+normsbeliefs %>% filter(prof.norms==1) %>% filter(1 - choice < 0.426875) %>% .$choice %>% length()
+```
+
+```{r}
+normsbeliefsstudprof <- merge %>%
+  filter(prof.norms==2) %>%
+  group_by(prof.norms, treatment1, cost) %>%
+  summarise(norm = mean(norm), choice = mean(choice), beliefstudprof = mean(norms_belief)) %>%
+  ungroup %>%
+  dplyr::select(-starts_with("prof")) %>% 
+  na.omit()
+
+normsbeliefs1 <- full_join(normsbeliefs,
+                           normsbeliefsstudprof,
+                           by = c("treatment1", "cost"),
+                           suffix = c(".norms", ".studprof")) %>%
+  na.omit()
+
+```
+
+```{r}
+normsbeliefs1$treatment1 <- factor(normsbeliefs1$treatment1, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
+
+ggplot(normsbeliefs1 %>% filter(prof.norms==1), aes(x = 1 - beliefstudprof, y = 1 - choice.norms)) +
+  geom_smooth(method = lm, color="grey40") +    
+  geom_point(aes(color = treatment1, shape = treatment1), size = 4.2) + 
+  labs(x="Expected percentage of honest reports \n in the norm-elicitation experiment",
+       y="Percentage of honest reports \n in the main experiment") +   
+  theme_bw() +  
+  theme(text = element_text(size = 20)) +   
+  theme(legend.position="bottom") +   
+  scale_color_manual(guide = "legend", name="", 
+                     values=viridis(n = 6)[c(1, 3, 5)],
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) + 
+  scale_shape_manual(guide = "legend", name="",
+                     values = c(19, 17, 15),
+                     labels = c(expression(FIN), 
+                                expression(NEU), 
+                                expression(ABS))) +   
+  scale_y_continuous(limits = c(0, 1), breaks=seq(0, 1, 0.25)) + 
+  xlim(0, 1) + 
+  labs(title = bquote("STUD"^"PROF"))
+ggsave("../git_data/graphs/BeliefsPercLiesExpIExpII_STUDPROF.pdf", width=20, height=15, units="cm")
+```
+
+
+## Table B8
+
+Decision-situation-level ordinary least squares estimation of the percentage
+of dishonest reports
+
+```{r warning=FALSE}
+regbeliefsexpIexpII_stud <- lm(choice ~ belief, data = normsbeliefs %>% filter(prof.norms==0))
+regbeliefsexpIexpII_prof <- lm(choice ~ belief, data = normsbeliefs %>% filter(prof.norms==1))
+regbeliefsexpIexpII_studprof <- lm(choice.norms ~ beliefstudprof, data = normsbeliefs1 %>% filter(prof.norms==1))
+
+stargazer(regbeliefsexpIexpII_prof, regbeliefsexpIexpII_studprof, regbeliefsexpIexpII_stud, type = "text", digits=3)
+```
+
+```{r}
+linearHypothesis(regbeliefsexpIexpII_prof, "belief = 1")
+```
+
+
+## Subject-group differences in social norms
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: STUD vs. PROF for ABSTRACT
+wilcox.test(norms_false ~ prof, data = norms %>% filter(prof!=2, context=="abstract"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: STUD vs. PROF for NEUTRAL
+wilcox.test(norms_false ~ prof, data = norms %>% filter(prof!=2, context=="neutral"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: STUD vs. PROF for FINANCIAL
+wilcox.test(norms_false ~ prof, data = norms %>% filter(prof!=2, context=="financial"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: neutral vs. financial
+wilcox.test(norms_true ~ prof, data = norms %>% filter(prof!=2, context=="abstract"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. financial
+wilcox.test(norms_true ~ prof, data = norms %>% filter(prof!=2, context=="neutral"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. neutral
+wilcox.test(norms_true ~ prof, data = norms %>% filter(prof!=2, context=="financial"))
+```
+
+```{r warning=FALSE}
+# Kruskal-Wallis test:
+kruskal.test(norms_true ~ prof, data = norms)
+```
+
+
+## Treatment differences in social norms
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. neutral
+wilcox.test(norms_false ~ context, data = norms %>% filter(prof==1, context!="financial"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: abstract vs. financial
+wilcox.test(norms_false ~ context, data = norms %>% filter(prof==1, context!="neutral"))
+```
+
+```{r warning=FALSE}
+# Wilcoxon rank sum test: neutral vs. financial
+wilcox.test(norms_false ~ context, data = norms %>% filter(prof==1, context!="abstract"))
+```
+
+
+## Variation across economic costs of honesty
+
+Correlation between economic costs of honesty and social appropriateness of an _honest_ report:
+
+```{r}
+cor.test(reshaped_norms$cost, reshaped_norms$norms_true)
+```
+
+Correlation between economic costs of honesty and social appropriateness of a _dishonest_ report:
+
+```{r}
+cor.test(reshaped_norms$cost, reshaped_norms$norms_false)
+```
+
+
+## Figure 4
+
+```{R}
+gathered <- norms %>%
+  gather(key = "truefalse", value = "norms", c(norms_true, norms_false))
+gathered$context1 <- factor(gathered$context, levels = c('abstract', 'neutral', 'financial'))
+```
+
+```{r}
+gathered$treatment1 <- factor(gathered$context, 
+                              levels = c('financial', 'neutral', 'abstract'),
+                              labels = c(expression(FIN[SEV]^MANY),
+                                         expression(NEU[HA]^ONE),
+                                         expression(ABS[HA]^ONE)))
+
+ggplot(data = gathered %>%
+         ungroup %>%
+         mutate(prof1 = ifelse(prof==2, 0.5, prof),
+                prof1 = factor(prof1,
+                               levels = c(0, 0.5, 1),
+                               labels = c("STUD", 
+                                          bquote("STUD"^"PROF"), 
+                                          "PROF"))) %>%
+         filter(truefalse == "norms_false") %>% 
+         group_by(prof1, treatment1) %>%
+         summarise(normsmax = CI(norms)[1],
+                   normsmin = CI(norms)[3],
+                   norms = mean(norms)),
+       aes(x = factor(treatment1), y = norms,
+           ymin = normsmin, ymax = normsmax,
+           color=factor(treatment1), shape=factor(treatment1))) +
+  geom_errorbar(width=.2, lwd = 1) +   
+  geom_point(lwd = 2.7) + 
+  facet_wrap( ~ prof1, labeller = label_parsed) + 
+  geom_hline(yintercept = 0) + 
+  labs(x="",
+       y="Social approriateness \n of a dishonest report") +   
+  theme_bw() + 
+  theme(text = element_text(size = 16)) +     
+  theme(legend.position="bottom") +
+  theme(axis.text.x=element_blank()) + 
+  theme(panel.spacing = unit(0, "lines")) + 
+  scale_x_discrete(breaks = NULL) + 
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 6), limits = c(-1, 0.18)) + 
+  scale_color_manual(guide="legend",
+                     name="",
+                     values=viridis(n = 6)[c(1,3,5)],
+                     labels = c(expression(FIN),
+                                         expression(NEU),
+                                         expression(ABS))) + 
+  scale_shape_discrete(guide="legend",
+                       name="",
+                       labels = c(expression(FIN),
+                                         expression(NEU),
+                                         expression(ABS)))
+ggsave("../git_latex/graphs/Norms_lineplot.pdf", width=25, height=15, units="cm")
+```
+
+
+# Variable descriptions
+
+ Variable           |   Description
+ --------           |   ---------------------------------------------------------------------------------
+ `subject`          |   Subject ID
+ `payoff`           |   Payout from the experiment
+ `session`          |   Experimental session ID
+ `context`          |   Treatment (context, framed instructions): `abstract`, `neutral`, or `financial`
+ `order`            |   Ascending or decreasing order of decisions (randomly drawn for each subject)
+ `choice1`          |   Choice in decision 1: `0` (honest report) or `1` (dishonest report)
+ `choice2`          |   Choice in decision 2: `0` (honest report) or `1` (dishonest report)
+ `choice3`          |   Choice in decision 3: `0` (honest report) or `1` (dishonest report)
+ `choice4`          |   Choice in decision 4: `0` (honest report) or `1` (dishonest report)
+ `choice5`          |   Choice in decision 5: `0` (honest report) or `1` (dishonest report) 
+ `belief1`          |   Expected percentage of dishonest reports in decision 1
+ `belief2`          |   Expected percentage of dishonest reports in decision 2
+ `belief3`          |   Expected percentage of dishonest reports in decision 3
+ `belief4`          |   Expected percentage of dishonest reports in decision 4
+ `belief5`          |   Expected percentage of dishonest reports in decision 5 
+ `risk`             |   Risk preferences elicited with the general risk question, `1` (...) to `7` (...)
+ `pref1_1`          |   Patience (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
+ `pref1_2`          |   Negative Reciprocity 1 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
+ `pref1_3`          |   Negative Reciprocity 2 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
+ `pref1_4`          |   Altruism (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
+ `pref2_1`          |   Positive Reciprocity (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
+ `pref2_2`          |   Negative Reciprocity 3 (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
+ `pref2_3`          |   Trust (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
+ `age`              |   Age
+ `female`           |   Gender: `0` (male) or `1` (female)
+ `education`        |   Education: `0` (Compulsory school), `1` (Apprenticeship), `2` (Technical college), `3` (High school), `4` (University), or `-1` (Prefer not to say)
+ `job`              |   Job (only PROF): `0` (Portfolio Manager), `1` (Research Analyst), `2` (Consultant), `3` (Financial Advisor), `4` (Chief-Level Executive), `5` (Trader), `6` (Fund Manager), `7` (Investment Managent), or `8` (Other)
+ `investment`       |   Investment in financial products in the last 5 years: yes (`1`) or no (`0`)
+ `whichinvestment`  |   If `investment = 1`, which financial product
+ `finnews`          |   Check financial news: `4` (Daily), `3` (Several times a week), `2` (Once a week), `1` (Less than once a week), or `0` (Never)
+ `tt`               |   Truth-telling task (`1`) or norm-elicitation task (`0`)
+ `word1`            |   Answer to word scarambling 1
+ `word2`            |   Answer to word scarambling 2
+ `word3`            |   Answer to word scarambling 3
+ `word4`            |   Answer to word scarambling 4
+ `word5`            |   Answer to word scarambling 5
+ `word6`            |   Answer to word scarambling 6
+ `word1f`           |   Financial word in word scrambing 1: yes (`1`) or no (`0`)
+ `word3f`           |   Financial word in word scrambing 3: yes (`1`) or no (`0`)
+ `word4f`           |   Financial word in word scrambing 4: yes (`1`) or no (`0`)
+ `word6f`           |   Financial word in word scrambing 6: yes (`1`) or no (`0`)
+ `wordsf`           |   Sum of financial words in word scramblings 1, 3, 4, and 6
+ `lies`             |   Number of dishonest reports in decisions 1 through 5
+ `beliefs`          |   Expected number of dishonest reports in decisions 1 through 5
+ `prof`             |   Subject group: `0` (STUD), `1` (PROF), or `2` (STUDPROF)
+ `norms_true1`      |   Social appropriateness assessment of an honest report in decision 1
+ `norms_false1`     |   Social appropriateness assessment of a dishonest report in decision 1
+ `norms_true2`      |   Social appropriateness assessment of an honest report in decision 2
+ `norms_false2`     |   Social appropriateness assessment of a dishonest report in decision 2
+ `norms_true3`      |   Social appropriateness assessment of an honest report in decision 3
+ `norms_false3`     |   Social appropriateness assessment of a dishonest report in decision 3
+ `norms_true4`      |   Social appropriateness assessment of an honest report in decision 4
+ `norms_false5`     |   Social appropriateness assessment of a dishonest report in decision 4
+ `norms_true5`      |   Social appropriateness assessment of an honest report in decision 5
+ `norms_false5`     |   Social appropriateness assessment of a dishonest report in decision 5
+ `norms_true`       |   Average social appropriateness assessment of an honest report
+ `norms_false`      |   Average social appropriateness assessment of a dishonest report
+ 
+ 
+ 
