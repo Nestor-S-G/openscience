@@ -272,7 +272,7 @@ Error en t.test.formula(betting_rate_bc ~ uncertainty, data = data_6, :
   cannot use 'paired' in formula method
 ```
 
-So I modify:
+So I modify line 298:
 
 ``` r
 t_test_6 <- t.test(betting_rate_bc ~ uncertainty, data = data_6,
