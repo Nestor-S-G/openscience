@@ -12,21 +12,23 @@ output:
     toc: yes
     toc_depth: 2
     toc_float: yes
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
- 
-
 # Intro
 
-This file contains R-code to replicate all analyses, tables, and figures in '_Bad bankers no more? Truth-telling and (dis)honesty in the finance industry_'.
+This file contains R-code to replicate all analyses, tables, and figures
+in '*Bad bankers no more? Truth-telling and (dis)honesty in the finance
+industry*'.
 
-The experiments were run between November 2018 and January 2020 with oTree by Chen et al. (2016).
-All analyses were conducted in R.
+The experiments were run between November 2018 and January 2020 with
+oTree by Chen et al. (2016). All analyses were conducted in R.
 
 Required R-packages:
 
@@ -42,10 +44,13 @@ library(lfe)
 library(viridis)
 library(car)
 library(Rmisc)
+library(MASS, exclude = "select")
 ```
 
-First, we import, tidy, reshape, and merge the raw data files from the experiment (see below).  
-__To skip this step__, load the following `.RData`-files and go to section _Analysis_:
+First, we import, tidy, reshape, and merge the raw data files from the
+experiment (see below).\
+**To skip this step**, load the following `.RData`-files and go to
+section *Analysis*:
 
 ```{r}
 load("_norms_before.RData")
@@ -61,12 +66,13 @@ load("_reshaped_norms.RData")
 load("_merge.RData")
 ```
 
-
-# Data preparation 
+# Data preparation
 
 ## Import and tidy data
 
-The following commands import the raw experiment output from folder `_raw` as an `.xlsx`-file into R, converts it into a tibble, and tidies and organises all relevant variables.  
+The following commands import the raw experiment output from folder
+`_raw` as an `.xlsx`-file into R, converts it into a tibble, and tidies
+and organises all relevant variables.
 
 ### Import and tidy data from STUD
 
@@ -264,7 +270,6 @@ save(tt_stud, file="_tt_stud.RData")
 save(norms_stud, file="_norms_stud.RData")
 ```
 
-
 ### Import and tidy data from PROF (before.world)
 
 ```{R}
@@ -458,7 +463,6 @@ save(tt_before, file="_tt_before.RData")
 save(norms_before, file="_norms_before.RData")
 ```
 
-
 ### Import and tidy data from STUDPROF.
 
 ```{R}
@@ -567,7 +571,6 @@ norms_studprof <- norms_studprof %>%
 save(norms_studprof, file="_norms_studprof.RData")
 ```
 
-
 ### Import and tidy data from PROLIFIC
 
 ```{R}
@@ -672,7 +675,6 @@ tt_pf <- tt_pf %>%
 
 save(tt_pf, file="_tt_pf.RData")
 ```
-
 
 ## Reshape and merge
 
@@ -793,10 +795,10 @@ save(tt, file = "_tt.RData")
 save(norms, file = "_norms.RData")
 ```
 
-
 ### Reshape pooled tt and norms
 
 TT
+
 ```{R}
 reshaped <- tt %>%
   gather(cost, choice, choice1:choice5, belief1:belief5)
@@ -812,6 +814,7 @@ save(reshaped, file = "_reshaped.RData")
 ```
 
 Norms
+
 ```{R}
 reshaped_norms <- norms %>%
   select(-norms_false, -norms_true) %>%
@@ -827,7 +830,6 @@ reshaped_norms$cost <- as.numeric(reshaped_norms$cost) * (-1) + 5
 
 save(reshaped_norms, file = "_reshaped_norms.RData")
 ```
-
 
 ### Merge
 
@@ -865,13 +867,12 @@ merge <- merge %>% mutate(norm = ifelse(choice==0, norms_true, norms_false))
 save(merge, file = "_merge.RData")
 ```
 
-
-
 # Analysis
 
 ## Table 2
 
-Proportion  of  dishonest  reports  for  financial  professionals  and  students across treatments
+Proportion of dishonest reports for financial professionals and students
+across treatments
 
 ```{r}
 tt %>% 
@@ -887,8 +888,8 @@ tt %>%
 
 ```
 
-
-Fisher's exact tests for differences between treatments and subject pools in Table 2
+Fisher's exact tests for differences between treatments and subject
+pools in Table 2
 
 ```{r}
 
@@ -1108,8 +1109,8 @@ fisher.test(t(tt %>%
 
 ```
 
-
-Wilcoxon rank sum tests for differences between treatments and subject pools in Table 2
+Wilcoxon rank sum tests for differences between treatments and subject
+pools in Table 2
 
 ```{r}
 
@@ -1228,7 +1229,6 @@ wilcox.test(lies ~ prof1,
 
 ```
 
-
 Treatment differences in STUD
 
 ```{r warning=FALSE}
@@ -1258,7 +1258,6 @@ fisher.test(t(test))
 
 ```
 
-
 Treatment differences in STUD
 
 ```{r warning=FALSE}
@@ -1274,7 +1273,6 @@ wilcox.test(lies ~ context, data = tt_stud %>% filter(context != "abstract"))
 # Kruskal-Wallis test
 kruskal.test(lies ~ as.factor(treatment), data = tt_stud)
 ```
-
 
 Treatment differences in PROF
 
@@ -1295,7 +1293,6 @@ wilcox.test(lies ~ treatment, data = tt %>%
                      treatment == "sh_sev_fin" | treatment == "su_ha_neu"))
 ```
 
-
 ## Table B1
 
 Proportion of dishonest reports per subject pool across treatments
@@ -1315,8 +1312,8 @@ tt %>%
 
 ```
 
-
-Wilcoxon rank sum tests for differences between subject pools in Table B1
+Wilcoxon rank sum tests for differences between subject pools in Table
+B1
 
 ```{r}
 wilcox.test(lies ~ prof,
@@ -1341,7 +1338,6 @@ wilcox.test(lies ~ prof,
             data = tt %>% filter(treatment == "su_ha_neu", prof != 1))
 
 ```
-
 
 ## Table B9
 
@@ -1559,11 +1555,10 @@ norms %>%
 
 ```
 
-
-
 ## Figure 1
 
-Percentage of dishonest reports as a function of the economic costs of honesty for financial professionals and students.
+Percentage of dishonest reports as a function of the economic costs of
+honesty for financial professionals and students.
 
 ```{R}
 tt_stud_reshaped$treatment1 <- factor(tt_stud_reshaped$treatment, levels = c('sh_sev_fin', 'su_ha_neu', 'su_ha_abs'))
@@ -1653,7 +1648,6 @@ ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
 ggsave("../git_data/graphs/PercLies_PROF3treat.pdf", width=20, height=15, units="cm")
 ```
 
-
 ## Figure 2
 
 ```{r}
@@ -1715,11 +1709,10 @@ ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
 ggsave("../git_data/graphs/PercLies_PROF6treat.pdf", width=20, height=15, units="cm")
 ```
 
-
 ## Table B4
 
-Linear estimation of the probability of an honest report for financial pro-
-fessionals and students
+Linear estimation of the probability of an honest report for financial
+pro- fessionals and students
 
 ```{R message=FALSE, warning=FALSE}
 reshaped$treatment1 <- factor(reshaped$treatment, levels = c('su_ha_abs', 'su_ha_neu', 'sh_sev_fin',
@@ -1770,11 +1763,10 @@ linearHypothesis(reg4cl, "treatment1su_ha_neu + treatment1su_ha_neu:prof1 = trea
 
 ```
 
-
 ## Table B6
 
-Linear estimation of the probability of an honest report for financial profes-
-sionals across different treatments.
+Linear estimation of the probability of an honest report for financial
+profes- sionals across different treatments.
 
 ```{r}
 reshaped$choice1 <- 1 - reshaped$choice
@@ -1789,10 +1781,10 @@ stargazer(reg5cl, reg7cl, digits=3, align=FALSE, type="text",
          dep.var.caption = "Dependent variable: Honest report")
 ```
 
-
 ## Table 4
 
-Linear estimation of the proportion of honest reports for financial professionals across different treatments.
+Linear estimation of the proportion of honest reports for financial
+professionals across different treatments.
 
 ```{r}
 tt$treatment1 <- factor(tt$treatment, levels = c('su_ha_abs', 'su_ha_neu', 'sh_sev_fin',
@@ -1809,8 +1801,6 @@ regsub7cl <- felm(truths ~ treatment1 + female + risk + age + investment +
 stargazer(regsub5cl, regsub7cl, digits=3, align=FALSE, type="text",
          dep.var.caption = "Dependent variable: Proportion of honest reports")
 ```
-
-
 
 ## Table B2
 
@@ -1916,10 +1906,10 @@ stargazer(regsub1clPF, regsub2clPF, regsub3clPF, regsub4clPF, digits=3, align=FA
          dep.var.caption = "Dependent variable: Proportion of honest reports")
 ```
 
-
 ## Table B3
 
-Ordered logit regression on the proportion of honest reports for financial professionals and students.
+Ordered logit regression on the proportion of honest reports for
+financial professionals and students.
 
 ```{r}
 
@@ -1948,10 +1938,10 @@ stargazer(reg2ologit, reg3ologit, reg4ologit, type="text",
 
 ```
 
-
 ## Table B5
 
-Logistic regression on the probability of an honest report for financial professionals and students.
+Logistic regression on the probability of an honest report for financial
+professionals and students.
 
 ```{r}
 
@@ -2013,10 +2003,10 @@ stargazer(logit2cl, logit3cl, logit4cl,
           dep.var.caption = "Dependent variable: Prob(Dishonest report)")
 ```
 
-
 ## Table B7
 
-Logistic regression on the probability of an honest report for financial professionals across different treatments.
+Logistic regression on the probability of an honest report for financial
+professionals across different treatments.
 
 ```{r}
 
@@ -2061,10 +2051,10 @@ stargazer(logit5cl, logit7cl,
           dep.var.caption = "Dependent variable: Prob(Honest report)")
 ```
 
-
 ## Figure 3
 
-Perceived severity of a lie's consequences and the influence of reputational concerns on dishonest behavior.
+Perceived severity of a lie's consequences and the influence of
+reputational concerns on dishonest behavior.
 
 ```{r}
 tt_pf$treatment1 <- factor(tt_pf$treatment,
@@ -2154,7 +2144,6 @@ tt_pf %>%
 ggsave("../git_latex/graphs/ReputationalConcerns.pdf", width=20, height=15, units="cm")
 ```
 
-
 ## Figure B1
 
 Beliefs about the percentage of dishonest reports as a function of the
@@ -2230,18 +2219,16 @@ ggplot(rbind(tt_before_reshaped, tt_pf_reshaped) %>%
 ggsave("../git_data/graphs/BeliefsPercLies_PROF.pdf", width=20, height=15, units="cm")
 ```
 
-
 Correlation own lying behavior/beliefs
 
 ```{r}
 cor.test(tt$lies, tt$beliefs)
 ```
 
-
 ## Figure 5
 
-Percentage of dishonest reports as a function of expectations by a separate
-groups of subjects
+Percentage of dishonest reports as a function of expectations by a
+separate groups of subjects
 
 ```{r}
 normsbeliefs <- merge %>%
@@ -2330,11 +2317,10 @@ ggplot(normsbeliefs1 %>% filter(prof.norms==1), aes(x = 1 - beliefstudprof, y = 
 ggsave("../git_data/graphs/BeliefsPercLiesExpIExpII_STUDPROF.pdf", width=20, height=15, units="cm")
 ```
 
-
 ## Table B8
 
-Decision-situation-level ordinary least squares estimation of the percentage
-of dishonest reports
+Decision-situation-level ordinary least squares estimation of the
+percentage of dishonest reports
 
 ```{r warning=FALSE}
 regbeliefsexpIexpII_stud <- lm(choice ~ belief, data = normsbeliefs %>% filter(prof.norms==0))
@@ -2347,7 +2333,6 @@ stargazer(regbeliefsexpIexpII_prof, regbeliefsexpIexpII_studprof, regbeliefsexpI
 ```{r}
 linearHypothesis(regbeliefsexpIexpII_prof, "belief = 1")
 ```
-
 
 ## Subject-group differences in social norms
 
@@ -2386,7 +2371,6 @@ wilcox.test(norms_true ~ prof, data = norms %>% filter(prof!=2, context=="financ
 kruskal.test(norms_true ~ prof, data = norms)
 ```
 
-
 ## Treatment differences in social norms
 
 ```{r warning=FALSE}
@@ -2404,21 +2388,21 @@ wilcox.test(norms_false ~ context, data = norms %>% filter(prof==1, context!="ne
 wilcox.test(norms_false ~ context, data = norms %>% filter(prof==1, context!="abstract"))
 ```
 
-
 ## Variation across economic costs of honesty
 
-Correlation between economic costs of honesty and social appropriateness of an _honest_ report:
+Correlation between economic costs of honesty and social appropriateness
+of an *honest* report:
 
 ```{r}
 cor.test(reshaped_norms$cost, reshaped_norms$norms_true)
 ```
 
-Correlation between economic costs of honesty and social appropriateness of a _dishonest_ report:
+Correlation between economic costs of honesty and social appropriateness
+of a *dishonest* report:
 
 ```{r}
 cor.test(reshaped_norms$cost, reshaped_norms$norms_false)
 ```
-
 
 ## Figure 4
 
@@ -2478,68 +2462,64 @@ ggplot(data = gathered %>%
 ggsave("../git_latex/graphs/Norms_lineplot.pdf", width=25, height=15, units="cm")
 ```
 
-
 # Variable descriptions
 
- Variable           |   Description
- --------           |   ---------------------------------------------------------------------------------
- `subject`          |   Subject ID
- `payoff`           |   Payout from the experiment
- `session`          |   Experimental session ID
- `context`          |   Treatment (context, framed instructions): `abstract`, `neutral`, or `financial`
- `order`            |   Ascending or decreasing order of decisions (randomly drawn for each subject)
- `choice1`          |   Choice in decision 1: `0` (honest report) or `1` (dishonest report)
- `choice2`          |   Choice in decision 2: `0` (honest report) or `1` (dishonest report)
- `choice3`          |   Choice in decision 3: `0` (honest report) or `1` (dishonest report)
- `choice4`          |   Choice in decision 4: `0` (honest report) or `1` (dishonest report)
- `choice5`          |   Choice in decision 5: `0` (honest report) or `1` (dishonest report) 
- `belief1`          |   Expected percentage of dishonest reports in decision 1
- `belief2`          |   Expected percentage of dishonest reports in decision 2
- `belief3`          |   Expected percentage of dishonest reports in decision 3
- `belief4`          |   Expected percentage of dishonest reports in decision 4
- `belief5`          |   Expected percentage of dishonest reports in decision 5 
- `risk`             |   Risk preferences elicited with the general risk question, `1` (...) to `7` (...)
- `pref1_1`          |   Patience (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
- `pref1_2`          |   Negative Reciprocity 1 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
- `pref1_3`          |   Negative Reciprocity 2 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
- `pref1_4`          |   Altruism (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so)
- `pref2_1`          |   Positive Reciprocity (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
- `pref2_2`          |   Negative Reciprocity 3 (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
- `pref2_3`          |   Trust (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly)
- `age`              |   Age
- `female`           |   Gender: `0` (male) or `1` (female)
- `education`        |   Education: `0` (Compulsory school), `1` (Apprenticeship), `2` (Technical college), `3` (High school), `4` (University), or `-1` (Prefer not to say)
- `job`              |   Job (only PROF): `0` (Portfolio Manager), `1` (Research Analyst), `2` (Consultant), `3` (Financial Advisor), `4` (Chief-Level Executive), `5` (Trader), `6` (Fund Manager), `7` (Investment Managent), or `8` (Other)
- `investment`       |   Investment in financial products in the last 5 years: yes (`1`) or no (`0`)
- `whichinvestment`  |   If `investment = 1`, which financial product
- `finnews`          |   Check financial news: `4` (Daily), `3` (Several times a week), `2` (Once a week), `1` (Less than once a week), or `0` (Never)
- `tt`               |   Truth-telling task (`1`) or norm-elicitation task (`0`)
- `word1`            |   Answer to word scarambling 1
- `word2`            |   Answer to word scarambling 2
- `word3`            |   Answer to word scarambling 3
- `word4`            |   Answer to word scarambling 4
- `word5`            |   Answer to word scarambling 5
- `word6`            |   Answer to word scarambling 6
- `word1f`           |   Financial word in word scrambing 1: yes (`1`) or no (`0`)
- `word3f`           |   Financial word in word scrambing 3: yes (`1`) or no (`0`)
- `word4f`           |   Financial word in word scrambing 4: yes (`1`) or no (`0`)
- `word6f`           |   Financial word in word scrambing 6: yes (`1`) or no (`0`)
- `wordsf`           |   Sum of financial words in word scramblings 1, 3, 4, and 6
- `lies`             |   Number of dishonest reports in decisions 1 through 5
- `beliefs`          |   Expected number of dishonest reports in decisions 1 through 5
- `prof`             |   Subject group: `0` (STUD), `1` (PROF), or `2` (STUDPROF)
- `norms_true1`      |   Social appropriateness assessment of an honest report in decision 1
- `norms_false1`     |   Social appropriateness assessment of a dishonest report in decision 1
- `norms_true2`      |   Social appropriateness assessment of an honest report in decision 2
- `norms_false2`     |   Social appropriateness assessment of a dishonest report in decision 2
- `norms_true3`      |   Social appropriateness assessment of an honest report in decision 3
- `norms_false3`     |   Social appropriateness assessment of a dishonest report in decision 3
- `norms_true4`      |   Social appropriateness assessment of an honest report in decision 4
- `norms_false5`     |   Social appropriateness assessment of a dishonest report in decision 4
- `norms_true5`      |   Social appropriateness assessment of an honest report in decision 5
- `norms_false5`     |   Social appropriateness assessment of a dishonest report in decision 5
- `norms_true`       |   Average social appropriateness assessment of an honest report
- `norms_false`      |   Average social appropriateness assessment of a dishonest report
- 
- 
- 
+| Variable | Description |
+|-------------|-----------------------------------------------------------|
+| `subject` | Subject ID |
+| `payoff` | Payout from the experiment |
+| `session` | Experimental session ID |
+| `context` | Treatment (context, framed instructions): `abstract`, `neutral`, or `financial` |
+| `order` | Ascending or decreasing order of decisions (randomly drawn for each subject) |
+| `choice1` | Choice in decision 1: `0` (honest report) or `1` (dishonest report) |
+| `choice2` | Choice in decision 2: `0` (honest report) or `1` (dishonest report) |
+| `choice3` | Choice in decision 3: `0` (honest report) or `1` (dishonest report) |
+| `choice4` | Choice in decision 4: `0` (honest report) or `1` (dishonest report) |
+| `choice5` | Choice in decision 5: `0` (honest report) or `1` (dishonest report) |
+| `belief1` | Expected percentage of dishonest reports in decision 1 |
+| `belief2` | Expected percentage of dishonest reports in decision 2 |
+| `belief3` | Expected percentage of dishonest reports in decision 3 |
+| `belief4` | Expected percentage of dishonest reports in decision 4 |
+| `belief5` | Expected percentage of dishonest reports in decision 5 |
+| `risk` | Risk preferences elicited with the general risk question, `1` (...) to `7` (...) |
+| `pref1_1` | Patience (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so) |
+| `pref1_2` | Negative Reciprocity 1 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so) |
+| `pref1_3` | Negative Reciprocity 2 (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so) |
+| `pref1_4` | Altruism (Falk et al., 2018): `1` (completely unwilling to do so) to `7` (very willing to do so) |
+| `pref2_1` | Positive Reciprocity (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly) |
+| `pref2_2` | Negative Reciprocity 3 (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly) |
+| `pref2_3` | Trust (Falk et al., 2018): `1` (does not describe me at all) to `7` (describes me perfectly) |
+| `age` | Age |
+| `female` | Gender: `0` (male) or `1` (female) |
+| `education` | Education: `0` (Compulsory school), `1` (Apprenticeship), `2` (Technical college), `3` (High school), `4` (University), or `-1` (Prefer not to say) |
+| `job` | Job (only PROF): `0` (Portfolio Manager), `1` (Research Analyst), `2` (Consultant), `3` (Financial Advisor), `4` (Chief-Level Executive), `5` (Trader), `6` (Fund Manager), `7` (Investment Managent), or `8` (Other) |
+| `investment` | Investment in financial products in the last 5 years: yes (`1`) or no (`0`) |
+| `whichinvestment` | If `investment = 1`, which financial product |
+| `finnews` | Check financial news: `4` (Daily), `3` (Several times a week), `2` (Once a week), `1` (Less than once a week), or `0` (Never) |
+| `tt` | Truth-telling task (`1`) or norm-elicitation task (`0`) |
+| `word1` | Answer to word scarambling 1 |
+| `word2` | Answer to word scarambling 2 |
+| `word3` | Answer to word scarambling 3 |
+| `word4` | Answer to word scarambling 4 |
+| `word5` | Answer to word scarambling 5 |
+| `word6` | Answer to word scarambling 6 |
+| `word1f` | Financial word in word scrambing 1: yes (`1`) or no (`0`) |
+| `word3f` | Financial word in word scrambing 3: yes (`1`) or no (`0`) |
+| `word4f` | Financial word in word scrambing 4: yes (`1`) or no (`0`) |
+| `word6f` | Financial word in word scrambing 6: yes (`1`) or no (`0`) |
+| `wordsf` | Sum of financial words in word scramblings 1, 3, 4, and 6 |
+| `lies` | Number of dishonest reports in decisions 1 through 5 |
+| `beliefs` | Expected number of dishonest reports in decisions 1 through 5 |
+| `prof` | Subject group: `0` (STUD), `1` (PROF), or `2` (STUDPROF) |
+| `norms_true1` | Social appropriateness assessment of an honest report in decision 1 |
+| `norms_false1` | Social appropriateness assessment of a dishonest report in decision 1 |
+| `norms_true2` | Social appropriateness assessment of an honest report in decision 2 |
+| `norms_false2` | Social appropriateness assessment of a dishonest report in decision 2 |
+| `norms_true3` | Social appropriateness assessment of an honest report in decision 3 |
+| `norms_false3` | Social appropriateness assessment of a dishonest report in decision 3 |
+| `norms_true4` | Social appropriateness assessment of an honest report in decision 4 |
+| `norms_false5` | Social appropriateness assessment of a dishonest report in decision 4 |
+| `norms_true5` | Social appropriateness assessment of an honest report in decision 5 |
+| `norms_false5` | Social appropriateness assessment of a dishonest report in decision 5 |
+| `norms_true` | Average social appropriateness assessment of an honest report |
+| `norms_false` | Average social appropriateness assessment of a dishonest report |
