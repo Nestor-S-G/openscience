@@ -263,7 +263,7 @@ I try rewriting the original code, substituting the problematic windows() functi
 
 18/04/26
 
-Since the first reproduction attempt, the original study and its materials ar no longer available, but a updated version, *Stubborn by Design: When past rewards keep agents betting on known losses*.
+Since the first reproduction attempt, the original study and its materials are no longer available, but a updated version, *Stubborn by Design: When past rewards keep agents betting on known losses*.
 
 I start substituting the windows() function for dev.new(). Then I get an error:
 
