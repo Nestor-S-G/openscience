@@ -295,8 +295,12 @@ sum(major_by_n_test$major >2)#Other
 
 
   # Run test
-  t_test_6 <- t.test(betting_rate_bc ~ uncertainty, data = data_6,
-                     alternative = 'less', paired = TRUE)
+  t_test_6 <- t.test(
+    x = data_6$betting_rate_bc[data_6$uncertainty == "High"],
+    y = data_6$betting_rate_bc[data_6$uncertainty == "Low"],
+    paired = TRUE,
+    alternative = 'less'
+  )
   print(t_test_6)
   print("effect size is:")
   print(cohensD(data_6$betting_rate_bc[data_6$uncertainty == 'High'], data_6$betting_rate_bc[data_6$uncertainty == 'Low'], method="paired"))
