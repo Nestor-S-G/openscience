@@ -37,7 +37,7 @@ The FAIR principles can be framed within a larger movement: Open Science, “*th
 
 **Scientific Rigor, Behavioral Finance, and Neuroeconomics**
 
-In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), lack of scientific rigor can have direct real-world consequences when such knowledge influences policy or individual decisions. Economics is an example of this and is not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel & Schwartz, 2022) regarding the superiority of investing in stocks over fixed income securities in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024).
+In addition to the problem that the foregoing poses for the advancement of science itself as a collective enterprise (Domínguez, 2017; Munafò et al., 2017), lack of scientific rigor can have direct real-world consequences when such knowledge influences policy or individual decisions. Economics is an example of this and is not an exception to the rule: Chang & Li (2015) could only replicate the key results of 22 out of the 59 ($\approx 37.3\%$) articles they studied; after publishing *Capital in the Twenty-First Century*, Thomas Piketty (2014) received criticism for “*evidence of pervasive errors of historical fact, opaque methodological choices, and the cherry-picking of sources to construct favorable patterns from ambiguous data*” (Magness & Murphy, 2015, p. 1) and mismeasurement (McCloskey, 2014); the results presented in *Stocks for the Long Run* (Siegel, 2014; Siegel & Schwartz, 2022) regarding the superiority of investing in stocks over fixed income securities in the long term seem to be based on incomplete data (McQuarrie, 2021, 2023); Duke University closed an investigation in 2024 into the work of Dan Ariely, concluding that he used “data that had been fabricated” in some of his studies, without finding “evidence that Ariely knowingly used false data” (Taylor, 2024).
 
 Taking into account that the Government Pension Fund of Norway manages around \$2.1 trillion (Norges Bank Investment Management, n.d.); 15.3% of Spaniards have part of their savings in a pension plan (Funds Society, 2024); Germany announced a reform to invest part of the money that guarantees its citizens' future pensions in the stock market (Conde-Batalla, 2024). If the managers of these amounts of money extract their knowledge from studies that do not meet the standards of the scientific method, the financial security of millions of future retirees could be compromised.
 
@@ -294,6 +294,8 @@ Mischkowski, D., Glöckner, A., & Lewisch, P. (2021). Information search, cohere
 
 Magness, P. & Murphy, R. P. (2015). Challenging the Empirical Contribution of Thomas Piketty's Capital in the 21st Century. *Journal of Private Enterprise, 15*(2).
 
+McCloskey, D. N. (2014) Measured, unmeasured, mismeasured, and unjustified pessimism: a review essay of Thomas Piketty’s Capital in the twenty-first century. *Erasmus Journal for Philosophy and Economics, 7*(2), 73-115. <https://doi.org/10.23941/ejpe.v7i2.170>
+
 McNutt, M. (2014). Reproducibility. *Science, 343*(6168), 229. <https://doi.org/10.1126/science.1250475>
 
 McQuarrie, E. F. (2021). Where Siegel Went Awry: Outdated Sources & Incomplete Data. *SSRN.* <https://doi.org/10.2139/ssrn.3805927>
@@ -357,7 +359,7 @@ Table A1 shows the reproducibility outcome for each of the 29 studies included i
 *Table A1. Reproducibility status by study.*
 
 | Study | Reproducibility Status |
-|------------------------------------|------------------------------------|
+|----|----|
 | Alem et al. (2023) | Non-evaluable |
 | Aydogan et al. (2024) | Non-evaluable |
 | Barrafrem et al. (2021) | Partially reproducible with modifications |
