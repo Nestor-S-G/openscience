@@ -150,14 +150,14 @@ The analysis of the field journal resulted in the following thematic categories:
 
 Coding:
 
-| Errors                           | Number of errors (n = 53) |
+| Errors                           | Number of errors (n = 58) |
 |----------------------------------|---------------------------|
 | Software incompatibility         | 2                         |
 | Issues related to files analyzed | 3                         |
-| Code-related problems            | 9                         |
+| Code-related problems            | 12                        |
 | Data not shared                  | 15                        |
-| Proprietary software dependency  | 9                         |
-| Lack of analysis documentation   | 15                        |
+| Proprietary software dependency  | 10                        |
+| Lack of analysis documentation   | 16                        |
 
 Results:
 
@@ -359,7 +359,7 @@ Table A1 shows the reproducibility outcome for each of the 29 studies included i
 *Table A1. Reproducibility status by study.*
 
 | Study | Reproducibility Status |
-|----|----|
+|------------------------------------|------------------------------------|
 | Alem et al. (2023) | Non-evaluable |
 | Aydogan et al. (2024) | Non-evaluable |
 | Barrafrem et al. (2021) | Partially reproducible with modifications |
