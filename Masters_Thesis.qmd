@@ -383,7 +383,7 @@ Table A1 shows the reproducibility outcome for each of the 29 studies included i
 | Pauls and Laudi (2025) | Non-reproducible |
 | Payzan-LeNestour and Doran (2024) | Non-reproducible |
 | Payzan-LeNestour and Woodford (2022) | Non-reproducible |
-| Payzan-LeNestour et al. (2026) | Partially reproducible with modifications |
+| Payzan-LeNestour et al. (2026) | Non-reproducible |
 | Snijder et al. (2024) | Reproducible |
 | Steinel et al. (2022) | Non-reproducible |
 | Tang (2021) | Non-reproducible |
