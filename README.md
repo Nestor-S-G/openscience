@@ -1,6 +1,6 @@
-# Open Science: Master's Thesis Repository
+#  Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review Repository
 
-This repository contains all the scripts, analysis files, and documentation related to my **Master's Thesis**. It serves as a resource for **reproducible science**, providing full transparency into the 
+This repository contains all the scripts, analysis files, and documentation related to **Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review**. It serves as a resource for **reproducible science**, providing full transparency into the 
 computational steps of the research.
 
 ## 🔬 Project Focus
@@ -12,7 +12,6 @@ economics and behavioral finance.
 
 The main files and directories available here include:
 
-* **`Masters_Thesis.pdf` / `TFM.pdf`**: The final written thesis document in English and Spanish, respectively.
-* **`.qmd` files**: Quarto markdown source files used to generate the thesis.
-* **`*.R` scripts**: R scripts for data processing and statistical analysis (e.g., `run_full_script.R`, `Outlier.R`).
-* **`img/`**: Directory containing figures and images used in the thesis document.
+* **`.qmd` files**: Quarto markdown source files used to generate the paper and field journal, respectively.
+* **`*.R` scripts**: R scripts for data processing and statistical analysis (e.g., `MasterScript.R`, `Outlier.R`).
+* **`img/`**: Directory containing figures and images used in the paper.
