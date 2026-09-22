@@ -150,14 +150,14 @@ The analysis of the field journal resulted in the following thematic categories:
 
 Coding:
 
-| Errors                           | Number of errors (n = 58) |
+| Errors                           | Number of errors (n = 55) |
 |----------------------------------|---------------------------|
 | Software incompatibility         | 2                         |
 | Issues related to files analyzed | 3                         |
-| Code-related problems            | 12                        |
+| Code-related problems            | 11                        |
 | Data not shared                  | 15                        |
-| Proprietary software dependency  | 10                        |
-| Lack of analysis documentation   | 16                        |
+| Proprietary software dependency  | 9                         |
+| Lack of analysis documentation   | 15                        |
 
 Results:
 
