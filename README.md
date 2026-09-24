@@ -1,4 +1,4 @@
-#  Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review Repository
+#  Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review
 
 This repository contains all the scripts, analysis files, and documentation related to **Computational reproducibility of articles in neuroeconomics, behavioral finance and related fields: A scoping review**. It serves as a resource for **reproducible science**, providing full transparency into the 
 computational steps of the research.
