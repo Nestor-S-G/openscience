@@ -39,7 +39,7 @@ run_script_project(
       }, ns = "effectsize")
     })
 
-    # Execute the paper's main reproducibility script
+    # Run the paper's main reproducibility script
     source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R", local = TRUE)
   }
 )
@@ -56,6 +56,10 @@ run_script_project(
 run_script_project(
   log_file = "huberBadBankersNo2020/huber2020_log.txt",
   expr = {
+    # Crear los directorios de salida para evitar el prompt interactivo de ggsave
+    dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
+    dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
+
     log_con <- file("huberBadBankersNo2020/huber2020_log.txt", open = "wt")
     sink(log_con, type = "output")
     sink(log_con, type = "message")
