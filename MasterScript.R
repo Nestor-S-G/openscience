@@ -54,10 +54,23 @@ run_script_project(
 
 # Huber and Huber (2020)
 run_script_project(
-  script_path = "R/run_huber_2020.R",
-  log_file = "huberBadBankersNo2020/Huber2020_log.txt"
-)
+  log_file = "huberBadBankersNo2020/huber2020_log.txt",
+  expr = {
+    log_con <- file("huberBadBankersNo2020/huber2020_log.txt", open = "wt")
+    sink(log_con, type = "output")
+    sink(log_con, type = "message")
 
+    rmarkdown::render(
+      input = "huberBadBankersNo2020/notebook.Rmd",
+      output_format = "html_document",
+      quiet = FALSE
+    )
+
+    sink(type = "message")
+    sink(type = "output")
+    close(log_con)
+  }
+)
 
 # Snijder et al. (2024)
 run_script_project(
