@@ -319,7 +319,16 @@ I get an error in Table B8:
 Error in if (is.na(s)) {: the condition has length > 1
 ```
 
-The rest of the code runs without errors. I proceed to compare the results I get with the results published. I find some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the reported ones.
+Then
+
+```{r}
+Error:
+  ! `tbl_df()` was deprecated in dplyr 1.0.0 and is now defunct.
+ℹ Please use `tibble::as_tibble()` instead.
+Run `rlang::last_trace()` to see where the error occurred.
+```
+
+So I substitute every tbl_df() with tibble::as_tibble(). Then the code runs without errors. I proceed to compare the results I get with the results published. I find some mismatches, such as results of 'Table 2' (according to the code) which are actually published under 'Table 1' in the paper or some differences due to rounding in Table B6. The only real mismatch is found in Table B2, where I am unable to make sense of my results compared to the reported ones.
 
 ***Card or dice? An improved experimental approach to measure dishonesty*****, by Hermann et al. (2025).**
 
