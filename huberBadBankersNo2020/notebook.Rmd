@@ -82,7 +82,7 @@ csv1 <- read.csv("_raw/data_students2fin/all_apps_wide_2020-01-17.csv")
 csv2 <- read.csv("_raw/data_students2neu/all_apps_wide_2020-01-17.csv")
 csv3 <- read.csv("_raw/data_students2abs/all_apps_wide_2020-01-17.csv")
 
-data <- tbl_df(csv)
+data <- tibble::as_tibble(csv)
 data <- data %>% rbind.fill(csv1, csv2, csv3)
 
 tt_stud <- data %>%
@@ -274,7 +274,7 @@ save(norms_stud, file="_norms_stud.RData")
 
 ```{R}
 csv <- read.csv("_raw/data_before/all_apps_wide_2019-02-27.csv")
-data <- tbl_df(csv)
+data <- tibble::as_tibble(csv)
 
 tt_before <- data %>%
   filter((session.code == "sl4o33w2") 
@@ -468,7 +468,7 @@ save(norms_before, file="_norms_before.RData")
 ```{R}
 csv <- read_xlsx("_raw/data_studprof/all_apps_wide_2019-04-15.xlsx") 
 
-data <- tbl_df(csv)
+data <- tibble::as_tibble(csv)
 
 norms_studprof <- data %>%
   filter((session.code == "7v1jo4vk")
@@ -578,7 +578,7 @@ csv <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-08.csv")
 csv1 <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-14.csv")
 csv2 <- read.csv("_raw/data_prolific/all_apps_wide_2020-01-17.csv")
 
-data <- rbind(csv, csv1, csv2) %>% tbl_df()
+data <- rbind(csv, csv1, csv2) %>% tibble::as_tibble()
 
 exp <- read.csv("_raw/data_prolific/prolific_export_5e1478086e8aaba68ddcfa31.csv") %>% 
   rename(participant.label = participant_id,
@@ -2465,7 +2465,7 @@ ggsave("../git_latex/graphs/Norms_lineplot.pdf", width=25, height=15, units="cm"
 # Variable descriptions
 
 | Variable | Description |
-|-------------|-----------------------------------------------------------|
+|----------------|--------------------------------------------------------|
 | `subject` | Subject ID |
 | `payoff` | Payout from the experiment |
 | `session` | Experimental session ID |
