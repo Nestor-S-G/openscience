@@ -46,8 +46,10 @@ run_script_project(
 
 # Payzan-LeNestour and Woodford (2022)
 run_script_project(
-  script_path = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R",
-  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt"
+  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
+  expr = {
+    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
+  }
 )
 
 # Huber and Huber (2020)
@@ -75,8 +77,10 @@ run_script_project(
 
 # Ekström et al. (2025)
 run_script_project(
-  script_path = "ekstromMakingPromiseIncreases2025/MakingAPromise.R",
-  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt"
+  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
+  expr = {
+    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
+  }
 )
 
 message("\n=== END SCRIPT ===\n")
