@@ -1,5 +1,13 @@
 # =============================================================================
 # MASTER SCRIPT
+#
+# This script orchestrates the automated reproducibility pipeline across multiple research projects.
+# Each paper is executed in an isolated process using `run_script_project()`, which captures console output and errors
+# into project-specific log files via `log_file` and executes code blocks through `expr`.
+#
+# Standard projects directly source their main `.R` scripts within `expr`.
+# Specific projects require custom setups: Huber and Huber (2020) uses `rmarkdown::render()` to process an `.Rmd` notebook into HTML
+# while explicitly managing output directory creation and `sink()` connections to ensure proper log generation.
 # =============================================================================
 
 gc()
@@ -56,9 +64,12 @@ run_script_project(
 run_script_project(
   log_file = "huberBadBankersNo2020/huber2020_log.txt",
   expr = {
-    # Crear los directorios de salida para evitar el prompt interactivo de ggsave
+    # Make output directories to avoid interactive prompt of ggsave
     dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
+
+    # Redirect console output and messages to capture the full RMarkdown build log,
+    # then reset streams after rendering to HTML.
 
     log_con <- file("huberBadBankersNo2020/huber2020_log.txt", open = "wt")
     sink(log_con, type = "output")
