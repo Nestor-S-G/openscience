@@ -1,3 +1,7 @@
+# Encapsulates execution in an isolated R session via xfun::Rscript_call(),
+# ensuring a clean environment set to the project root while redirecting
+# output and messages to a log file, with tryCatch() for error handling.
+
 library(xfun)
 
 run_script_project <- function(expr, log_file) {
