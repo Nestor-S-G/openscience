@@ -27,8 +27,10 @@ source("R/run_script_project.R")
 # PAPERS TO RUN
 # =============================================================================
 
+results <- list()
+
 # Payzan-LeNestour et al. (2026)
-run_script_project(
+results[["Payzan-LeNestour et al. (2026)"]] <- run_script_project(
   log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
   expr = {
     # Mock rstudioapi so scripts that rely on the active document path still work
@@ -53,7 +55,7 @@ run_script_project(
 )
 
 # Payzan-LeNestour and Woodford (2022)
-run_script_project(
+results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
   log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
   expr = {
     source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
@@ -61,15 +63,12 @@ run_script_project(
 )
 
 # Huber and Huber (2020)
-run_script_project(
+results[["Huber and Huber (2020)"]] <- run_script_project(
   log_file = "huberBadBankersNo2020/huber2020_log.txt",
   expr = {
     # Make output directories to avoid interactive prompt of ggsave
     dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
-
-    # Redirect console output and messages to capture the full RMarkdown build log,
-    # then reset streams after rendering to HTML.
 
     log_con <- file("huberBadBankersNo2020/huber2020_log.txt", open = "wt")
     sink(log_con, type = "output")
@@ -88,7 +87,7 @@ run_script_project(
 )
 
 # Snijder et al. (2024)
-run_script_project(
+results[["Snijder et al. (2024)"]] <- run_script_project(
   log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
   expr = {
     library(here)
@@ -104,11 +103,24 @@ run_script_project(
 )
 
 # Ekström et al. (2025)
-run_script_project(
+results[["Ekström et al. (2025)"]] <- run_script_project(
   log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
   expr = {
     source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
   }
 )
+
+# =============================================================================
+# SUMMARY OF RESULTS
+# =============================================================================
+
+message("\n=================================================================")
+message("Summary:")
+message("=================================================================")
+for (paper in names(results)) {
+  res_status <- if (isTRUE(results[[paper]])) "SUCCESS" else "FAILED"
+  message(sprintf(" - %-45s: %s", paper, res_status))
+}
+message("=================================================================\n")
 
 message("\n=== END SCRIPT ===\n")
