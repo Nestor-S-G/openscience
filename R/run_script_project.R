@@ -11,6 +11,8 @@ run_script_project <- function(expr, log_file) {
 
   message("\n=== START: ", log_file, " ===")
 
+  status <- FALSE
+
   tryCatch(
     {
       xfun::Rscript_call(
@@ -40,15 +42,17 @@ run_script_project <- function(expr, log_file) {
         args = list(expr = expr, log_file = log_file)
       )
       message("=== SUCCESS: ", log_file, " ===")
+      status <- TRUE
     },
     error = function(e) {
       message("=== ERROR in ", log_file, " ===")
       message(conditionMessage(e))
       # Also write the error to the log file
       cat("ERROR:", conditionMessage(e), "\n", file = log_file, append = TRUE)
+      status <- FALSE
     }
   )
 
   message("=== END: ", log_file, " ===\n")
-  invisible(NULL)
+  return(invisible(status))
 }
