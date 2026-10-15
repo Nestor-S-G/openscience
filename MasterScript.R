@@ -16,10 +16,6 @@ rm(list = ls())
 #Restore the project-specific R package library managed by renv
 renv::restore(prompt = FALSE)
 
-#Load required packages
-library(rmarkdown)
-library(xfun)
-
 #Source the helper function that runs each project
 source("R/run_script_project.R")
 
