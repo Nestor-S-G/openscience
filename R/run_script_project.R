@@ -49,7 +49,6 @@ run_script_project <- function(expr, log_file) {
       message(conditionMessage(e))
       # Also write the error to the log file
       cat("ERROR:", conditionMessage(e), "\n", file = log_file, append = TRUE)
-      status <- FALSE
     }
   )
 
