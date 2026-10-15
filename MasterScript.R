@@ -6,8 +6,7 @@
 # into project-specific log files via `log_file` and executes code blocks through `expr`.
 #
 # Standard projects directly source their main `.R` scripts within `expr`.
-# Specific projects require custom setups: Huber and Huber (2020) uses `rmarkdown::render()` to process an `.Rmd` notebook into HTML
-# while explicitly managing output directory creation and `sink()` connections to ensure proper log generation.
+# Specific projects require custom setups: Huber and Huber (2020) uses `rmarkdown::render()` to process an `.Rmd` notebook into HTML.
 # =============================================================================
 
 gc()
@@ -78,9 +77,6 @@ results[["Huber and Huber (2020)"]] <- run_script_project(
 results[["Snijder et al. (2024)"]] <- run_script_project(
   log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
   expr = {
-    library(here)
-    setwd(here::here())
-
     # Sequential execution of data analysis files
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R", local = TRUE)
