@@ -66,19 +66,11 @@ results[["Huber and Huber (2020)"]] <- run_script_project(
     dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
 
-    log_con <- file("huberBadBankersNo2020/huber2020_log.txt", open = "wt")
-    sink(log_con, type = "output")
-    sink(log_con, type = "message")
-
     rmarkdown::render(
       input = "huberBadBankersNo2020/notebook.Rmd",
       output_format = "html_document",
       quiet = FALSE
     )
-
-    sink(type = "message")
-    sink(type = "output")
-    close(log_con)
   }
 )
 
