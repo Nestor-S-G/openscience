@@ -2,18 +2,16 @@
 # ensuring a clean environment set to the project root while redirecting
 # output and messages to a log file, with tryCatch() for error handling.
 #
-# Accepts either:
-#   - an expression
-#   - a character path ending in .R or .Rmd (auto source / render)
+# Accepts either a character path ending in .R or .Rmd (auto source / render)
 
 library(xfun)
 
 run_script_project <- function(path, log_file) {
 
-  # Capture the expression without evaluating it yet
+  # Capture the path without evaluating it yet
   path <- substitute(path)
 
-  # Preserve the expression as data when passing it to Rscript_call()
+  # Preserve the path as data when passing it to Rscript_call()
   path_raw <- serialize(path, NULL)
 
   message("\n=== START: ", log_file, " ===")
@@ -25,7 +23,7 @@ run_script_project <- function(path, log_file) {
       xfun::Rscript_call(
         function(path_raw, log_file) {
 
-          # Restore the original expression without evaluating it
+          # Restore the original path without evaluating it
           path <- unserialize(path_raw)
 
           library(here)
@@ -69,7 +67,7 @@ run_script_project <- function(path, log_file) {
 
           } else {
 
-            # Full expression block
+            # Full block
             eval(path, envir = new.env(parent = globalenv()))
 
           }
