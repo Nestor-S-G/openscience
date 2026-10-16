@@ -3,9 +3,9 @@
 #
 # This script orchestrates the automated reproducibility pipeline across multiple research projects.
 # Each paper is executed in an isolated process using `run_script_project()`, which captures console output and errors
-# into project-specific log files via `log_file` and executes code blocks through `expr`.
+# into project-specific log files via `log_file` and executes code blocks through `path`.
 #
-# Standard projects directly source their main `.R` scripts within `expr`.
+# Standard projects directly source their main `.R` scripts within `path`.
 # Specific projects require custom setups: Huber and Huber (2020) uses `rmarkdown::render()` to process an `.Rmd` notebook into HTML.
 # =============================================================================
 
@@ -27,7 +27,7 @@ results <- list()
 # Payzan-LeNestour et al. (2026)
 results[["Payzan-LeNestour et al. (2026)"]] <- run_script_project(
   log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
-  expr = {
+  path = {
     # Mock rstudioapi so scripts that rely on the active document path still work
     assignInNamespace("getActiveDocumentContext",
                       function(...) list(path = file.path(here::here(), "run_full_script.R")),
@@ -52,7 +52,7 @@ results[["Payzan-LeNestour et al. (2026)"]] <- run_script_project(
 # Payzan-LeNestour and Woodford (2022)
 results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
   log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
-  expr = {
+  path = {
     source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
   }
 )
@@ -60,7 +60,7 @@ results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
 # Huber and Huber (2020)
 results[["Huber and Huber (2020)"]] <- run_script_project(
   log_file = "huberBadBankersNo2020/huber2020_log.txt",
-  expr = {
+  path = {
     dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
 
@@ -75,7 +75,7 @@ results[["Huber and Huber (2020)"]] <- run_script_project(
 # Snijder et al. (2024)
 results[["Snijder et al. (2024)"]] <- run_script_project(
   log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
-  expr = {
+  path = {
     # Sequential execution of data analysis files
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/partner choice.R", local = TRUE)
@@ -88,7 +88,7 @@ results[["Snijder et al. (2024)"]] <- run_script_project(
 # Ekström et al. (2025)
 results[["Ekström et al. (2025)"]] <- run_script_project(
   log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
-  expr = {
+  path = {
     source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
   }
 )

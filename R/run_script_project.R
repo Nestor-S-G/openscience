@@ -8,13 +8,13 @@
 
 library(xfun)
 
-run_script_project <- function(expr, log_file) {
+run_script_project <- function(path, log_file) {
 
   # Capture the expression without evaluating it yet
-  expr <- substitute(expr)
+  path <- substitute(path)
 
   # Preserve the expression as data when passing it to Rscript_call()
-  expr_raw <- serialize(expr, NULL)
+  path_raw <- serialize(path, NULL)
 
   message("\n=== START: ", log_file, " ===")
 
@@ -23,10 +23,10 @@ run_script_project <- function(expr, log_file) {
   tryCatch(
     {
       xfun::Rscript_call(
-        function(expr_raw, log_file) {
+        function(path_raw, log_file) {
 
           # Restore the original expression without evaluating it
-          expr <- unserialize(expr_raw)
+          path <- unserialize(path_raw)
 
           library(here)
           setwd(here::here())
@@ -49,13 +49,13 @@ run_script_project <- function(expr, log_file) {
 
           # ----- Automatic detection -----
           # File path provided: decide between render() and source()
-          if (is.character(expr)) {
+          if (is.character(path)) {
 
-            if (grepl("\\.Rmd$", expr, ignore.case = TRUE)) {
+            if (grepl("\\.Rmd$", path, ignore.case = TRUE)) {
 
               # .Rmd file -> render
               rmarkdown::render(
-                input = expr,
+                input = path,
                 output_format = "html_document",
                 quiet = FALSE
               )
@@ -63,18 +63,18 @@ run_script_project <- function(expr, log_file) {
             } else {
 
               # .R file -> source
-              source(expr, local = TRUE)
+              source(path, local = TRUE)
 
             }
 
           } else {
 
             # Full expression block
-            eval(expr, envir = new.env(parent = globalenv()))
+            eval(path, envir = new.env(parent = globalenv()))
 
           }
         },
-        args = list(expr_raw = expr_raw, log_file = log_file)
+        args = list(path_raw = path_raw, log_file = log_file)
       )
       message("=== SUCCESS: ", log_file, " ===")
       status <- TRUE
