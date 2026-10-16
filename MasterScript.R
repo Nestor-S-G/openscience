@@ -51,10 +51,8 @@ results[["Payzan-LeNestour et al. (2026)"]] <- run_script_project(
 
 # Payzan-LeNestour and Woodford (2022)
 results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
-  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt",
-  path = {
-    source("payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R", local = TRUE)
-  }
+  path = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier.R",
+  log_file = "payzan-lenestourOutlierBlindnessNeurobiological2022/Outlier_log.txt"
 )
 
 # Huber and Huber (2020)
@@ -85,12 +83,9 @@ results[["Snijder et al. (2024)"]] <- run_script_project(
   }
 )
 
-# Ekström et al. (2025)
 results[["Ekström et al. (2025)"]] <- run_script_project(
-  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt",
-  path = {
-    source("ekstromMakingPromiseIncreases2025/MakingAPromise.R", local = TRUE)
-  }
+  path = "ekstromMakingPromiseIncreases2025/MakingAPromise.R",
+  log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt"
 )
 
 # =============================================================================
