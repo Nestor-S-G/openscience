@@ -61,7 +61,6 @@ results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
 results[["Huber and Huber (2020)"]] <- run_script_project(
   log_file = "huberBadBankersNo2020/huber2020_log.txt",
   expr = {
-    # Make output directories to avoid interactive prompt of ggsave
     dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
 
