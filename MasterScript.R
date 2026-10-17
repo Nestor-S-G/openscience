@@ -3,10 +3,9 @@
 #
 # This script orchestrates the automated reproducibility pipeline across multiple research projects.
 # Each paper is executed in an isolated process using `run_script_project()`, which captures console output and errors
-# into project-specific log files via `log_file` and executes code blocks through `path`.
+# into project-specific log files via `log_file`. The `path` argument accepts an `.R` script (sourced),
+# an `.Rmd` notebook (rendered), or a code block for projects that need custom setup.
 #
-# Standard projects directly source their main `.R` scripts within `path`.
-# Specific projects require custom setups: Huber and Huber (2020) uses `rmarkdown::render()` to process an `.Rmd` notebook into HTML.
 # =============================================================================
 
 gc()
@@ -56,16 +55,12 @@ results[["Payzan-LeNestour and Woodford (2022)"]] <- run_script_project(
 )
 
 # Huber and Huber (2020)
-results[["Huber and Huber (2020)"]] <- run_script_project(
-  log_file = "huberBadBankersNo2020/huber2020_log.txt",
-  path = {
-    dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE)
-    dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
+dir.create("git_data/graphs", recursive = TRUE, showWarnings = FALSE) #Necessary folders created for the script to run without errors
+dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
 
-    rmarkdown::render(
-      input = "huberBadBankersNo2020/notebook.Rmd"
-    )
-  }
+results[["Huber and Huber (2020)"]] <- run_script_project(
+  path = "huberBadBankersNo2020/notebook.Rmd",
+  log_file = "huberBadBankersNo2020/huber2020_log.txt"
 )
 
 # Snijder et al. (2024)
@@ -81,6 +76,7 @@ results[["Snijder et al. (2024)"]] <- run_script_project(
   }
 )
 
+# Ekström et al. (2025)
 results[["Ekström et al. (2025)"]] <- run_script_project(
   path = "ekstromMakingPromiseIncreases2025/MakingAPromise.R",
   log_file = "ekstromMakingPromiseIncreases2025/MakingAPromise_log.txt"
