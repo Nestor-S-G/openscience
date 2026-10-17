@@ -63,9 +63,7 @@ results[["Huber and Huber (2020)"]] <- run_script_project(
     dir.create("git_latex/graphs", recursive = TRUE, showWarnings = FALSE)
 
     rmarkdown::render(
-      input = "huberBadBankersNo2020/notebook.Rmd",
-      output_format = "html_document",
-      quiet = FALSE
+      input = "huberBadBankersNo2020/notebook.Rmd"
     )
   }
 )
