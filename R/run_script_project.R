@@ -4,8 +4,6 @@
 #
 # Accepts either a character path ending in .R or .Rmd (auto source / render)
 
-library(xfun)
-
 run_script_project <- function(path, log_file) {
 
   # Capture the path without evaluating it yet
@@ -85,5 +83,5 @@ run_script_project <- function(path, log_file) {
   )
 
   message("=== END: ", log_file, " ===\n")
-  return(invisible(status))
+  invisible(status)
 }
