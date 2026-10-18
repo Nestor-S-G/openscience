@@ -65,7 +65,6 @@ results[["Huber and Huber (2020)"]] <- run_script_project(
 
 # Snijder et al. (2024)
 results[["Snijder et al. (2024)"]] <- run_script_project(
-  log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt",
   path = {
     # Sequential execution of data analysis files
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/models.R", local = TRUE)
@@ -73,7 +72,8 @@ results[["Snijder et al. (2024)"]] <- run_script_project(
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/plots.R", local = TRUE)
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/data_analysis/political orientation.R", local = TRUE)
     source("snijderDecisionmakersSelfservinglyNavigate2024/scripts/process_data/process data.R", local = TRUE)
-  }
+  },
+  log_file = "snijderDecisionmakersSelfservinglyNavigate2024/Snijder2024_log.txt"
 )
 
 # Ekström et al. (2025)
