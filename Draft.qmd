@@ -57,15 +57,13 @@ Our objective is to explore computational reproducibility through a set of case 
 
 First, a series of articles was selected whose CR was assessed following the authors' instructions, if any provided. These were the case studies referred to in the *Objectives* section. When shared, the code was run on the data, and the results encountered (code failures, problems with files to be read, and so on) were recorded in a field journal (Sampieri et al., 2010). Each of these steps is detailed in a subsequent section.
 
-Software and Operating System Specifications
+Software Specifications
 
 | Aspect                   |                                    |
 |--------------------------|------------------------------------|
-| Operating system         | Linux Mint 22.3 *Zena.*            |
 | Error resolution support | ChatGPT.                           |
 | Unavailability policy    | Process suspended until available. |
 | R version                | 4.6.1 “Happy Hop”.                 |
-| RStudio version          | 2026.04.0+526.                     |
 
 The different versions of the files used were controlled at <https://github.com/Nestor-S-G/openscience>.
 
