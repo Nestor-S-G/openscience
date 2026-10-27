@@ -25,27 +25,8 @@ results <- list()
 
 # Payzan-LeNestour et al. (2026)
 results[["Payzan-LeNestour et al. (2026)"]] <- run_script_project(
-  log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt",
-  path = {
-    # Mock rstudioapi so scripts that rely on the active document path still work
-    assignInNamespace("getActiveDocumentContext",
-                      function(...) list(path = file.path(here::here(), "run_full_script.R")),
-                      ns = "rstudioapi")
-
-    # Wrap effectsize() in a tryCatch so a single failure does not stop the whole script
-    local({
-      orig <- get("effectsize", envir = asNamespace("effectsize"))
-      assignInNamespace("effectsize", function(x, ...) {
-        tryCatch(orig(x, ...), error = function(e) {
-          message("effectsize error (skipped): ", conditionMessage(e))
-          invisible(NULL)
-        })
-      }, ns = "effectsize")
-    })
-
-    # Run the paper's main reproducibility script
-    source("payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R", local = TRUE)
-  }
+  path = "payzan-lenestourStubbornDesignNeurobiological/Reproducibility/run_full_script.R",
+  log_file = "payzan-lenestourStubbornDesignNeurobiological/Stubborn_log.txt"
 )
 
 # Payzan-LeNestour and Woodford (2022)
