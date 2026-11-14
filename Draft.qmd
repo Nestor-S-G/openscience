@@ -31,7 +31,7 @@ It also happens that over time the difficulties in reproducing studies grow expo
 
 **Open Science and *FAIR* Principles**
 
-FAIR (*Findable, Accessible, Interoperable, Reusable*) principles emerged as a response to the need to improve data management and reuse in a constantly growing digital ecosystem (Wilkinson et al., 2016). These principles focus on ensuring that the data collected are accessible and usable by both humans and machines. Hasselbring et al. (2019) have extended the concept to the software used in research. By providing concrete guidelines for the production and publication of data and code, these principles foster transparency and scientific reproducibility, in addition to promoting the integration and reuse of data in subsequent research. This helps overcoming traditional barriers in data discovery and use, promoting a more efficient and collaborative ecosystem in current science.
+FAIR (*Findable, Accessible, Interoperable, Reusable*) principles emerged as a response to the need to improve data management and reuse in a constantly growing digital ecosystem (Wilkinson et al., 2016). These principles focus on ensuring that the data collected are accessible and usable by both humans and machines. Hasselbring et al. (2019) have extended the concept to the software used in research. By providing concrete guidelines for the production and publication of data and code, these principles foster transparency and scientific reproducibility, in addition to promoting the integration and reuse of data in subsequent research. This helps to overcome traditional barriers in data discovery and use, promoting a more efficient and collaborative ecosystem in current science.
 
 The FAIR principles can be framed within a larger movement: Open Science, “*the process of making the content and process of producing evidence and claims transparent and accessible to others*” (Munafò et al., 2017, p. 5), whose objective is to make all published studies reproducible.
 
@@ -160,7 +160,7 @@ Results:
 
 Outcomes for each individual study are detailed in Table A1 (see Appendix).
 
-Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to be compatible with the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx and that made it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2026), however, this only required substituting one function for a similar one compatible with Linux.
+Regarding software incompatibility errors, in Payzan-LeNestour and Doran (2024) it is possible that the problem is due to the lack of a computational environment, as the closest thing offered are two versions of Python libraries. As Vallet et al. (2022, p. 1) point out: “*While names and version labels are a step toward transparency, they are insufficient to allow any future user to rebuild the computational environment on which these software are running*”. It is also striking that, instead of providing the exact versions used, the “\>=” is used, implying that any version yet to be developed will continue to be compatible with the formats used. This is what is called *backward compatibility* and one of the problems found in said study has been, precisely, that the .xls format in which the data is offered is losing ground against .xlsx making it incompatible with the most recent versions of the xlrd library in Python. A software problem was also found in Payzan-LeNestour et al. (2026). However, this only required substituting one function for a similar one compatible with Linux.
 
 In the case of Fareri et al. (2022), the indicated version of the mriqc package could not be found, but a later one. Although the problem with this study was of another nature, this may have affected the results in some way. These examples serve to recall the importance of sharing the computational environment already mentioned.
 
@@ -186,17 +186,17 @@ With respect to authors who want to make their studies computationally reproduci
 
 Interactive notebooks or computational documents (such as JupyterLab, Quarto, or R Markdown) make it easier for other researchers to reproduce our studies by integrating code, text, and graphics into a single document.
 
-Regarding the way to share necessary files, ideally, they should be stored in a public repository with some type of persistent identifier, such as those cited above, and for the code itself to include the URL where they are hosted as the file path. This would reduce the manual steps that the study reproducer has to carry out (a potential source of errors), standardizing the process. Having said that, given that an internet connection can be unstable in certain parts of the world, this could represent a drawback. One solution could be the use of relative file paths instead of absolute ones (Perry, 2022) in the code. Said code would check for the existence of the file in a subfolder included in the materials to be downloaded and, if it does not exist, would proceed to download it from the URL. A textbox that asks for the path to be entered without modifying the code could also be an alternative to consider.
+Regarding the way to share necessary files, ideally, they should be stored in a public repository with some type of persistent identifier, such as those cited above, and for the code itself to include the URL where they are hosted as the file path. This would reduce the manual steps that the study reproducer has to carry out (a potential source of errors), standardizing the process. Having said that, given that an internet connection can be unstable in certain parts of the world, this could represent a drawback. One solution could be the use of relative file paths instead of absolute ones (Perry, 2022) in the code. This code would check for the existence of the file in a subfolder included in the materials to be downloaded and, if it does not exist, would proceed to download it from the URL. A textbox that asks for the path to be entered without modifying the code could also be an alternative to consider.
 
 The use of open-source software is also important for the development of Open Science - when materials that require proprietary software are shared (Alem et al., 2023; Aydogan et al., 2024; Barrafrem et al., 2021; Ekström et al., 2025; Fišar et al., 2023; Fu et al.,2025; Hilbert et al., 2022; Zhang et al., 2024), an invisible barrier for reproducibility is raised, especially for scientists working in countries where the price is prohibitive.
 
 It is also important to accompany the files with the corresponding legends, since without these the interpretation of the data becomes an extremely difficult, if not impossible, task for someone outside the original study.
 
-Pauls and Laudi (2025) did not share the materials of their study due to privacy agreements. This is a sensible issue. There are methods to share the data while preserving the anonymity of the subjects (anonymization, avatarization) that should be considered before ruling out the possibility of sharing data.
+Pauls and Laudi (2025) did not share the materials of their study due to privacy agreements. This is a sensitive issue. There are methods to share the data while preserving the anonymity of the subjects (anonymization, avatarization) that should be considered before ruling out the possibility of sharing data.
 
 **Generalization to Other Disciplines**
 
-When talking about *computational reproducibility* a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same operating system and hardware essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used.
+When talking about *computational reproducibility*, a distinction should be made between disciplines, such as physics, on the one hand, and behavioral sciences on the other. The computational precision of the former may make the use of the same operating system and hardware essential to arrive at the same result, while for the latter, reaching such a fundamental level may be unnecessary, especially when standardized software adapted to multiple platforms (e.g., R and its libraries) is used.
 
 Consequently, the results of the present study could be generalized to other social, behavioral, and health sciences, but cannot be extrapolated to natural sciences without further consideration.
 
@@ -222,17 +222,17 @@ Alem, Y., Hassen, S. & Köhlin, G. (2023). Decision-making within the household:
 
 Aydogan, I., Berger, L., & Théroude, V. (2024). Pay all subjects or pay only some? An experiment on decision-making under risk and ambiguity. *Journal of Economic Psychology, 104*, 102757. <https://doi.org/10.1016/j.joep.2024.102757>
 
-Blijlevens, J., Chuah, S., Neelim, A., Prasch, J. E., & Skali, A. (2024). Not all about the money: Service quality information improves consumer decision-making. *Journal of Economic Behavior and Organization, 228*, 106769. <https://doi.org/10.1016/j.jebo.2024.106769>
-
 Barrafrem, K., Västfjäll, D., & Tinghög, G. (2021). The arithmetic of outcome editing in financial and social domains. *Journal of Economic Psychology, 86*, 102408. <https://doi.org/10.1016/j.joep.2021.102408>
+
+Blijlevens, J., Chuah, S., Neelim, A., Prasch, J. E., & Skali, A. (2024). Not all about the money: Service quality information improves consumer decision-making. *Journal of Economic Behavior and Organization, 228*, 106769. <https://doi.org/10.1016/j.jebo.2024.106769>
 
 Borsboom, C., Duxbury, D., Nieber, A., & Zeisberger, S. (2024). Domain-dependent diversification: The influence of gain–loss domain on correlation choice. *Journal of Economic Behavior and Organization, 227*, 106681. <https://doi.org/10.1016/j.jebo.2024.106681>
 
 Chang, A.C., & Li, P. (2015). Is economics research replicable? Sixty published papers from thirteen journals say “usually not”. *Finance and Economics Discussion Series 2015, 83*. <https://doi.org/10.17016/FEDS.2015.083>
 
-Culina, A., van den Berg, I., Evans, S., & Sánchez-Tójar, A. (2020). Low availability of code in ecology: A call for urgent action. *PLOS Biology, 18*(7), e3000763. <https://doi.org/10.1371/journal.pbio.3000763>
-
 Conde-Batalla, L. (March 13, 2024). Revolución en las pensiones europeas: Alemania invierte en acciones, Suiza vota una paga extra. *Cinco Días*. Retrieved from <https://cincodias.elpais.com/opinion/2024-03-13/revolucion-en-las-pensiones-europeas-alemania-invierte-en-acciones-suiza-vota-una-paga-extra.html>
+
+Culina, A., van den Berg, I., Evans, S., & Sánchez-Tójar, A. (2020). Low availability of code in ecology: A call for urgent action. *PLOS Biology, 18*(7), e3000763. <https://doi.org/10.1371/journal.pbio.3000763>
 
 De Bresser, J., & Knoef, M. (2025). Different defaults affect different groups differently. *Journal of Economic Behavior and Organization*, *231*, 106876. <https://doi.org/10.1016/j.jebo.2024.106876>
 
@@ -246,9 +246,9 @@ Fišar, M., Cingl, L., Reggiani, T., Kundtová-Klocová, E., Kundt, R., Krátký
 
 Fred Van Raaij, W., Antonides, G., & Manon De Groot, I. (2020). The benefits of joint and separate financial management of couples. *Journal of Economic Psychology, 80*, 102313. <https://doi.org/10.1016/j.joep.2020.102313>
 
-Fu, F, Grant, L. H., Hortaçsu, A., Keysar, B., Yang, J., & Ye, K. J. (2025). The impact of language on decision-making: Auction winners are less cursed in a foreign language. *Journal of Economic Psychology, 110*, 102845. <https://doi.org/10.1016/j.joep.2025.102845>
+Fu, F., Grant, L. H., Hortaçsu, A., Keysar, B., Yang, J., & Ye, K. J. (2025). The impact of language on decision-making: Auction winners are less cursed in a foreign language. *Journal of Economic Psychology, 110*, 102845. <https://doi.org/10.1016/j.joep.2025.102845>
 
-Fundssociety.com. (2024, octubre 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Retrieved from <https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/>
+Fundssociety.com. (2024, October 4). Más del 15% de los españoles ahorran para su jubilación con un plan de pensiones individual. *Funds Society*. Retrieved from <https://www.fundssociety.com/es/formate-a-fondo/mas-del-15-de-los-espanoles-ahorran-para-su-jubilacion-con-un-plan-de-pensiones-individual/>
 
 Hardwicke, T. E., Mathur, M. B., MacDonald, K., Nilsonne, G., Banks, G. C., Kidwell, M. C., Hofelich Mohr, A., Clayton, E., Yoon, E. J., Tessler, M. H., Lenne, R. L., Altman, S., Long, B., & Frank, M. C. (2018). Data availability, reusability, and analytic reproducibility: Evaluating the impact of a mandatory open data policy at the journal *Cognition*. *Royal Society Open Science*, *5*(8), 180448. <https://doi.org/10.1098/rsos.180448>
 
@@ -274,8 +274,6 @@ Kitzes, J., Turek, D., & Deniz, F. (2017). The practice of reproducible research
 
 Löfgren, Å., & Nordblom, K. (2020). A theoretical framework of decision making explaining the mechanisms of nudging. *Journal of Economic Behavior and Organization, 174*, 1–12. <https://doi.org/10.1016/j.jebo.2020.03.021>
 
-Mischkowski, D., Glöckner, A., & Lewisch, P. (2021). Information search, coherence effects, and their interplay in legal decision making. *Journal of Economic Psychology, 87*, 102445. <https://doi.org/10.1016/j.joep.2021.102445>
-
 Magness, P. & Murphy, R. P. (2015). Challenging the Empirical Contribution of Thomas Piketty's Capital in the 21st Century. *Journal of Private Enterprise, 15*(2).
 
 McCloskey, D. N. (2014). Measured, unmeasured, mismeasured, and unjustified pessimism: a review essay of Thomas Piketty’s Capital in the twenty-first century. *Erasmus Journal for Philosophy and Economics, 7*(2), 73-115. <https://doi.org/10.23941/ejpe.v7i2.170>
@@ -287,6 +285,8 @@ McQuarrie, E. F. (2021). Where Siegel Went Awry: Outdated Sources & Incomplete D
 McQuarrie, E. F. (2023). Stocks for the Long Run? Sometimes Yes, Sometimes No. *Financial Analysts Journal, 80*(1). <https://doi.org/10.1080/0015198X.2023.2268556>
 
 Merguei, N., Strobel, M., & Vostroknutov, A. (2022). Moral opportunism as a consequence of decision making under uncertainty. *Journal of Economic Behavior and Organization, 197*, 624–642. <https://doi.org/10.1016/j.jebo.2022.03.020>
+
+Mischkowski, D., Glöckner, A., & Lewisch, P. (2021). Information search, coherence effects, and their interplay in legal decision making. *Journal of Economic Psychology, 87*, 102445. <https://doi.org/10.1016/j.joep.2021.102445>
 
 Miyakawa, T. (2020). No raw data, no science: another possible source of the reproducibility crisis. *Molecular Brain, 13*(1), 1-6. <https://doi.org/10.1186/s13041-020-0552-2>
 
@@ -310,7 +310,7 @@ Perry, K. (2022, January 10). Understanding Relative File Paths. *Coding Rooms.*
 
 Piketty, T. (2014). *Capital in the Twenty-First Century*. Belknap Press.
 
-Sampieri, R. H., Collado, C. F. y Lucio, P. B. (2010). *Metodología de la investigación* (5ª Edición). McGraw Hill.
+Sampieri, R. H., Collado, C. F. & Lucio, P. B. (2010). *Metodología de la investigación* (5ª Edición). McGraw Hill.
 
 Sandve, G. K., Nekrutenko, A., Taylor, J. & Hovind, E. (2013). Ten simple rules for reproducible computational research. *PLOS Computational Biology, 9*(10), e1003285. <https://doi.org/10.1371/journal.pcbi.1003285>
 
@@ -343,7 +343,7 @@ Table A1 shows the reproducibility outcome for each of the 29 studies included i
 *Table A1. Reproducibility status by study.*
 
 | Study | Reproducibility Status |
-|----|----|
+|------------------------------------|------------------------------------|
 | Alem et al. (2023) | Non-evaluable |
 | Aydogan et al. (2024) | Non-evaluable |
 | Barrafrem et al. (2021) | Partially reproducible with modifications |
